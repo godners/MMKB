@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import os
-from pathlib import pathlib
+from pathlib import Path
 
 def should_skip(path: Path) -> bool:
     """跳过以 . 开头的任何文件夹或文件"""
