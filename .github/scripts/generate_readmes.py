@@ -15,7 +15,8 @@ def generate_readme_for_dir(dir_path: Path, repo: str, ref: str):
         return
     
     readme_path = dir_path / "README.md"
-    rel_path = dir_path.relative_to(Path.cwd())
+    root = Path.cwd().resolve()
+    rel_path = dir_path.relative_to(root)
 
     level = get_level(rel_path.parts)
     heading = "#" * level + " " + (dir_path.name if dir_path.name != "." else "项目根目录")
