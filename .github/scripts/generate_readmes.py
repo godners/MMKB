@@ -38,14 +38,14 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
             item_rel = Path(item.name)
 
         if item.is_dir():
-            # 文件夹使用 Markdown 标题 + 链接（指向自己的 README.md）
+            # 文件夹：使用标题 + 链接（指向自己的 README.md）
             folder_link = f"{item_rel.as_posix()}/README.md"
             folder_heading = "#" * (level + 1) + f" [{item.name}]({folder_link})"
             items.append(folder_heading)
             items.append("")
 
         elif item.is_file():
-            # 文件使用无序列表，排除 README.md 和 LICENSE
+            # 文件：使用无序列表，排除 README.md 和 LICENSE
             if item.name.lower() in ["readme.md", "license", "license.txt", "license.md"]:
                 continue
             name_no_ext = item.stem
