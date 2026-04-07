@@ -10,7 +10,7 @@ def get_level(relative_parts: tuple) -> int:
     """计算当前目录的 Markdown 标题级别（根目录为 1）"""
     return len([p for p in relative_parts if p]) + 1
 
-def generate_readme_for_dir(dir_path: Path, repo: str, ref: str):
+def generate_readme_for_dir(dir_path: Path, root: Path):
     if should_skip(dir_path):
         return
     
@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
         current = Path(dirpath)
         if not should_skip(current):
-            generate_readme_for_dir(current, repo, ref)
+            generate_readme_for_dir(current, root)
     
     print("所有 README.md 生成完成！")
 
