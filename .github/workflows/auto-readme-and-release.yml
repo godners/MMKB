@@ -46,6 +46,13 @@ jobs:
           TAG="${TODAY}.auto"
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
           echo "今日 Tag：${TAG}"
+
+      - name: 生成 GMT+8 时间戳
+        id: generate_time
+        run: |
+          TIME=$(date -u -d '8 hours' '+%Y-%m-%d %H:%M:%S')
+          echo "time=${TIME}" >> $GITHUB_OUTPUT
+          echo "生成时间：${TIME}"
       
       - name: 检查 Release 是否存在
         id: check_release
@@ -62,7 +69,7 @@ jobs:
         if: steps.check_release.outputs.exists == 'false'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.tag.output.tag }}
+          tag_name: ${{ steps.tag.outputs.tag }}
           name: "自动更新 ${{ steps.tag.outputs.tag }}"
           body: |
             ## 本次更新
@@ -72,7 +79,7 @@ jobs:
             - 不再单独列出 `README.md` 文件
             - 文件夹采用层级 Markdown 标题（#、##、###...）
 
-            生成时间（GMT+8）：$(date -u -d '8 hours' '+%Y-%m-%d %H:%M:%S')
+            生成时间（GMT+8）：${{ steps.generate_time.outputs.time }}
           draft: false
           prerelease: false
         env:
