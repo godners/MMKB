@@ -16,7 +16,6 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
 
     readme_path = dir_path / "README.md"
 
-    # 计算相对路径和标题级别
     try:
         rel_path = dir_path.resolve().relative_to(root.resolve())
     except ValueError:
@@ -39,15 +38,14 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
             item_rel = Path(item.name)
 
         if item.is_dir():
-            # 文件夹使用标题链接，指向自己的 README.md
+            # 文件夹使用 Markdown 标题 + 链接（指向自己的 README.md）
             folder_link = f"{item_rel.as_posix()}/README.md"
-            items.append(f"##{'#' * (level)} {item.name}")   # 比当前层级低一级
+            folder_heading = "#" * (level + 1) + f" [{item.name}]({folder_link})"
+            items.append(folder_heading)
             items.append("")
-            # 递归调用生成子目录的结构（但实际由 os.walk 遍历所有目录时生成）
-            # 注意：这里我们只在当前层级显示文件夹标题，子内容由子目录自己的 README 生成
 
         elif item.is_file():
-            # 文件使用 - 无序列表，排除 README.md 和 LICENSE
+            # 文件使用无序列表，排除 README.md 和 LICENSE
             if item.name.lower() in ["readme.md", "license", "license.txt", "license.md"]:
                 continue
             name_no_ext = item.stem
@@ -60,7 +58,7 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
         lines.append("（此目录为空）")
 
     lines.append("")
-    lines.append("> **注意**：本文件由 GitHub Actions 每日自动生成，请勿手动修改。")
+    lines.append("> 注意：本文件由 GitHub Actions 每日自动生成，请勿手动修改。")
 
     content = "\n".join(lines)
     readme_path.write_text(content, encoding="utf-8")

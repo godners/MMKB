@@ -2,11 +2,11 @@ name: Auto Generate READMEs + Daily Release
 
 on:
   schedule:
-    - cron: '0 18 * * *' # 北京时间每天凌晨 02:00
-  workflow_dispatch: # 允许手动触发测试
+    - cron: '0 18 * * *'      # 北京时间每天凌晨 02:00
+  workflow_dispatch:
 
 permissions:
-  contents: write # 需要 push 和创建 Release 的权限
+  contents: write
 
 jobs:
   update-readmes-and-release:
@@ -16,9 +16,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          fetch-depth: 0 # 需要完整历史用于 commit
+          fetch-depth: 0
 
-      - name: 设置 Git 用户
+      - name: 设置 Git 用户信息
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -28,45 +28,40 @@ jobs:
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REF_NAME: ${{ github.ref_name }}
-      
+
       - name: Commit 并 Push README 更新
         run: |
           if git diff --quiet; then
-            echo "没有文件变更，跳过commit。"
+            echo "没有文件变更，跳过 commit。"
           else
             git add "**/README.md" "README.md"
-            git commit -m "docs: auto update READMEs with relative links [skip ci]" || echo
+            git commit -m "docs: auto update READMEs with hierarchy [skip ci]" || echo "Nothing to commit"
             git push
           fi
 
       - name: 生成今日 Release Tag
-        id: Tag
+        id: tag
         run: |
           TODAY=$(date -u -d '8 hours' '+%Y.%m.%d')
           TAG="${TODAY}.auto"
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
-          echo "今日 Tag：${TAG}"
+          echo "今日 Tag: ${TAG}"
 
       - name: 生成 GMT+8 时间戳
         id: generate_time
         run: |
           TIME=$(date -u -d '8 hours' '+%Y-%m-%d %H:%M:%S')
           echo "time=${TIME}" >> $GITHUB_OUTPUT
-          echo "生成时间：${TIME}"
-      
-      - name: 检查 Release 是否存在
-        id: check_release
+
+      - name: 如果 Release 已存在则删除它
         run: |
-          if gh release view ${{ steps.tag.outputs.tag }} &>/dev/null; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "exists=false" >> $GITHUB_OUTPUT
-          fi
+          TAG=${{ steps.tag.outputs.tag }}
+          echo "检查并删除已存在的 Release: ${TAG}"
+          gh release delete "${TAG}" --yes --cleanup-tag 2>/dev/null || echo "Release 不存在或已删除"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: 创建新的 GitHub Release
-        if: steps.check_release.outputs.exists == 'false'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
@@ -74,10 +69,10 @@ jobs:
           body: |
             ## 本次更新
 
-            - 文件夹使用相对路径链接到对应目录的 `README.md`
-            - 文件使用相对路径链接，链接文字不含扩展名
-            - 不再单独列出 `README.md` 文件
-            - 文件夹采用层级 Markdown 标题（#、##、###...）
+            - 文件夹使用 Markdown 标题 + 链接（指向对应 README.md）
+            - 文件使用无序列表（-）
+            - 链接均为相对路径
+            - 已排除 README.md 和 LICENSE 文件
 
             生成时间（GMT+8）：${{ steps.generate_time.outputs.time }}
           draft: false
