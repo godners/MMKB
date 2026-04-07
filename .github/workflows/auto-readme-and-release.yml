@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0 # 需要完整历史用于 commit
 
@@ -58,7 +58,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: 创建新的 GitHub release
+      - name: 创建新的 GitHub Release
         if: steps.check_release.outputs.exists == 'false'
         uses: softprops/action-gh-release@v2
         with:
