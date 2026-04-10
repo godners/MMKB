@@ -2,8 +2,11 @@
 
 此目录下的文件和子目录清单（自动生成，递归展开）：
 
+- [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md)
+- [CONTRIBUTING](CONTRIBUTING.md)
 - [Markdown语法](Markdown语法.md)
 - [Markdown链接](Markdown链接.md)
+- [SECURITY](SECURITY.md)
 
 ## [产品矿物](产品矿物/README.md)
 
