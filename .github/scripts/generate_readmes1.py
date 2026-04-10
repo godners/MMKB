@@ -10,46 +10,6 @@ def get_level(relative_parts: tuple) -> int:
     """计算 Markdown 标题级别，根目录为 #"""
     return len([p for p in relative_parts if p]) + 1
 
-def build_tree(dir_path: Path, root: Path, current_level: int) -> list:
-    """递归展开：文件夹用标题 + 链接，文件用 - 列表"""
-    lines = []
-    
-    try:
-        contents = sorted(dir_path.iterdir(), key=lambda x: (x.is_file(), x.name.lower()))
-    except Exception:
-        return lines
-
-    for item in contents:
-        if should_skip(item):
-            continue
-
-        try:
-            item_rel = item.resolve().relative_to(root.resolve())
-        except ValueError:
-            item_rel = Path(item.name)
-
-        if item.is_dir():
-            # 文件夹：标题 + 链接
-            folder_link = f"{item_rel.as_posix()}/README.md"
-            heading = "#" * (current_level + 1) + f" [{item.name}]({folder_link})"
-            lines.append(heading)
-            lines.append("")
-            
-            # 递归展开子内容
-            sub_lines = build_tree(item, root, current_level + 1)
-            lines.extend(sub_lines)
-            
-        elif item.is_file():
-            # 文件：使用无序列表，排除 README.md 和 LICENSE
-            if item.name.lower() in ["readme.md", "license", "license.txt", "license.md"]:
-                continue
-            name_no_ext = item.stem
-            file_link = f"{item_rel.as_posix()}"
-            lines.append(f"- [{name_no_ext}]({file_link})")
-
-    return lines
-
-
 def generate_readme_for_dir(dir_path: Path, root: Path):
     if should_skip(dir_path):
         return
@@ -65,12 +25,35 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
     level = get_level(rel_path.parts)
     heading = "#" * level + " " + dir_name
 
-    lines = [heading, "", "此目录下的文件和子目录清单（自动生成，递归展开）：", ""]
+    lines = [heading, "", "此目录下的文件和子目录清单（自动生成）：", ""]
 
-    # 递归构建当前目录的内容（文件 + 子文件夹展开）
-    tree_lines = build_tree(dir_path, root, level)
-    if tree_lines:
-        lines.extend(tree_lines)
+    items = []
+    for item in sorted(dir_path.iterdir(), key=lambda x: (x.is_file(), x.name.lower())):
+        if should_skip(item):
+            continue
+
+        try:
+            item_rel = item.resolve().relative_to(root.resolve())
+        except ValueError:
+            item_rel = Path(item.name)
+
+        if item.is_dir():
+            # 文件夹：使用标题 + 链接（指向自己的 README.md）
+            folder_link = f"{item_rel.as_posix()}/README.md"
+            folder_heading = "#" * (level + 1) + f" [{item.name}]({folder_link})"
+            items.append(folder_heading)
+            items.append("")
+
+        elif item.is_file():
+            # 文件：使用无序列表，排除 README.md 和 LICENSE
+            if item.name.lower() in ["readme.md", "license", "license.txt", "license.md"]:
+                continue
+            name_no_ext = item.stem
+            file_link = f"{item_rel.as_posix()}"
+            items.append(f"- [{name_no_ext}]({file_link})")
+
+    if items:
+        lines.extend(items)
     else:
         lines.append("（此目录为空）")
 
