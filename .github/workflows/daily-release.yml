@@ -3,25 +3,25 @@ name: Daily Release
 on:
   schedule:
     - cron: '0 18 * * *'      # 北京时间每天凌晨 02:00 (UTC+8)
-  workflow_dispatch:          # 支持手动触发测试
+  workflow_dispatch:          # 支持手动测试
 
 permissions:
   contents: write
 
 jobs:
-  daily-release:
+  call-generate-readmes:
+    # 注意：这里 **不要写 runs-on**，直接使用 reusable workflow
+    uses: ./.github/workflows/generate-readmes.yml
+
+  create-release:
     runs-on: ubuntu-latest
+    needs: call-generate-readmes          # 等待 Generate READMEs 完成后再创建 Release
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-
-      - name: 调用 Generate READMEs workflow 生成并提交 README
-        uses: ./.github/workflows/generate-readmes.yml
-        with:
-          # 无需额外参数
 
       - name: 生成今日 Release Tag
         id: tag
@@ -52,7 +52,7 @@ jobs:
           body: |
             ## 本次更新
 
-            - 使用 Generate READMEs workflow 生成所有目录的 README.md
+            - 调用 Generate READMEs workflow 生成并提交所有 README.md
             - 文件夹使用 Markdown 标题 + 链接
             - 文件使用无序列表，按名称排序
             - 根目录文件优先显示，子文件夹递归展开
