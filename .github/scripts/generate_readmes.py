@@ -11,7 +11,7 @@ def get_level(relative_parts: tuple) -> int:
     return len([p for p in relative_parts if p]) + 1
 
 def build_tree(dir_path: Path, root: Path, current_level: int) -> list:
-    """递归构建内容：根目录文件优先显示，然后才是子文件夹"""
+    """递归构建内容：文件按名称排序，文件夹也按名称排序"""
     lines = []
     
     try:
@@ -30,7 +30,7 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list:
         elif item.is_dir():
             folders.append(item)
 
-    # 1. 先处理文件（根目录文件优先显示）
+    # 1. 先处理文件（按名称排序）
     for item in sorted(files, key=lambda x: x.name.lower()):
         try:
             item_rel = item.resolve().relative_to(root.resolve())
@@ -44,14 +44,14 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list:
         file_link = f"{item_rel.as_posix()}"
         lines.append(f"- [{name_no_ext}]({file_link})")
 
-    # 2. 再处理文件夹（标题 + 递归展开）
+    # 2. 再处理文件夹（按名称排序）
     for item in sorted(folders, key=lambda x: x.name.lower()):
         try:
             item_rel = item.resolve().relative_to(root.resolve())
         except ValueError:
             item_rel = Path(item.name)
 
-        # 文件夹标题 + 链接
+        # 文件夹：标题 + 链接
         folder_link = f"{item_rel.as_posix()}/README.md"
         heading = "#" * (current_level + 1) + f" [{item.name}]({folder_link})"
         lines.append("")
@@ -82,7 +82,7 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
 
     lines = [heading, "", "此目录下的文件和子目录清单（自动生成，递归展开）：", ""]
 
-    # 构建内容（文件优先，文件夹后置并展开）
+    # 构建内容
     tree_lines = build_tree(dir_path, root, level)
     if tree_lines:
         lines.extend(tree_lines)
