@@ -11,41 +11,56 @@ def get_level(relative_parts: tuple) -> int:
     return len([p for p in relative_parts if p]) + 1
 
 def build_tree(dir_path: Path, root: Path, current_level: int) -> list:
-    """递归构建树：先显示文件，再显示文件夹（文件夹标题 + 递归展开）"""
+    """递归构建内容：根目录文件优先显示，然后才是子文件夹"""
     lines = []
     
     try:
-        contents = sorted(dir_path.iterdir(), key=lambda x: (x.is_file(), x.name.lower()))
+        contents = list(dir_path.iterdir())
     except Exception:
         return lines
 
+    # 分离文件和文件夹
+    files = []
+    folders = []
     for item in contents:
         if should_skip(item):
             continue
+        if item.is_file():
+            files.append(item)
+        elif item.is_dir():
+            folders.append(item)
 
+    # 1. 先处理文件（根目录文件优先显示）
+    for item in sorted(files, key=lambda x: x.name.lower()):
         try:
             item_rel = item.resolve().relative_to(root.resolve())
         except ValueError:
             item_rel = Path(item.name)
 
-        if item.is_dir():
-            # 文件夹：标题 + 链接
-            folder_link = f"{item_rel.as_posix()}/README.md"
-            heading = "#" * (current_level + 1) + f" [{item.name}]({folder_link})"
-            lines.append(heading)
-            lines.append("")
-            
-            # 递归展开子内容
-            sub_lines = build_tree(item, root, current_level + 1)
-            lines.extend(sub_lines)
-            
-        elif item.is_file():
-            # 文件：排除 README.md 和 LICENSE
-            if item.name.lower() in ["readme.md", "license", "license.txt", "license.md"]:
-                continue
-            name_no_ext = item.stem
-            file_link = f"{item_rel.as_posix()}"
-            lines.append(f"- [{name_no_ext}]({file_link})")
+        if item.name.lower() in ["readme.md", "license", "license.txt", "license.md"]:
+            continue
+
+        name_no_ext = item.stem
+        file_link = f"{item_rel.as_posix()}"
+        lines.append(f"- [{name_no_ext}]({file_link})")
+
+    # 2. 再处理文件夹（标题 + 递归展开）
+    for item in sorted(folders, key=lambda x: x.name.lower()):
+        try:
+            item_rel = item.resolve().relative_to(root.resolve())
+        except ValueError:
+            item_rel = Path(item.name)
+
+        # 文件夹标题 + 链接
+        folder_link = f"{item_rel.as_posix()}/README.md"
+        heading = "#" * (current_level + 1) + f" [{item.name}]({folder_link})"
+        lines.append("")
+        lines.append(heading)
+        lines.append("")
+
+        # 递归展开子内容
+        sub_lines = build_tree(item, root, current_level + 1)
+        lines.extend(sub_lines)
 
     return lines
 
@@ -67,7 +82,7 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
 
     lines = [heading, "", "此目录下的文件和子目录清单（自动生成，递归展开）：", ""]
 
-    # 递归构建内容（文件和子文件夹都会显示）
+    # 构建内容（文件优先，文件夹后置并展开）
     tree_lines = build_tree(dir_path, root, level)
     if tree_lines:
         lines.extend(tree_lines)
