@@ -11,7 +11,7 @@ def get_level(relative_parts: tuple) -> int:
     return len([p for p in relative_parts if p]) + 1
 
 def build_tree(dir_path: Path, root: Path, current_level: int) -> list:
-    """递归展开：文件夹用标题 + 链接，文件用 - 列表"""
+    """递归构建树：先显示文件，再显示文件夹（文件夹标题 + 递归展开）"""
     lines = []
     
     try:
@@ -40,7 +40,7 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list:
             lines.extend(sub_lines)
             
         elif item.is_file():
-            # 文件：使用无序列表，排除 README.md 和 LICENSE
+            # 文件：排除 README.md 和 LICENSE
             if item.name.lower() in ["readme.md", "license", "license.txt", "license.md"]:
                 continue
             name_no_ext = item.stem
@@ -67,7 +67,7 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
 
     lines = [heading, "", "此目录下的文件和子目录清单（自动生成，递归展开）：", ""]
 
-    # 递归构建当前目录的内容（文件 + 子文件夹展开）
+    # 递归构建内容（文件和子文件夹都会显示）
     tree_lines = build_tree(dir_path, root, level)
     if tree_lines:
         lines.extend(tree_lines)
