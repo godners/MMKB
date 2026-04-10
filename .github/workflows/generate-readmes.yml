@@ -1,5 +1,7 @@
 name: Generate READMEs
 
+description: 手动或被调用生成所有目录的 README.md 文件（递归展开索引），并自动提交更改
+
 on:
   workflow_dispatch:        # 手动触发
   workflow_call:            # 允许被其他 workflow 调用

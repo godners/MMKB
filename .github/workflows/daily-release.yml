@@ -1,5 +1,7 @@
 name: Daily Release
 
+description: 每日定时（北京时间 02:00）调用 Generate READMEs 生成索引，并创建新的 GitHub Release
+
 on:
   schedule:
     - cron: '0 18 * * *'      # 北京时间每天凌晨 02:00 (UTC+8)
