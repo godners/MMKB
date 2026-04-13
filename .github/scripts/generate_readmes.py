@@ -2,6 +2,14 @@
 import os
 from pathlib import Path
 
+ignore_filenames = [
+    "readme.md", 
+    "license.md",
+    "code_of_conduct.md",
+    "contributing.md",
+    "security.md"
+    ]
+
 def should_skip(path: Path) -> bool:
     """跳过以 . 开头的任何文件夹或文件"""
     return any(part.startswith('.') for part in path.parts)
@@ -37,7 +45,7 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list:
         except ValueError:
             item_rel = Path(item.name)
 
-        if item.name.lower() in ["readme.md", "license", "license.txt", "license.md"]:
+        if item.name.lower() in ignore_filenames:
             continue
 
         name_no_ext = item.stem
