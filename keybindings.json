@@ -1,0 +1,96 @@
+/*
+* Visual Studio Code 键盘快捷键设置
+* 按 Ctrl + Shift + P
+* 输入 Preferences: Open Keyboard Shortcuts (JSON) 并回车。
+*/
+[
+    {
+        /* 替换 •、○ 缩进 */
+        "key": "ctrl+shift+1",   
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                {
+                    "command": "editor.actions.findWithArgs",
+                    "args": {
+                        "searchString": "^[ \\t\\u3000]{4,6}• ",
+                        "replaceString": "- ",
+                        "isRegex": true,
+                        "isCaseSensitive": false,
+                        "matchWholeWord": false,
+                        "findInSelection": false
+                    }
+                },
+                "editor.action.selectAllMatches",
+                "editor.action.replaceAll",
+                "closeFindWidget",
+                {
+                    "command": "editor.actions.findWithArgs",
+                    "args": {
+                        "searchString": "^[ \\t\\u3000]{6,10}○ ",
+                        "replaceString": "  - ",
+                        "isRegex": true,
+                        "isCaseSensitive": false,
+                        "matchWholeWord": false,
+                        "findInSelection": false
+                    }
+                },
+                "editor.action.selectAllMatches",
+                "editor.action.replaceAll",
+                "closeFindWidget"
+            ]
+        },
+        "when": "editorTextFocus && !editorReadonly"
+    },
+
+    {
+        /* 替换一级缩进改为二级 */
+        "key": "ctrl+shift+2",   
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                {
+                    "command": "editor.actions.findWithArgs",
+                    "args": {
+                        "searchString": "^- ",
+                        "replaceString": "  - ",
+                        "isRegex": true,
+                        "isCaseSensitive": false,
+                        "matchWholeWord": false,
+                        "findInSelection": true
+                    }
+                },
+                "editor.action.selectAllMatches",
+                "editor.action.replaceAll",                
+                "closeFindWidget"
+            ]
+        },
+        "when": "editorTextFocus && !editorReadonly && editorHasSelection"
+    },
+
+    {
+        /* 替换符号数字 */
+        "key": "ctrl+shift+3",  
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                {
+                    "command": "editor.actions.findWithArgs",
+                    "args": {
+                        "searchString": "([0-9])\uFE0F?\u20E3",
+                        "replaceString": "$1",
+                        "isRegex": true,
+                        "isCaseSensitive": false,
+                        "matchWholeWord": false,
+                        "findInSelection": false   
+                    }
+                },
+                "editor.action.selectAllMatches",
+                "editor.action.replaceAll",                
+                "closeFindWidget"
+            ]
+        },
+        "when": "editorTextFocus && !editorReadonly"
+    }
+
+]
