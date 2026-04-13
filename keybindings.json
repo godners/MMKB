@@ -1,5 +1,4 @@
 /*
-* Visual Studio Code 键盘快捷键设置
 * 按 Ctrl + Shift + P
 * 输入 Preferences: Open Keyboard Shortcuts (JSON) 并回车。
 */
@@ -87,6 +86,31 @@
                 },
                 "editor.action.selectAllMatches",
                 "editor.action.replaceAll",                
+                "closeFindWidget"
+            ]
+        },
+        "when": "editorTextFocus && !editorReadonly"
+    },
+
+    {
+        /* 删除空行，包括仅有空格和Tab符号的行*/
+        "key": "ctrl+shift+4",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                {
+                    "command": "editor.actions.findWithArgs",
+                    "args": {
+                        "searchString": "^\\s*$\\r?\\n?",
+                        "replaceString": "",
+                        "isRegex": true,
+                        "isCaseSensitive": false,
+                        "matchWholeWord": false,
+                        "findInSelection": false   
+                    }
+                },
+                "editor.action.selectAllMatches",
+                "editor.action.replaceAll",
                 "closeFindWidget"
             ]
         },
