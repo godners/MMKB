@@ -53,7 +53,7 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
         print(f"无法读取目录 {dir_path}: {e}")
         return lines
     
-    for tiem in contents:
+    for item in contents:
         if item.name.startswith('.') or should_ignore(item):
             continue
 
