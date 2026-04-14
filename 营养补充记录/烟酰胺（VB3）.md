@@ -140,3 +140,10 @@
   - 久劳内耗型体质
 # 一句话总结
 烟酰胺 = 安全、稳定、偏“基础代谢维护型”的 NAD⁺ 前体不追求刺激性效果，但适合长期、稳态支持。
+
+
+**许可声明**  
+本文件内容采用 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)（CC BY-NC-SA 4.0）许可。  
+您可以自由分享、修改本作品，但必须**署名原作者**、**非商业用途**，且修改后的作品需采用**相同许可协议**。  
+
+© godners[](https://github.com/godners/MMKB)

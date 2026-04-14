@@ -120,3 +120,10 @@
 - 脏腑关联：肾主生殖、肝主疏泄（影响GnRH节律）
 - 对应治法：温补肾阳、填精益髓
 - 常见方向：右归、金匮肾气类思路（理论层面）
+
+
+**许可声明**  
+本文件内容采用 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)（CC BY-NC-SA 4.0）许可。  
+您可以自由分享、修改本作品，但必须**署名原作者**、**非商业用途**，且修改后的作品需采用**相同许可协议**。  
+
+© godners[](https://github.com/godners/MMKB)

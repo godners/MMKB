@@ -151,3 +151,10 @@
   - 疏肝理气
 # 总结一句话
 邻苯二甲酸二甲酯不是药，而是典型的低毒但明确的内分泌干扰化学物，对成年男性的核心风险集中在“慢性暴露 → 生殖轴与代谢轴扰动”。
+
+
+**许可声明**  
+本文件内容采用 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)（CC BY-NC-SA 4.0）许可。  
+您可以自由分享、修改本作品，但必须**署名原作者**、**非商业用途**，且修改后的作品需采用**相同许可协议**。  
+
+© godners[](https://github.com/godners/MMKB)

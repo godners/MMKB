@@ -127,3 +127,10 @@
 - 功效：收敛止泻、敛疮生肌
 - 八纲：属阴性收涩之品
 - 五行：金（对应肺）
+
+
+**许可声明**  
+本文件内容采用 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)（CC BY-NC-SA 4.0）许可。  
+您可以自由分享、修改本作品，但必须**署名原作者**、**非商业用途**，且修改后的作品需采用**相同许可协议**。  
+
+© godners[](https://github.com/godners/MMKB)
