@@ -8,7 +8,7 @@
         { "name": ".gitignore", "type": "dir" }
     ],
     "name_mapping": [
-        { "name": "keybinding.json", "new_name": "VS CODE 键盘映射" }
+        { "name": "keybindings.json", "new_name": "VS CODE 键盘映射" }
     ],
     "head_additional": [
         { "name": "激素作用/PDE5抑制剂", "header": "激素作用/PDE5抑制剂/PDE5抑制剂（对比）.md" },
