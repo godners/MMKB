@@ -17,11 +17,34 @@ def load_config():
         print(f"警告：配置文件 {CONFIG_FILE} 不存在，使用默认忽略规则。")
         return {"ignore_objects": [], "name_mapping": [], "head_additional": []}
     with open(CONFIG_FILE, encoding="utf-8") as f:
-        return json.load(f)
+        data = json.load(f)
+    print("配置文件加载成功")
+    print(f"   包含的键: {list(data.keys())}")
+
+    head_list = data.get("head_additional", []
+    print(f"   发现 {len(head_list)} 条 head_additional 配置"))
+    for item in head_list:
+        print(f"      - 目录: {item.get('name')}, 文件: {item.get('header')}")
+    
+    return data
     
 config = load_config()
 ignore_objects = config.get("ignore_objects", [])
 name_mapping = {item["name"]: item["new_name"] for item in config.get("name_mapping", [])}
+
+# 构建 head_additional 字典（支持完整路径和目录名）
+head_additional = {}
+for item in config.get("head_additional", []):
+    name = item.get("name")
+    header = item.get("header")
+    if name and header:
+        head_additional[name] = header
+
+print(f"\n 最终 head_additional 映射表: ({len(head_additional)} 条):")
+for k, v in head_additional.items():
+    print(f"   - {k} : {v}")
+
+
 head_additional = {item["name"]: item["header"] for item in config.get("head_additional", [])}
 
 def should_ignore(item: Path) -> bool:
@@ -112,39 +135,35 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
     level = len([p for p in rel_path.parts if p]) + 1
     heading = "#" * level + " " + dir_name
 
-    lines = [
-        heading,
-        "",
-        "此目录下的文件和子目录结构（自动生成）：",
-        ""
-    ]
+    lines = [heading, "", "此目录下的文件和子目录结构（自动生成）：", ""]
 
     tree_lines = build_tree(dir_path, root, level)
-    if tree_lines:
-        lines.extend(tree_lines)
-    else:
-        lines.append("（此目录为空）")
+    lines.extend(tree_lines if tree_lines else ["（此目录为空）"])
 
     # ====================== head_additional 支持 ======================
-    header_file = None
-    if rel_str in head_additional:
-        header_file = head_additional[rel_str]
-    elif dir_path.name in head_additional:
-        header_file = head_additional[dir_path.name]
+    header_file = head_additional.get(rel_str) or head_additional.get(dir_path.name)
+    # if rel_str in head_additional:
+    #     header_file = head_additional[rel_str]
+    # elif dir_path.name in head_additional:
+    #     header_file = head_additional[dir_path.name]
     
     if header_file:
         header_path = root / header_file
-        if header_path.exists():
+        print(f"   正在为目录 '{rel_str}' 添加附加内容: {header_file}")
+        if header_path.exists() and header_path.is_file():
             try:
                 with open(header_path, encoding="utf-8") as f:
                     extra_content = f.read().strip()
                 if extra_content:
                     lines.append("")
                     lines.append(extra_content)
+                    print(f"   成功添加附加内容到 {rel_str}")
+                else:
+                    print(f"   附加文件为空")
             except Exception as e:
-                print(f"读取附加 header 文件失败 {header_file}: {e}")
+                print(f"   读取附加 header 文件失败 {header_file}: {e}")
         else:
-            print(f"警告：head_additional 配置的文件不存在 → {header_file}")
+            print(f"   文件不存在 {header_file}")
 
     lines.append("")
     lines.append("> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。")
