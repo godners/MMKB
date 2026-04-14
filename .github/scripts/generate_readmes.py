@@ -100,10 +100,13 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
     
     readme_path = dir_path / "README.md"
 
+    # 计算相对路径和目录名称
     try:
         rel_path = dir_path.resolve().relative_to(root.resolve())
+        rel_str = str(rel_path).replace("\\", "/")
     except ValueError:
         rel_path = Path(".")
+        rel_str = "."
 
     dir_name = dir_path.name if dir_path.name not in (".", "") else "项目根目录"
     level = len([p for p in rel_path.parts if p]) + 1
@@ -121,20 +124,8 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
         lines.extend(tree_lines)
     else:
         lines.append("（此目录为空）")
-    
-    # # 添加额外 header 内容（如果配置了）
-    # dir_key = str(rel_path).replace("\\", "/")  # 统一用 /
-    # if dir_key in head_additional or dir_path.name in head_additional:
-    #     header_file = head_additional.get(dir_key) or head_additional.get(dir_path.name)
-    #     if header_file and (root / header_file).exists():
-    #         try:
-    #             with open(root / header_file, encoding="utf-8") as f:
-    #                 extra_content = f.read().strip()
-    #             lines.append("")
-    #             lines.append(extra_content)
-    #         except Exception as e:
-    #             print(f"读取附加 header 文件失败 {header_file}: {e}")
-    
+
+    # ====================== head_additional 支持 ======================
     header_file = None
     if rel_str in head_additional:
         header_file = head_additional[rel_str]
