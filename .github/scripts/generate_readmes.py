@@ -76,7 +76,7 @@ def get_display_name(item: Path) -> str:
             print(f"   name_mapping 生效：{item.name} = {new_name}")
             return new_name
         # 备选：只匹配 stem（不带扩展名）
-        elif: item.stem in name_mapping:
+        elif item.stem in name_mapping:
             new_name = name_mapping[item.stem]
             print(f"   name_mapping 生效：{item.name} = {new_name}")
             return new_name
