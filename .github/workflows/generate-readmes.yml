@@ -30,7 +30,7 @@ jobs:
 
       - name: Commit 并 Push README 更新
         run: |
-          if ! git diff --quiet --"**/README.md" "README.md"; then
+          if ! git diff --quiet -- "**/README.md" "README.md"; then
             COMMIT_TIME=$(date '+%F %T')
             git add "**/README.md" "README.md"
             git commit -m "Auto READMEs on ${COMMIT_TIME}"
