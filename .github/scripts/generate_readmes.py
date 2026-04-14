@@ -43,6 +43,15 @@ def get_display_name(item: Path) -> str:
         # 文件夹直接用文件夹名
         return item.name
 
+
+def get_rel_path_str(item: Path) -> str:
+    """返回标准化的相对路径（使用 / 分隔符）"""
+    try:
+        rel = item.resolve().relative_to(root.resolve())
+        return str(rel).replace("\\", "/")
+    except ValueError:
+        return str(item.name) 
+
 def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
     """递归构建目录树：先文件 → 再子目录（增加分隔）"""
     lines = []
