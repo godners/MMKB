@@ -26,7 +26,7 @@ def should_ignore(file_path, ignore_list):
             if norm_path == norm_name or norm_path.startswith(norm_name + '/'):
                 return True
         elif item_type == "file":
-            if norm_path == norm_name or norm_path.endwith('/' + norm_name):
+            if norm_path == norm_name or norm_path.endswith('/' + norm_name):
                 return True
     return False
 
@@ -60,7 +60,7 @@ def main():
                 continue
             
             # 添加声明
-            if not content.endwith("\n"):
+            if not content.endswith("\n"):
                 content += "\n"
             content += license_text
 
