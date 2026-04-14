@@ -1,4 +1,4 @@
-name: Auto Add License Declaration to MD Files
+name: Auto License
 
 on:
   push:
