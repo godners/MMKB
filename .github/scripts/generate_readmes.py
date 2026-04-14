@@ -44,7 +44,7 @@ def get_display_name(item: Path) -> str:
         return item.name
 
 
-def get_rel_path_str(item: Path) -> str:
+def get_rel_path_str(item: Path, root: Path) -> str:
     """返回标准化的相对路径（使用 / 分隔符）"""
     try:
         rel = item.resolve().relative_to(root.resolve())
