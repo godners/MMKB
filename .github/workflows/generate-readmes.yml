@@ -33,6 +33,6 @@ jobs:
           if ! git diff --quiet --"**/README.md" "README.md"; then
             COMMIT_TIME=$(date '+%F %T')
             git add "**/README.md" "README.md"
-            git commit -m "Auto READMEs, ${COMMIT_TIME}"
+            git commit -m "Auto READMEs on ${COMMIT_TIME}"
             git push
           fi
