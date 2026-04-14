@@ -1,0 +1,23 @@
+name: Daily Operation
+
+description: 每日定时（北京时间 02:00）依次执行：generate-readmes → add-license-footer → auto-release
+
+on:
+  schedule:
+    - cron: '0 18 * * *'      # 北京时间每天凌晨 02:00 (UTC+8)
+  workflow_dispatch:          # 支持手动测试
+
+permissions::
+  contents: write
+
+jobs:
+  call-generate-readmes:
+    uses: ./.github/workflows/generate-readmes.yml
+    
+  call-add-license-footer:
+    uses: ./.github/workflows/add-license-footer.yml
+    needs: call-generate-readmes
+  
+  call-auto-release:
+    uses: ./.github/workflows/auto-release.yml
+    needs: call-add-license-footer

@@ -1,0 +1,53 @@
+name: Auto Release
+
+description: 创建每日自动 Release
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      
+      - name: 生成今日 Release Tag
+        id: tag
+        run: |
+          TODDAY=$(date -u -d '8 hours' +'%Y.%m.%d')
+          TAG="${TODDAY}.auto"
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+
+      - name: 生成 GMT+8 时间戳
+        id: generate_time
+        run: |
+          TIME=$(date -u -d '8 hours' '+%Y-%m-%d %H:%M:%S')
+          echo "time=${TIME}" >> $GITHUB_OUTPUT
+
+      - name: 如果 Release 已存在则删除
+        run: |
+          TAG=${{ steps.tag.outputs.tag }}
+          echo "检查并删除已存在的 Release: ${TAG}"
+          gh release delete "${TAG}" --yes --cleanup-tag 2>/dev/null || echo "Release 不存在或已删除"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 创建新的 GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: "${{ steps.tag.outputs.tag }}"
+          body: |
+            ## 生成时间（GMT+8）：${{ steps.generate_time.outputs.time }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
