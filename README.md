@@ -2,7 +2,7 @@
 
 此目录下的文件和子目录结构（自动生成）：
 
-- [keybindings](keybindings.json)
+- [VS CODE 键盘映射](keybindings.json)
 - [Markdown表格](Markdown表格.md)
 - [Markdown语法](Markdown语法.md)
 - [Markdown链接](Markdown链接.md)
