@@ -7,10 +7,10 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"           # 每周检查一次
-      time: "08:00"                # UTC 时间 08:00（北京时间 16:00）
+      interval: "daily"           
+      time: "00:00"              
       timezone: "Asia/Shanghai"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 256
     labels:
       - "dependencies"
       - "github-actions"
