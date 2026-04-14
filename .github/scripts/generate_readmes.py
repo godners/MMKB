@@ -20,9 +20,16 @@ def load_config():
         data = json.load(f)
     print("配置文件加载成功")
     print(f"   包含的键: {list(data.keys())}")
+    
+    # name_mapping 调试
+    name_map_list = data.get("name_mapping", [])
+    print(f"   发现 {len(name_map_list)} 条 name_mapping 配置")
+    for item in name_map_list:
+        print(f"      - 文件: '{item.get('name')}' → 显示为: '{item.get('new_name')}'")
 
-    head_list = data.get("head_additional", [])
-    print(f"   发现 {len(head_list)} 条 head_additional 配置")
+    # head_additional 调试
+    # head_list = data.get("head_additional", [])
+    # print(f"   发现 {len(head_list)} 条 head_additional 配置")
     for item in head_list:
         print(f"      - 目录: {item.get('name')}, 文件: {item.get('header')}")
     
@@ -30,6 +37,8 @@ def load_config():
     
 config = load_config()
 ignore_objects = config.get("ignore_objects", [])
+
+# name_mapping：key 为文件名（带扩展名），value 为新显示名称
 name_mapping = {item["name"]: item["new_name"] for item in config.get("name_mapping", [])}
 
 # 构建 head_additional 字典（支持完整路径和目录名）
@@ -40,9 +49,10 @@ for item in config.get("head_additional", []):
     if name and header:
         head_additional[name] = header
 
-print(f"\n 最终 head_additional 映射表: ({len(head_additional)} 条):")
-for k, v in head_additional.items():
-    print(f"   - {k} : {v}")
+# head_additional 调试
+# print(f"\n 最终 head_additional 映射表: ({len(head_additional)} 条):")
+# for k, v in head_additional.items():
+#     print(f"   - {k} : {v}")
 
 
 head_additional = {item["name"]: item["header"] for item in config.get("head_additional", [])}
@@ -60,11 +70,20 @@ def should_ignore(item: Path) -> bool:
 def get_display_name(item: Path) -> str:
     """获取显示名称：优先使用 name_mapping，否则去掉扩展名"""
     if item.is_file():
-        stem = item.stem
-        return name_mapping.get(item.name, stem)
-    else:
-        # 文件夹直接用文件夹名
-        return item.name
+        # 优先精确匹配带扩展名的文件名
+        if item.name in name_mapping:
+            new_name = name_mapping[item.name]
+            print(f"   name_mapping 生效：{item.name} = {new_name}")
+            return new_name
+        # 备选：只匹配 stem（不带扩展名）
+        elif: item.stem in name_mapping:
+            new_name = name_mapping[item.stem]
+            print(f"   name_mapping 生效：{item.name} = {new_name}")
+            return new_name
+        else:
+            return item.stem
+    # 文件夹直接用文件夹名
+    return item.name
 
 
 def get_rel_path_str(item: Path, root: Path) -> str:
