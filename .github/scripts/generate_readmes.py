@@ -44,42 +44,45 @@ def get_display_name(item: Path) -> str:
         return item.name
 
 def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
-    """递归构建目录树内容（带链接）"""
+    """递归构建目录树：先文件 → 再子目录（增加分隔）"""
     lines = []
 
     try:
-        contents = sorted(dir_path.iterdir(), key=lambda x: (not x.is_dir(), x.name.lower()))
+        contents = list(dir_path.iterdir())
     except Exception as e:
         print(f"无法读取目录 {dir_path}: {e}")
         return lines
     
-    for item in contents:
-        if item.name.startswith('.') or should_ignore(item):
-            continue
+    # 分离文件和文件夹
+    files = [item for item in contents if item.is_file() and not item.name.startswith('.') and not should_ignore(item)]
+    folders = [item for item in contents if item.is_dir() and not item.name.startswith('.') and not should_ignore(item)]
 
-        try:
-            rel_path = item.resolve().relative_to(root.resolve())
-        except ValueError:
-            rel_path = Path(item.name)
-
+    # 1. 先列出所有文件
+    for item in sorted(files, key=lambda x: x.name.lower()):
         display_name = get_display_name(item)
+        rel_path = get_rel_path_str(item, root)
+        lines.append(f"- [{display_name}]({rel_path})")
 
-        if item.is_file():
-            file_link = rel_path.as_posix()
-            lines.append(f"- [{display_name}]({file_link})")
-        
-        elif item.is_dir():
-            folder_link = (rel_path / "README.md").as_posix()
-            heading = "#" * (current_level + 1) + f" [{display_name}]({folder_link})"
+    # 2. 再列出子文件夹（增加清晰分隔）
+    if folders:
+        if files:  # 如果前面有文件，则加空行分隔
             lines.append("")
+        lines.append("**子目录：**")
+        lines.append("")
+
+        for item in sorted(folders, key=lambda x: x.name.lower()):
+            display_name = get_display_name(item)
+            folder_link = (get_rel_path_str(item, root) + "/README.md")
+            heading = "#" * (current_level + 1) + f" [{display_name}]({folder_link})"
             lines.append(heading)
             lines.append("")
 
-            # 递归处理子目录
+            # 递归
             sub_lines = build_tree(item, root, current_level + 1)
             lines.extend(sub_lines)
-    
+
     return lines
+
 
 def generate_readme_for_dir(dir_path: Path, root: Path):
     """为单个目录生成 README.md"""
@@ -110,19 +113,39 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
     else:
         lines.append("（此目录为空）")
     
-    # 添加额外 header 内容（如果配置了）
-    dir_key = str(rel_path).replace("\\", "/")  # 统一用 /
-    if dir_key in head_additional or dir_path.name in head_additional:
-        header_file = head_additional.get(dir_key) or head_additional.get(dir_path.name)
-        if header_file and (root / header_file).exists():
+    # # 添加额外 header 内容（如果配置了）
+    # dir_key = str(rel_path).replace("\\", "/")  # 统一用 /
+    # if dir_key in head_additional or dir_path.name in head_additional:
+    #     header_file = head_additional.get(dir_key) or head_additional.get(dir_path.name)
+    #     if header_file and (root / header_file).exists():
+    #         try:
+    #             with open(root / header_file, encoding="utf-8") as f:
+    #                 extra_content = f.read().strip()
+    #             lines.append("")
+    #             lines.append(extra_content)
+    #         except Exception as e:
+    #             print(f"读取附加 header 文件失败 {header_file}: {e}")
+    
+    header_file = None
+    if rel_str in head_additional:
+        header_file = head_additional[rel_str]
+    elif dir_path.name in head_additional:
+        header_file = head_additional[dir_path.name]
+    
+    if header_file:
+        header_path = root / header_file
+        if header_path.exists():
             try:
-                with open(root / header_file, encoding="utf-8") as f:
+                with open(header_path, encoding="utf-8") as f:
                     extra_content = f.read().strip()
-                lines.append("")
-                lines.append(extra_content)
+                if extra_content:
+                    lines.append("")
+                    lines.append(extra_content)
             except Exception as e:
                 print(f"读取附加 header 文件失败 {header_file}: {e}")
-    
+        else:
+            print(f"警告：head_additional 配置的文件不存在 → {header_file}")
+
     lines.append("")
     lines.append("> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。")
 
