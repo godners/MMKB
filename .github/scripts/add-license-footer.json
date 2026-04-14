@@ -1,0 +1,15 @@
+{
+    "ignore_objects": [
+        { "name": "CODE_OF_CONDUCT.md", "type": "file" },
+        { "name": "CONTRIBUTING.md", "type": "file" },
+        { "name": "LICENSE.md", "type": "file" },
+        { "name": "SECURITY.md", "type": "file" },
+        { "name": ".gitignore", "type": "dir" },
+        { "name": "Markdown语法.md", "type": "file" },
+        { "name": "Markdown表格.md", "type": "file" },
+        { "name": "Markdown链接.md", "type": "file" },
+        { "name": "keybindings.json", "type": "file" },
+        { "name": ".github", "type": "dir" }
+    ]
+}
+

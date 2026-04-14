@@ -1,0 +1,40 @@
+name: Auto Add License Declaration to MD Files
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**/*.md'
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  add-license:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+        
+      - name: 设置 Git 用户信息
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: 运行 Python 脚本添加License声明
+        run: |
+          python .github/scripts/add_license_footer.py
+      
+      - name: Commit 并 Push 更新
+        run: |
+          git add **/*.md
+          if ! git diff --staged --quiet; then
+            COMMIT_TIME=$(date '+%F %T')
+            git commit -m "Auto License on ${COMMIT_TIME}"
+            git push
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
