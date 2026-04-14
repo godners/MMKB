@@ -11,9 +11,14 @@ permissions:
   contents: write
 
 jobs:
+  call-add_license_footer:
+    uses: ./.github/workflows/add-license-footer.yml
+  
   call-generate-readmes:
-    # 注意：这里 **不要写 runs-on**，直接使用 reusable workflow
     uses: ./.github/workflows/generate-readmes.yml
+    needs: call-add_license_footer
+  
+  
 
   create-release:
     runs-on: ubuntu-latest
