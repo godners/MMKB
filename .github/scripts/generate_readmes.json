@@ -1,0 +1,18 @@
+{
+    "ignore_objects": [
+        { "name": "README.md", "type": "file" },
+        { "name": "CODE_OF_CONDUCT.md", "type": "file" },
+        { "name": "CONTRIBUTING.md", "type": "file" },
+        { "name": "LICENSE.md", "type": "file" },
+        { "name": "SECURITY.md", "type": "file" },
+        { "name": ".gitignore", "type": "dir" }
+    ],
+    "name_mapping": [
+        { "name": "keybinding.json", "new_name": "VS CODE 键盘映射" }
+    ],
+    "head_addtional:": [
+        { "name": "激素作用/PDE5抑制剂", "header": "激素作用/PDE5抑制剂/PDE5抑制剂（对比）.md" },
+        { "name": "娱乐毁灭/亚硝酸酯", "header": "娱乐毁灭/亚硝酸酯/亚硝酸酯（综述）.md"}
+    ]
+}
+
