@@ -18,8 +18,8 @@ def load_config():
         return {"ignore_objects": [], "name_mapping": [], "head_additional": []}
     with open(CONFIG_FILE, encoding="utf-8") as f:
         data = json.load(f)
-    print(f"""配置文件加载成功，包含的
-   键: {list(data.keys())}
+    print(f"""配置文件加载成功，包含：
+   ignore_objects 配置: {len(data.get("ignore_objects", []))} 条
    name_mapping 配置: {len(data.get("name_mapping", []))} 条
    head_additional 配置 {len(data.get("head_additional", []))} 条""")
 
@@ -28,12 +28,6 @@ def load_config():
 config = load_config()
 ignore_objects = config.get("ignore_objects", [])
 name_mapping = {item["name"]: item["new_name"] for item in config.get("name_mapping", [])}
-# head_additional = {}
-# for item in config.get("head_additional", []):
-#     name = item.get("name")
-#     header = item.get("header")
-#     if name and header:
-#         head_additional[name] = header
 head_additional = {item["name"]: item["header"] for item in config.get("head_additional", [])}
 
 
@@ -151,10 +145,21 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
     lines.append("")
     lines.append("> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。")
 
-    content = "\n".join(lines)
-    readme_path.write_text(content, encoding="utf-8")
-    print(f"生成/更新: {rel_path or '根目录'}")
-
+    # content = "\n".join(lines)
+    # readme_path.write_text(content, encoding="utf-8")
+    # print(f"生成/更新: {rel_path or '根目录'}")
+    new_content = "\n".join(lines)
+    if readme_path.exists():
+        try:
+            with readme_path.read_text(encoding="utf-8") as f:
+                old_content = f.read()
+            if old_content == new_content:
+                print(f"内容未变化，跳过写入: {rel_str or '根目录'}")
+                return            
+        except Exception as e:
+            pass
+    readme_path.write_text(new_content, encoding="utf-8")
+    print(f"生成/更新: {rel_str or '根目录'}")
 
 if __name__ == "__main__":
     root = Path.cwd().resolve()
