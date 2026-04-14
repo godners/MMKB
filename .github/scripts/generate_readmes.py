@@ -18,44 +18,24 @@ def load_config():
         return {"ignore_objects": [], "name_mapping": [], "head_additional": []}
     with open(CONFIG_FILE, encoding="utf-8") as f:
         data = json.load(f)
-    print("配置文件加载成功")
-    print(f"   包含的键: {list(data.keys())}")
-    
-    # name_mapping 调试
-    name_map_list = data.get("name_mapping", [])
-    print(f"   发现 {len(name_map_list)} 条 name_mapping 配置")
-    for item in name_map_list:
-        print(f"      - 文件: '{item.get('name')}' → 显示为: '{item.get('new_name')}'")
+    print(f"""配置文件加载成功，包含的
+   键: {list(data.keys())}
+   name_mapping 配置: {len(data.get("name_mapping", []))} 条
+   head_additional 配置 {len(data.get("head_additional", []))} 条""")
 
-    # head_additional 调试
-    # head_list = data.get("head_additional", [])
-    # print(f"   发现 {len(head_list)} 条 head_additional 配置")
-    # for item in head_list:
-    #     print(f"      - 目录: {item.get('name')}, 文件: {item.get('header')}")
-    
     return data
     
 config = load_config()
 ignore_objects = config.get("ignore_objects", [])
-
-# name_mapping：key 为文件名（带扩展名），value 为新显示名称
 name_mapping = {item["name"]: item["new_name"] for item in config.get("name_mapping", [])}
-
-# 构建 head_additional 字典（支持完整路径和目录名）
-head_additional = {}
-for item in config.get("head_additional", []):
-    name = item.get("name")
-    header = item.get("header")
-    if name and header:
-        head_additional[name] = header
-
-# head_additional 调试
-# print(f"\n 最终 head_additional 映射表: ({len(head_additional)} 条):")
-# for k, v in head_additional.items():
-#     print(f"   - {k} : {v}")
-
-
+# head_additional = {}
+# for item in config.get("head_additional", []):
+#     name = item.get("name")
+#     header = item.get("header")
+#     if name and header:
+#         head_additional[name] = header
 head_additional = {item["name"]: item["header"] for item in config.get("head_additional", [])}
+
 
 def should_ignore(item: Path) -> bool:
     """根据 generate_readmes.json 中的 ignore_objects 判断是否忽略"""
@@ -67,19 +47,16 @@ def should_ignore(item: Path) -> bool:
             return True
     return False
 
+
 def get_display_name(item: Path) -> str:
     """获取显示名称：优先使用 name_mapping，否则去掉扩展名"""
     if item.is_file():
         # 优先精确匹配带扩展名的文件名
         if item.name in name_mapping:
-            new_name = name_mapping[item.name]
-            print(f"   name_mapping 生效：{item.name} = {new_name}")
-            return new_name
+            return name_mapping[item.name]
         # 备选：只匹配 stem（不带扩展名）
         elif item.stem in name_mapping:
-            new_name = name_mapping[item.stem]
-            print(f"   name_mapping 生效：{item.name} = {new_name}")
-            return new_name
+            return name_mapping[item.stem]
         else:
             return item.stem
     # 文件夹直接用文件夹名
@@ -97,11 +74,9 @@ def get_rel_path_str(item: Path, root: Path) -> str:
 def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
     """递归构建目录树：先文件 → 再子目录（增加分隔）"""
     lines = []
-
     try:
         contents = list(dir_path.iterdir())
     except Exception as e:
-        print(f"无法读取目录 {dir_path}: {e}")
         return lines
     
     # 分离文件和文件夹
@@ -147,7 +122,6 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
         rel_path = dir_path.resolve().relative_to(root.resolve())
         rel_str = str(rel_path).replace("\\", "/")
     except ValueError:
-        rel_path = Path(".")
         rel_str = "."
 
     dir_name = dir_path.name if dir_path.name not in (".", "") else "项目根目录"
@@ -159,12 +133,11 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
     tree_lines = build_tree(dir_path, root, level)
     lines.extend(tree_lines if tree_lines else ["（此目录为空）"])
 
-    # ====================== head_additional 支持 ======================
+    # 添加 head_additional 内容
     header_file = head_additional.get(rel_str) or head_additional.get(dir_path.name)
   
     if header_file:
         header_path = root / header_file
-        print(f"   正在为目录 '{rel_str}' 添加附加内容: {header_file}")
         if header_path.exists() and header_path.is_file():
             try:
                 with open(header_path, encoding="utf-8") as f:
@@ -172,13 +145,8 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
                 if extra_content:
                     lines.append("")
                     lines.append(extra_content)
-                    print(f"   成功添加附加内容到 {rel_str}")
-                else:
-                    print(f"   附加文件为空")
             except Exception as e:
-                print(f"   读取附加 header 文件失败 {header_file}: {e}")
-        else:
-            print(f"   文件不存在 {header_file}")
+                pass
 
     lines.append("")
     lines.append("> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。")
@@ -199,7 +167,6 @@ if __name__ == "__main__":
     for dirpath, dirnames, _ in os.walk(root):
         # 排除以 . 开头的目录
         dirnames[:] = [d for d in dirnames if not d.startswith('.')]
-
         current = Path(dirpath)
         if not current.name.startswith('.'):
             generate_readme_for_dir(current, root)
