@@ -21,7 +21,7 @@ def load_config():
     print("配置文件加载成功")
     print(f"   包含的键: {list(data.keys())}")
 
-    head_list = data.get("head_additional", []
+    head_list = data.get("head_additional", [])
     print(f"   发现 {len(head_list)} 条 head_additional 配置"))
     for item in head_list:
         print(f"      - 目录: {item.get('name')}, 文件: {item.get('header')}")
@@ -142,11 +142,7 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
 
     # ====================== head_additional 支持 ======================
     header_file = head_additional.get(rel_str) or head_additional.get(dir_path.name)
-    # if rel_str in head_additional:
-    #     header_file = head_additional[rel_str]
-    # elif dir_path.name in head_additional:
-    #     header_file = head_additional[dir_path.name]
-    
+  
     if header_file:
         header_path = root / header_file
         print(f"   正在为目录 '{rel_str}' 添加附加内容: {header_file}")
