@@ -67,7 +67,7 @@ jobs:
         shelll: bash
 
       - name: 如果 Release 已存在则删除
-        if： steps.has_changes.outputs.has_changes == 'true'
+        if: steps.has_changes.outputs.has_changes == 'true'
         run: |
           TAG=${{ steps.tag.outputs.tag }}
           echo "检查并删除已存在的 Release: ${TAG}"
@@ -76,7 +76,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 创建新的 GitHub Release
-        if： steps.has_changes.outputs.has_changes == 'true'
+        if: steps.has_changes.outputs.has_changes == 'true'
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
