@@ -34,11 +34,13 @@ jobs:
 
       - name: 检查最后一次 Release 后是否有提交
         id: has_changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "检查是否有新提交..."
 
           # 获取最新的 release tag（按创建时间排序，最新的那个）
-          LATEST_TAG=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' | head -n 1)
+          LATEST_TAG=$(gh release list --limit 1 --json tagName --jq '.[0].tagName' 2>/dev/null || echo "")
 
           if [ -z "$LATEST_TAG" ]; then
             echo "仓库中还没有任何 tag/release，视为需要发布。"
