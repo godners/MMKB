@@ -32,7 +32,42 @@ jobs:
           TIME=$(date -u -d '8 hours' '+%Y-%m-%d %H:%M:%S')
           echo "time=${TIME}" >> $GITHUB_OUTPUT
 
+      - name: 检查最后一次 Release 后是否有提交
+        id: has_changes
+        run: |
+          echo "检查是否有新提交..."
+
+          # 获取最新的 release tag（按创建时间排序，最新的那个）
+          LATEST_TAG=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' | head -n 1)
+
+          if [ -z "$LATEST_TAG" ]; then
+            echo "仓库中还没有任何 tag/release，视为需要发布。"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "最新 Release Tag: $LATEST_TAG"
+
+          # 获取最新 release tag 指向的 commit SHA
+          LAST_RELEASE_SHA=$(git rev-parse "$LATEST_TAG^{commit}" 2>/dev/null || echo "")
+
+          # 当前 HEAD 的 commit SHA
+          CURRENT_SHA=$(git ref-parse HEAD)
+
+          echo "Last release commit: ${LAST_RELEASE_SHA}"
+          echo "Current commit     : ${CURRENT_SHA}"
+
+          if [ "$LAST_RELEASE_SHA" = "$CURRENT_SHA" ]; then
+            echo "自上次 Release 以来没有新提交，跳过今日自动 Release。"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "检测到新提交，需要创建今日 Release。"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+        shelll: bash
+
       - name: 如果 Release 已存在则删除
+        if： steps.has_changes.outputs.has_changes == 'true'
         run: |
           TAG=${{ steps.tag.outputs.tag }}
           echo "检查并删除已存在的 Release: ${TAG}"
@@ -41,13 +76,17 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 创建新的 GitHub Release
+        if： steps.has_changes.outputs.has_changes == 'true'
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
           name: "${{ steps.tag.outputs.tag }}"
           body: |
             ## 生成时间（GMT+8）：${{ steps.generate_time.outputs.time }}
+
+            此 Release 为自动每日构建，仅因有新提交而触发。
           draft: false
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
