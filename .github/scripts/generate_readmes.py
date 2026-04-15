@@ -28,7 +28,6 @@ def load_config():
 config = load_config()
 ignore_objects = config.get("ignore_objects", [])
 name_mapping = {item["name"]: item["new_name"] for item in config.get("name_mapping", [])}
-# head_additional = {item["name"]: item["header"] for item in config.get("head_additional", [])}
 
 
 def should_ignore(item: Path) -> bool:
@@ -176,27 +175,9 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
         lines.append("")
         lines.append(extra_content)
 
-    # # 添加 head_additional 内容
-    # header_file = head_additional.get(rel_str) or head_additional.get(dir_path.name)
-  
-    # if header_file:
-    #     header_path = root / header_file
-    #     if header_path.exists() and header_path.is_file():
-    #         try:
-    #             with open(header_path, encoding="utf-8") as f:
-    #                 extra_content = f.read().strip()
-    #             if extra_content:
-    #                 lines.append("")
-    #                 lines.append(extra_content)
-    #         except Exception as e:
-    #             pass
-
     lines.append("")
     lines.append("> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。")
 
-    # content = "\n".join(lines)
-    # readme_path.write_text(content, encoding="utf-8")
-    # print(f"生成/更新: {rel_path or '根目录'}")
     new_content = "\n".join(lines)
     if readme_path.exists():
         try:
@@ -209,6 +190,7 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
             pass
     readme_path.write_text(new_content, encoding="utf-8")
     print(f"生成/更新: {rel_str or '根目录'}")
+    
 
 if __name__ == "__main__":
     root = Path.cwd().resolve()

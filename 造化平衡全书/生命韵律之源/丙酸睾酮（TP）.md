@@ -1,3 +1,4 @@
+- 另外参见：**[丙酸睾酮各系统作用](../生机流转见闻/睾酮各系统作用.md)**
 # 1. 常见别名、物理性质、CAS、溶解度
 - 别名：睾酮丙酸酯、丙酸睾丸素、Testosterone Propionate、TP
 - 化学名：17β-Hydroxyandrost-4-en-3-one propionate
