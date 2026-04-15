@@ -1,5 +1,6 @@
 {
     "ignore_objects": [
+        { "name": "README.md", "type": "file" },
         { "name": "CODE_OF_CONDUCT.md", "type": "file" },
         { "name": "CONTRIBUTING.md", "type": "file" },
         { "name": "LICENSE.md", "type": "file" },

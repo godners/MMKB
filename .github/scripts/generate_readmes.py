@@ -28,7 +28,7 @@ def load_config():
 config = load_config()
 ignore_objects = config.get("ignore_objects", [])
 name_mapping = {item["name"]: item["new_name"] for item in config.get("name_mapping", [])}
-head_additional = {item["name"]: item["header"] for item in config.get("head_additional", [])}
+# head_additional = {item["name"]: item["header"] for item in config.get("head_additional", [])}
 
 
 def should_ignore(item: Path) -> bool:
@@ -65,6 +65,42 @@ def get_rel_path_str(item: Path, root: Path) -> str:
     except ValueError:
         return str(item.name) 
 
+
+def read_header_content(dir_path: Path, root: Path) -> str:
+    """读取 .README_HEADER 并返回要插入的内容"""
+    header_file = dir_path / ".README_HEADER"
+    if not header_file.exists() or not header_file.is_file():
+        return ""
+    
+    try:
+        with open(header_file, encoding="utf-8") as f:
+            content = f.read().strip()
+        if not content:
+            return ""
+        
+        # 检查是否为单行 <readme_header>xxx</readme_header> 格式
+        lines = [line.strip() for line in content.splitlines() if line.strip()]
+
+        if len(lines) == 1:
+            line = lines[0]
+            if line.startswith("<readme_header>") and line.endswith("</readme_header>"):
+                target_name = line[len("<readme_header>"): -len("</readme_header>")].strip()
+                if target_name:
+                    target_path = dir_path / target_name
+                    if target_path.exists() and target_path.is_file():
+                        with open(target_path, encoding="utf-8") as tf:
+                            return tf.read().strip()
+                    else:
+                        print(f"警告：.README_HEADER 指向的文件不存在: {target_path}")
+                        return ""
+        # 否则直接返回 .README_HEADER 自身的内容
+        return content
+    
+    except Exception as e:
+        print(f"读取 .README_HEADER 时出错: {dir_path} -> {e}")
+        return ""
+
+
 def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
     """递归构建目录树：先文件 → 再子目录（增加分隔）"""
     lines = []
@@ -74,8 +110,15 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
         return lines
     
     # 分离文件和文件夹
-    files = [item for item in contents if item.is_file() and not item.name.startswith('.') and not should_ignore(item)]
-    folders = [item for item in contents if item.is_dir() and not item.name.startswith('.') and not should_ignore(item)]
+    files = [item for item in contents 
+             if item.is_file() 
+             and not item.name.startswith('.') 
+             and not should_ignore(item)]
+
+    folders = [item for item in contents 
+               if item.is_dir() 
+               and not item.name.startswith('.') 
+               and not should_ignore(item)]
 
     # 1. 先列出所有文件
     for item in sorted(files, key=lambda x: x.name.lower()):
@@ -127,20 +170,26 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
     tree_lines = build_tree(dir_path, root, level)
     lines.extend(tree_lines if tree_lines else ["（此目录为空）"])
 
-    # 添加 head_additional 内容
-    header_file = head_additional.get(rel_str) or head_additional.get(dir_path.name)
+    # 处理 .README_HEADER 
+    extra_content = read_header_content(dir_path, root)
+    if extra_content:
+        lines.append("")
+        lines.append(extra_content)
+
+    # # 添加 head_additional 内容
+    # header_file = head_additional.get(rel_str) or head_additional.get(dir_path.name)
   
-    if header_file:
-        header_path = root / header_file
-        if header_path.exists() and header_path.is_file():
-            try:
-                with open(header_path, encoding="utf-8") as f:
-                    extra_content = f.read().strip()
-                if extra_content:
-                    lines.append("")
-                    lines.append(extra_content)
-            except Exception as e:
-                pass
+    # if header_file:
+    #     header_path = root / header_file
+    #     if header_path.exists() and header_path.is_file():
+    #         try:
+    #             with open(header_path, encoding="utf-8") as f:
+    #                 extra_content = f.read().strip()
+    #             if extra_content:
+    #                 lines.append("")
+    #                 lines.append(extra_content)
+    #         except Exception as e:
+    #             pass
 
     lines.append("")
     lines.append("> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。")
