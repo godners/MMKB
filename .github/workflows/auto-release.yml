@@ -21,17 +21,13 @@ jobs:
       
       - name: 生成 Release 信息
         id: release_info
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: .github/scripts/auto-release-info.bash
-        shell: bash
+        run: bash .github/scripts/auto-release-info.bash
 
       - name: 检查最后一次 Release 后是否有新提交
         id: has_changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: .github/scripts/auto-release-check.bash
-        shell: bash
+        run: bash .github/scripts/auto-release-check.bash
 
       - name: 如果 Release 已存在则删除
         if: steps.has_changes.outputs.has_changes == 'true'
