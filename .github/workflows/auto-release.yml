@@ -19,59 +19,24 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: 生成今日 Release Tag
-        id: tag
-        run: |
-          TODDAY=$(date -u -d '8 hours' +'%Y.%m.%d')
-          TAG="${TODDAY}.auto"
-          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+      - name: 生成 Release 信息
+        id: release_info
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: .github/scripts/auto-release-info.bash
+        shell: bash
 
-      - name: 生成 GMT+8 时间戳
-        id: generate_time
-        run: |
-          TIME=$(date -u -d '8 hours' '+%Y-%m-%d %H:%M:%S')
-          echo "time=${TIME}" >> $GITHUB_OUTPUT
-
-      - name: 检查最后一次 Release 后是否有提交
+      - name: 检查最后一次 Release 后是否有新提交
         id: has_changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "检查是否有新提交..."
-
-          # 获取最新的 release tag（按创建时间排序，最新的那个）
-          LATEST_TAG=$(gh release list --limit 1 --json tagName --jq '.[0].tagName' 2>/dev/null || echo "")
-
-          if [ -z "$LATEST_TAG" ]; then
-            echo "仓库中还没有任何 tag/release，视为需要发布。"
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-
-          echo "最新 Release Tag: $LATEST_TAG"
-
-          # 获取最新 release tag 指向的 commit SHA
-          LAST_RELEASE_SHA=$(git rev-parse "$LATEST_TAG^{commit}" 2>/dev/null || echo "")
-
-          # 当前 HEAD 的 commit SHA
-          CURRENT_SHA=$(git rev-parse HEAD)
-
-          echo "Last release commit: ${LAST_RELEASE_SHA}"
-          echo "Current commit     : ${CURRENT_SHA}"
-
-          if [ "$LAST_RELEASE_SHA" = "$CURRENT_SHA" ]; then
-            echo "自上次 Release 以来没有新提交，跳过今日自动 Release。"
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-          else
-            echo "检测到新提交，需要创建今日 Release。"
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          fi
+        run: .github/scripts/auto-release-check.bash
         shell: bash
 
       - name: 如果 Release 已存在则删除
         if: steps.has_changes.outputs.has_changes == 'true'
         run: |
-          TAG=${{ steps.tag.outputs.tag }}
+          TAG=${{ steps.release_info.outputs.tag }}
           echo "检查并删除已存在的 Release: ${TAG}"
           gh release delete "${TAG}" --yes --cleanup-tag 2>/dev/null || echo "Release 不存在或已删除"
         env:
@@ -81,10 +46,10 @@ jobs:
         if: steps.has_changes.outputs.has_changes == 'true'
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ steps.tag.outputs.tag }}
-          name: "${{ steps.tag.outputs.tag }}"
+          tag_name: ${{ steps.release_info.outputs.tag }}
+          name: "${{ steps.release_info.outputs.tag }}"
           body: |
-            ## 生成时间（GMT+8）：${{ steps.generate_time.outputs.time }}
+            ## 生成时间（GMT+8）：${{ steps.release_info.outputs.time }}
 
             此 Release 为自动每日构建，仅因有新提交而触发。
           draft: false
