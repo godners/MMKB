@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 # ====================== 配置 ======================
-CONFIG_FILE = Path(".github/scripts/generate_readmes.json")
+CONFIG_FILE = Path(".github/configs/generate_readmes.json")
 
 # 默认忽略项（可被 json 中的 ignore_objects 覆盖或补充）
 DEFAULT_IGNORE = {

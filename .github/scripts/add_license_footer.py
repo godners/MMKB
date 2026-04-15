@@ -2,8 +2,8 @@ import os
 import json
 import glob
 
-LICENSE_FILE = ".github/scripts/add_license_footer.md"
-EXCLUDE_FILE = ".github/scripts/add_license_footer.json"
+LICENSE_FILE = ".github/resources/add_license_footer.md"
+EXCLUDE_FILE = ".github/configs/add_license_footer.json"
 
 def load_ignore_list():
     if os.path.exists(EXCLUDE_FILE):
