@@ -52,7 +52,7 @@ jobs:
           LAST_RELEASE_SHA=$(git rev-parse "$LATEST_TAG^{commit}" 2>/dev/null || echo "")
 
           # 当前 HEAD 的 commit SHA
-          CURRENT_SHA=$(git ref-parse HEAD)
+          CURRENT_SHA=$(git rev-parse HEAD)
 
           echo "Last release commit: ${LAST_RELEASE_SHA}"
           echo "Current commit     : ${CURRENT_SHA}"
