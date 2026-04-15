@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-LATEST_TAG=$gh release list --limit 1 --json tagName --jq '.[0].tagName' 2>/dev/null || echo "")
+LATEST_TAG=$(gh release list --limit 1 --json tagName --jq '.[0].tagName' 2>/dev/null || echo "")
 
 if [ -z "$LATEST_TAG" ]; then
     echo "has_changes=true" >> $GITHUB_OUTPUT
