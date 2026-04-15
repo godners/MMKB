@@ -64,7 +64,7 @@ jobs:
             echo "检测到新提交，需要创建今日 Release。"
             echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
-        shelll: bash
+        shell: bash
 
       - name: 如果 Release 已存在则删除
         if: steps.has_changes.outputs.has_changes == 'true'
