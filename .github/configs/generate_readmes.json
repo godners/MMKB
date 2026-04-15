@@ -9,10 +9,6 @@
     ],
     "name_mapping": [
         { "name": "keybindings.json", "new_name": "VS CODE 键盘映射" }
-    ],
-    "head_additional": [
-        { "name": "激素激素调节资料作用/调节辅助笔记", "header": "激素激素调节资料作用/调节辅助笔记/PDE5抑制剂（对比）.md" },
-        { "name": "精神调节记录/脂类修正记录", "header": "精神调节记录/脂类修正记录/亚硝酸酯（综述）.md"}
     ]
 }
 
