@@ -64,11 +64,13 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
     try:
         contents = list(dir_path.iterdir())
     except Exception:
+        print(f"  ⚠️ 无法读取目录内容: {dir_path} -> {e}")
         return lines
     
     # 分离文件和文件夹
     files = [item for item in contents if item.is_file() and not should_ignore(item)]    
     folders = [item for item in contents if item.is_dir() and not should_ignore(item)]
+    print(f"  📄 文件数量: {len(files)} | 📁 子目录数量: {len(folders)}")
 
     # 2. 再列出子文件夹
     if folders:
@@ -94,7 +96,15 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
 
 def generate_contents_for_dir(dir_path: Path, root: Path):
     """为单个目录生成 CONTENTS.md（仅包含文件和子目录结构）"""
+    rel_str = get_rel_path_str(dir_path, root) if dir_path != root else "."
+
+    if should_ignore(dir_path):
+        print(f"⏭️  已按配置忽略目录: {rel_str}")
+        return
+
+
     contents_path = dir_path / "CONTENTS.md"
+    print(f"🔨 处理目录: {rel_str} → 准备生成 {contents_path.name}")
 
     # 计算相对路径和目录名称
     try:
@@ -119,17 +129,30 @@ def generate_contents_for_dir(dir_path: Path, root: Path):
     new_content = "\n".join(lines)
 
     # 如果内容未变化则跳过写入
+    write_needed = True
     if contents_path.exists():
         try:
             old_content = contents_path.read_text(encoding="utf-8")
             if old_content == new_content:
-                print(f"内容未变化，跳过写入: {rel_str or '根目录'}")
-                return            
+                print(f"✅ 内容未变化，跳过写入: {rel_str}")
+                write_needed = False
+            else:
+                print(f"🔄 内容有变化，将覆盖: {rel_str}")
         except Exception as e:
-            pass
-
-    contents_path.write_text(new_content, encoding="utf-8")
-    print(f"生成/更新: {rel_str or '根目录'}")
+            print(f"⚠️ 读取旧文件失败: {e}")
+    else:
+        print(f"🆕 文件不存在，将创建: {contents_path}")
+    if write_needed:
+        try:
+            contents_path.write_text(new_content, encoding="utf-8")
+            print(f"✅ 成功写入文件: {rel_str} | 大小: {len(new_content)} 字符")
+            if contents_path.exists():
+                print(f"   验证成功 → 文件已存在，大小 {contents_path.stat().st_size} 字节")
+            else:
+                print(f"   ❌ 写入后文件仍不存在！")
+        except Exception as e:
+            print(f"❌ 写入失败: {rel_str} → {e}")
+#    print(f"生成/更新: {rel_str or '根目录'}")
 
 
 if __name__ == "__main__":
