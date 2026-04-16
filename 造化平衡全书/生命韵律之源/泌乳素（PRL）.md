@@ -118,3 +118,14 @@
   - 痰湿内阻、清阳不升
 # 一句总结
 - 泌乳素不是“坏激素”，但在男性体内——高了，性系统一定慢下来。
+
+
+---
+**许可声明**  
+本文件内容采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可。  
+您可以自由分享、修改本作品，但必须**署名原作者**、**非商业用途**，且修改后的作品需采用**相同许可协议**。  
+
+© [Godners](https://github.com/godners/MMKB)
+
+---
+> License Added
