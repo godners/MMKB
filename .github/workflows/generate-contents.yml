@@ -30,20 +30,11 @@ jobs:
 
       - name: Commit 并 Push CONTENTS 更新
         run: |
-          echo "=== 当前工作目录状态 ==="
-          git status --porcelain | cat
-          
-          echo "=== 添加所有 CONTENTS.md 文件（包括新文件）==="
           git add "**/CONTENTS.md" "CONTENTS.md"
-          
-          echo "=== 检查是否有待提交的变更 ==="
           if git diff --cached --quiet; then
-            echo "✅ 没有检测到任何变更，跳过提交。"
+            echo "没有检测到任何变更，跳过提交。"
           else
-            echo "🔄 检测到变更，正在提交..."
             COMMIT_TIME=$(date '+%F %T')
-            git commit -m "chore: auto generate CONTENTS.md on ${COMMIT_TIME}"
-            echo "🚀 正在推送..."
+            git commit -m "Auto CONTENTS on ${COMMIT_TIME}"
             git push
-            echo "✅ CONTENTS.md 已成功提交并推送！"
           fi
