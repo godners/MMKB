@@ -79,7 +79,7 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
         lines.append("**子目录：**")
         lines.append("")
 
-        for item in sorted(folders, key=lambda x: x.name.lower())
+        for item in sorted(folders, key=lambda x: x.name.lower()):
             display_name = get_display_name(item)
             folder_link = get_rel_path_str(item, root)
 
