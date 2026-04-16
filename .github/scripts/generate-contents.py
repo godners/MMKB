@@ -4,15 +4,16 @@ import json
 from pathlib import Path
 
 # ====================== 配置 ======================
-CONFIG_FILE = Path(".github/configs/generate_contents.json")
+CONFIG_FILE = Path(".github/configs/generate-contents.json")
 
 def load_config():
     if not CONFIG_FILE.exists():
-        print(f"警告：配置文件 {CONFIG_FILE} 不存在，使用默认忽略规则。")
+        print(f"警告：配置文件 {CONFIG_FILE} 不存在，使用空配置。")
         return {"ignore_objects": [], "name_mapping": [], "head_additional": []}
     
     with open(CONFIG_FILE, encoding="utf-8") as f:
         data = json.load(f)
+
     print(f"""配置文件加载成功，包含：
     ignore_objects 配置: {len(data.get("ignore_objects", []))} 条
     name_mapping 配置: {len(data.get("name_mapping", []))} 条""")
@@ -66,11 +67,8 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
         return lines
     
     # 分离文件和文件夹
-    files = [item for item in contents
-             if item.is_file() and not should_ignore(item)]
-    
-    folders = [item for item in contents
-               if item.is_dir() and not should_ignore(item)]
+    files = [item for item in contents if item.is_file() and not should_ignore(item)]    
+    folders = [item for item in contents if item.is_dir() and not should_ignore(item)]
 
     # 2. 再列出子文件夹
     if folders:
@@ -81,7 +79,7 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
 
         for item in sorted(folders, key=lambda x: x.name.lower()):
             display_name = get_display_name(item)
-            folder_link = get_rel_path_str(item, root)
+            folder_link = (get_rel_path_str(item, root) + "CONTENTS.md")
 
             # 使用当前层级 +1 的标题
             heading = "#" * (current_level + 1) + f" [{display_name}]({folder_link})"
@@ -101,7 +99,7 @@ def generate_contents_for_dir(dir_path: Path, root: Path):
     # 计算相对路径和目录名称
     try:
         rel_path = dir_path.resolve().relative_to(root.resolve())
-        rel_str = str(rel_path).replace("\\", "/")
+        rel_str = str(rel_path).replace("\\", "/") if rel_path != Path(".") else "."
         dir_name = dir_path.name if dir_path.name else "项目根目录"
     except ValueError:
         rel_str = ""
@@ -143,6 +141,7 @@ if __name__ == "__main__":
 
     # 遍历所有目录（含根目录）
     for dirpath, dirnames, _ in os.walk(root):
+        dirnames[:] = [d for d in dirnames if not should_ignore(Path(dirpath) / d)]
         current = Path(dirpath)
         generate_contents_for_dir(current, root)
     

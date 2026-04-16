@@ -7,6 +7,7 @@
         { "name": "SECURITY.md", "type": "file" },
         { "name": ".gitignore", "type": "dir" },
         { "name": ".github", "type": "dir" },
+        { "name": ".git", "type": "dir" },
         { "name": "CONTENTS.md", "type": "dir" }
     ],
     "name_mapping": [
