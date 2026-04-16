@@ -10,7 +10,8 @@
         { "name": "Markdown表格.md", "type": "file" },
         { "name": "Markdown链接.md", "type": "file" },
         { "name": "keybindings.json", "type": "file" },
-        { "name": ".github", "type": "dir" }
+        { "name": ".github", "type": "dir" },
+        { "name": "CONTENTS.md", "type": "file" }
     ]
 }
 

@@ -1,0 +1,38 @@
+name: Generate contents
+
+description: 递归遍历所有目录，自动生成/更新 CONTENTS.md，并提交更改
+
+on:
+  workflow_dispatch:        # 手动触发
+  workflow_call:            # 允许被其他 workflow 调用
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: 设置 Git 用户信息
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: 运行 Python 脚本生成所有 README.md
+        run: python .github/scripts/generate_contents.py
+
+      - name: Commit 并 Push CONTENTS 更新
+        run: |
+          if ! git diff --quiet -- "**/CONTENTS.md" "CONTENTS.md"; then
+            COMMIT_TIME=$(date '+%F %T')
+            git add "**/CONTENTS.md" "CONTENTS.md"
+            git commit -m "Auto CONTENTS on ${COMMIT_TIME}"
+            git push
+          fi
