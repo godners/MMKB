@@ -5,6 +5,9 @@ on:
     branches: [ main ]
     paths:
       - '**/*.md'
+    paths-ignore:
+      - '.github/**'
+      - '.git/**'
   workflow_dispatch:
   workflow_call:
 
