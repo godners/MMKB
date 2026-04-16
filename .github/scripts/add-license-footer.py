@@ -1,6 +1,6 @@
 import os
 import json
-import glob
+from pathlib import Path
 
 LICENSE_FILE = ".github/resources/license-footer.md"
 EXCLUDE_FILE = ".github/configs/add-license-footer.json"
