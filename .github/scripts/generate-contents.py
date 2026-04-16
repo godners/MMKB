@@ -89,7 +89,7 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
         for item in sorted(folders, key=lambda x: x.name.lower()):
             display_name = get_display_name(item)
             rel_dir = get_rel_path_str(item, root)
-            folder_link = f"{rel_dir}/"CONTENTS.md"
+            folder_link = f"{rel_dir}/CONTENTS.md"
 
             bracket = "[" * (current_level) + display_name + "]" * (current_level)
 
