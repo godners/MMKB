@@ -50,7 +50,7 @@ def main():
     added_count = 0
     for md_file in md_files:
         if should_ignore(md_file, ignore_list):
-            print(f"已忽略: {md_file}")
+            # print(f"已忽略: {md_file}")
             continue
         
         try:
@@ -58,7 +58,7 @@ def main():
                 content = f.read()
             
             if has_license(content):
-                print(f"已有声明: {md_file}")
+                # print(f"已有声明: {md_file}")
                 continue
             
             # 添加声明
