@@ -125,7 +125,14 @@ def generate_contents_for_dir(dir_path: Path, root: Path):
     level = len([p for p in rel_path.parts if p]) + 1 if rel_path != Path(".") else 1
     heading = "#" * level + " " + dir_name
 
-    lines = [heading, "", "仓库文件与子目录结构（由 GitHub Actions 自动生成，请勿手动修改）", ""]
+    lines = [
+        heading, 
+        "", 
+        "仓库文件与子目录结构", 
+        "",
+        "> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。",
+        ""
+        ]
 
     tree_lines = build_tree(dir_path, root, level)
     lines.extend(tree_lines if tree_lines else ["（此目录为空）"])
