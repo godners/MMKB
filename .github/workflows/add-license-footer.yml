@@ -1,13 +1,6 @@
 name: Auto License
 
 on:
-  # push:
-  #   branches: [ main ]
-  #   paths:
-  #     - '**/*.md'
-  #   paths-ignore:
-  #     - '.github/**'
-  #     - '.git/**'
   workflow_dispatch:
   workflow_call:
 
@@ -32,11 +25,11 @@ jobs:
 
       - name: 运行 Python 脚本添加License声明
         run: |
-          python .github/scripts/add_license_footer.py
+          python .github/scripts/add-license-footer.py
       
       - name: Commit 并 Push 更新
         run: |
-          git add **/*.md
+          git add "**/*.md" "*.md"
           if ! git diff --staged --quiet; then
             COMMIT_TIME=$(date '+%F %T')
             git commit -m "Auto License on ${COMMIT_TIME}"

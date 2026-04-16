@@ -2,8 +2,9 @@ import os
 import json
 import glob
 
-LICENSE_FILE = ".github/resources/add_license_footer.md"
-EXCLUDE_FILE = ".github/configs/add_license_footer.json"
+LICENSE_FILE = ".github/resources/license-footer.md"
+EXCLUDE_FILE = ".github/configs/add-license-footer.json"
+CHECK_KEYWORD = "> License Added"
 
 def load_ignore_list():
     if os.path.exists(EXCLUDE_FILE):
@@ -31,7 +32,7 @@ def should_ignore(file_path, ignore_list):
     return False
 
 def has_license(content):
-    return "> License Added" in content or "CC BY-NC-SA" in content
+    return CHECK_KEYWORD in content
 
 def main():
     ignore_list = load_ignore_list()
@@ -43,7 +44,8 @@ def main():
         license_text = "\n\n" + f.read().strip() + "\n"
 
     # 获取所有 .md 文件
-    md_files = glob.glob("**/*.md", recursive=True)
+    root = Path(".")
+    md_files = [str(p) for p in root.rglob("*.md") if p.is_file()]
 
     added_count = 0
     for md_file in md_files:
