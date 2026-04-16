@@ -8,7 +8,7 @@
         { "name": ".gitignore", "type": "dir" },
         { "name": ".github", "type": "dir" },
         { "name": ".git", "type": "dir" },
-        { "name": "CONTENTS.md", "type": "file" }
+        { "name": "CONTENTS.md", "type": "file" },
         { "name": ".README", "type": "file" }
     ],
     "name_mapping": [
