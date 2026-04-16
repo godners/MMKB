@@ -25,7 +25,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-      - name: 运行 Python 脚本生成所有 README.md
+      - name: 运行 Python 脚本生成所有 CONTENTS.md
         run: python .github/scripts/generate-contents.py
 
       - name: Commit 并 Push CONTENTS 更新
