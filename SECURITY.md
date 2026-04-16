@@ -48,4 +48,4 @@
 **Thank you for helping keep MMKB secure.**
 
 仓库地址 / Repository: https://github.com/godners/MMKB  
-作者 / Author: godners
+作者 / Author: Godners

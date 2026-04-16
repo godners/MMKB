@@ -95,7 +95,6 @@
 def hello():
     print("Hello, GitHub!")
 ```
-````
 
 指定语言后 GitHub 会自动语法高亮。支持数百种语言（如 `javascript`、`java`、`bash`、`yaml`、`markdown` 等）。
 

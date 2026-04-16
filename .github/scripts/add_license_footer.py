@@ -31,7 +31,7 @@ def should_ignore(file_path, ignore_list):
     return False
 
 def has_license(content):
-    return "许可生命" in content or "CC BY-NC-SA" in content
+    return "> License Added" in content or "CC BY-NC-SA" in content
 
 def main():
     ignore_list = load_ignore_list()

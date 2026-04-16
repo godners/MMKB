@@ -115,11 +115,5 @@
   - 类似“重度阴药误投”
   - 易致：阳痿、不育、乳癖、痰湿瘀结
 # 总结一句话
-己烯雌酚是强效、非甾体合成雌激素，能迅速彻底抑制男性性腺轴，但因明确致癌和严重系统毒性，已不再被视为可接受的治疗或调节手段。
-
-
-**许可声明**  
-本文件内容采用 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)（CC BY-NC-SA 4.0）许可。  
-您可以自由分享、修改本作品，但必须**署名原作者**、**非商业用途**，且修改后的作品需采用**相同许可协议**。  
-
-© godners[](https://github.com/godners/MMKB)
+- 己烯雌酚是强效、非甾体合成雌激素，能迅速彻底抑制男性性腺轴，
+- 但因明确致癌和严重系统毒性，已不再被视为可接受的治疗或调节手段。

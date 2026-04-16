@@ -1,13 +1,13 @@
 name: Auto License
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - '**/*.md'
-    paths-ignore:
-      - '.github/**'
-      - '.git/**'
+  # push:
+  #   branches: [ main ]
+  #   paths:
+  #     - '**/*.md'
+  #   paths-ignore:
+  #     - '.github/**'
+  #     - '.git/**'
   workflow_dispatch:
   workflow_call:
 

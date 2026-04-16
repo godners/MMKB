@@ -41,7 +41,7 @@
   - 0.25 mg 每日
   - 0.25–0.5 mg 隔日
   - 极少超过 1 mg / 日  
-**男性用药强调：低剂量、间断、监测 E₂**
+- 男性用药强调：低剂量、间断、监测 E₂
 # 7. 副作用、药物过量
 ## 常见副作用
 - 雌激素过低综合征
@@ -119,10 +119,3 @@
 - 中医调理方向：
   - 滋肾阴、柔肝、潜阳
   - 常配伍：熟地、山萸肉、女贞子、枸杞子
-
-
-**许可声明**  
-本文件内容采用 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)（CC BY-NC-SA 4.0）许可。  
-您可以自由分享、修改本作品，但必须**署名原作者**、**非商业用途**，且修改后的作品需采用**相同许可协议**。  
-
-© godners[](https://github.com/godners/MMKB)
