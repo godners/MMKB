@@ -26,7 +26,7 @@ name_mapping = {item["name"]: item["new_name"] for item in config.get("name_mapp
 
 
 def should_ignore(item: Path) -> bool:
-    """根据 generate_readmes.json 中的 ignore_objects 判断是否忽略"""
+    """根据配置判断是否忽略"""
     name = item.name
     item_type = "dir" if item.is_dir() else "file"
 
@@ -37,7 +37,7 @@ def should_ignore(item: Path) -> bool:
 
 
 def get_display_name(item: Path) -> str:
-    """获取显示名称：优先使用 name_mapping，否则去掉扩展名（文件）"""
+    """获取显示名称"""
     if item.is_file():
         if item.name in name_mapping:
             return name_mapping[item.name]
@@ -45,12 +45,11 @@ def get_display_name(item: Path) -> str:
             return name_mapping[item.stem]
         else:
             return item.stem
-    # 文件夹直接用文件夹名
     return item.name
 
 
 def get_rel_path_str(item: Path, root: Path) -> str:
-    """返回标准化的相对路径（使用 / 分隔符）"""
+    """返回标准化的相对路径"""
     try:
         rel = item.resolve().relative_to(root.resolve())
         return str(rel).replace("\\", "/")
@@ -67,8 +66,11 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
         return lines
     
     # 分离文件和文件夹
-    files = [item for item in contents if item.is_file() and not should_ignore(item)]    
-    folders = [item for item in contents if item.is_dir() and not should_ignore(item)]
+    files = [item for item in contents 
+             if item.is_file() and not should_ignore(item)]    
+    folders = [item for item in contents 
+               if item.is_dir() and not should_ignore(item)]
+
     # 1. 先列出所有文件（这是缺失的核心部分）
     if files:
         for item in sorted(files, key=lambda x: x.name.lower()):
@@ -81,15 +83,18 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
     if folders:
         if files: # 如果前面有文件，则加空行分隔
             lines.append("")
-        lines.append("**子目录：**")
-        lines.append("")
+            lines.append("---")
+            lines.append("")
 
         for item in sorted(folders, key=lambda x: x.name.lower()):
             display_name = get_display_name(item)
-            folder_link = (get_rel_path_str(item, root) + "CONTENTS.md")
+            rel_dir = get_rel_path_str(item, root)
+            folder_link = f"{rel_dir}/"CONTENTS.md"
+
+            bracket = "[" * (current_level) + display_name + "]" * (current_level)
 
             # 使用当前层级 +1 的标题
-            heading = "#" * (current_level + 1) + f" [{display_name}]({folder_link})"
+            heading = "#" * (current_level + 1) + f" {bracket}({folder_link})"
             lines.append(heading)
             lines.append("")
 
@@ -97,20 +102,21 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
             sub_lines = build_tree(item, root, current_level + 1)
             lines.extend(sub_lines)
 
+            if item != folders[-1]:
+                lines.append("")
+                lines.append("---")
+                lines.append("")
+
     return lines
 
 def generate_contents_for_dir(dir_path: Path, root: Path):
-    """为单个目录生成 CONTENTS.md（仅包含文件和子目录结构）"""
-    rel_str = get_rel_path_str(dir_path, root) if dir_path != root else "."
-    if should_ignore(dir_path):
-        return
-
+    """为单个目录生成 CONTENTS.md"""
     contents_path = dir_path / "CONTENTS.md"
 
     # 计算相对路径和目录名称
     try:
         rel_path = dir_path.resolve().relative_to(root.resolve())
-        rel_str = str(rel_path).replace("\\", "/") if rel_path != Path(".") else "."
+        rel_str = str(rel_path).replace("\\", "/")
         dir_name = dir_path.name if dir_path.name else "项目根目录"
     except ValueError:
         rel_str = ""
@@ -130,21 +136,16 @@ def generate_contents_for_dir(dir_path: Path, root: Path):
     new_content = "\n".join(lines)
 
     # 如果内容未变化则跳过写入
-    write_needed = True
     if contents_path.exists():
         try:
             old_content = contents_path.read_text(encoding="utf-8")
             if old_content == new_content:
-                write_needed = False
+                return
         except Exception as e:
             pass
     
-    if write_needed:
-        try:
-            contents_path.write_text(new_content, encoding="utf-8")
-        except Exception as e:
-            print(f"    写入失败: {rel_str} → {e}")
-
+    contents_path.write_text(new_content, encoding="utf-8")
+    print(f"生成/更新: {rel_str or '根目录'}")
 
 if __name__ == "__main__":
     root = Path.cwd().resolve()

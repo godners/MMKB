@@ -5,7 +5,7 @@
         { "name": "CONTRIBUTING.md", "type": "file" },
         { "name": "LICENSE.md", "type": "file" },
         { "name": "SECURITY.md", "type": "file" },
-        { "name": ".gitignore", "type": "dir" },
+        { "name": ".gitignore", "type": "file" },
         { "name": ".github", "type": "dir" },
         { "name": ".git", "type": "dir" },
         { "name": "CONTENTS.md", "type": "file" },
