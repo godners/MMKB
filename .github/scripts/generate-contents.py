@@ -130,7 +130,7 @@ def generate_contents_for_dir(dir_path: Path, root: Path):
         except Exception as e:
             pass
 
-    contents_path.write_text(new_content, encoding="utf-8")f
+    contents_path.write_text(new_content, encoding="utf-8")
     print(f"生成/更新: {rel_str or '根目录'}")
 
 
