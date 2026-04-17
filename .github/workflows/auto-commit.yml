@@ -1,0 +1,39 @@
+name: 04. Auto Commit
+
+description: '自动提交并推送指定的 Markdown 文件'
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+inputs:
+  patterns:
+    description: '要提交的文件模式列表（每行一个）'
+    required: false
+    default: |
+      **/*.md
+      *.md
+    
+  commit-prefix:
+    description: '提交信息的前缀'
+    required: false
+    default: 'Auto License'
+  
+runs:
+  using: composite
+  steps:
+    - name: Load git configuration from JSON
+      shell: bash
+      run: bash .github/scripts/auto-commit-info.bash
+
+    - name: Check, commit and push
+      shell: bash
+      run: bash .github/scripts/auto-commit-push.bash
+      env:
+        INPUT_PATTERNS: ${{ input.patterns }}
+        INPUT_COMMIT_PREFIX: ${{ input.commit-prefix }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        

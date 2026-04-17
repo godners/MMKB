@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 LICENSE_FILE = ".github/resources/license-footer.md"
-EXCLUDE_FILE = ".github/configs/add-license-footer.json"
+EXCLUDE_FILE = ".github/configs/auto-license.json"
 CHECK_KEYWORD = "> License Added"
 
 def load_ignore_list():

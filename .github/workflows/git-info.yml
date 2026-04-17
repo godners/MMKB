@@ -18,14 +18,11 @@ jobs:
           fetch-depth: 0
         
       - name: run bash
-        run: bash .github/scripts/git-info.bash
+        run: bash .github/scripts/auto-commit-info.bash
         shell: bash
 
       - name: verify git config
-        run: |
-          echo "user.name  = $(git config --local user.name)"
-          echo "user.email = $(git config --local user.email)"
-          git config --local --list
+        run: git config --local --list
         shell: bash
         
 

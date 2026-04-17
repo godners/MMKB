@@ -18,7 +18,7 @@ jobs:
     uses: ./.github/workflows/generate-readmes.yml
     
   call-add-license-footer:
-    uses: ./.github/workflows/add-license-footer.yml
+    uses: ./.github/workflows/auto-license.yml
     needs: call-generate-readmes
   
   call-auto-release:

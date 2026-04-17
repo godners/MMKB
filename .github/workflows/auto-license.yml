@@ -25,7 +25,7 @@ jobs:
 
       - name: 运行 Python 脚本添加License声明
         run: |
-          python .github/scripts/add-license-footer.py
+          python .github/scripts/auto-license.py
       
       - name: Commit 并 Push 更新
         run: |
