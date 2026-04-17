@@ -38,6 +38,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  call-auto-release:
-    uses: ./.github/workflows/auto-release.yml
-    needs: daily-operation
+      - name: Run Auto Release
+        uses: ./.github/actions/auto-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
