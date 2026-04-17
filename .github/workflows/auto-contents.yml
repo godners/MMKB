@@ -19,22 +19,16 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: 设置 Git 用户信息
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
 
       - name: 运行 Python 脚本生成所有 CONTENTS.md
         run: python .github/scripts/auto-contents.py
 
-      - name: Commit 并 Push CONTENTS 更新
-        run: |
-          git add "**/CONTENTS.md" "CONTENTS.md"
-          if git diff --cached --quiet; then
-            echo "没有检测到任何变更，跳过提交。"
-          else
-            COMMIT_TIME=$(date '+%F %T')
-            git commit -m "Auto CONTENTS on ${COMMIT_TIME}"
-            git push
-          fi
+      - name: Run Auto Commit
+        uses: ./.github/actions/auto-commit
+        with:
+          patterns: |
+            **/CONTENTS.md
+            CONTENTS.md
+          commit-prefix: "Auto Contents"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
