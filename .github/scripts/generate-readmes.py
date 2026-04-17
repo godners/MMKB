@@ -78,11 +78,6 @@ def parse_readme_template(content: str, base_dir: Path) -> str:
 
 
 
-
-
-
-
-
 def generate_readme_for_dir(dir_path: Path, root: Path):
     """为单个目录生成 README.md"""
     if dir_path.name.startswith('.'):
@@ -90,30 +85,44 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
     
     readme_path = dir_path / "README.md"
     template_path = dir_path / ".README"
+    contents_path = dir_path / "CONTENTS.md"
 
-    if not template_path.exists() or not template_path.is_file():
-        print(f"跳过（无 .README）: {dir_path.relative_to(root)}")
-        # 可选：如果想强制生成空 README，可在这里写入模板
+    # 情况1: 存在 .README 模板
+    if template_path.exists() and template_path.is_file():
+        try:
+            with open(template_path, encoding="utf-8") as f:
+                template_content = f.read()
+            print(f"处理目录 (使用 .README): {dir_path.relative_to(root)}")
+            final_content = parse_readme_template(template_content, dir_path)
+        except Exception as e:
+            print(f"读取 .README 失败: {dir_path} -> {e}")
+            return
+    
+    # 情况2: 不存在 .README，但存在 CONTENTS.md
+    elif contents_path.exists() and contents_path.is_file():
+        try:
+            with open(contents_path, encoding="utf-8") as f:
+                final_content = f.read()
+            print(f"处理目录 (使用 CONTENTS.md): {dir_path.relative_to(root)}")            
+        except Exception as e:
+            print(f"读取 CONTENTS.md 失败: {dir_path} -> {e}")
+    
+    # 情况3: 两者都不存在
+    else:
+        print(f"跳过（无 .README 和 CONTENTS.md）: {dir_path.relative_to(root)}")
         return
 
-    try:
-        with open(template_path, encoding="utf-8") as f:
-            template_content = f.read()
-    except Exception as e:
-        print(f"读取 .README 失败: {dir_path} -> {e}")
-        return
-
-    print(f"处理目录: {dir_path.relative_to(root)}")
-    final_content = parse_readme_template(template_content, dir_path)
-
-    # 添加自动生成提示（可自定义）
     header = f"""# {dir_path.name if dir_path.name != '.' else '项目根目录'}
 
-> 本文件由 GitHub Actions 根据 `.README` 自动生成，请勿手动修改。
+    > 本文件由 GitHub Actions 根据 `.README` 或 `CONTENTS.md` 自动生成，请勿手动修改。
+
+    """
+    footer = f"""
+
+> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。
 
 """
-
-    final_content = header + final_content.rstrip() + "\n\n> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。\n"
+    final_content = header + final_content.rstrip() + footer
 
     # 写入或更新
     if readme_path.exists():
