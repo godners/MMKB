@@ -3,7 +3,7 @@ set -euo pipefail
 
 # ====================== 从 inputs 读取参数 ======================
 # 默认值
-DEFAULT_PATTERNS=("**/*.md", "*.md")
+DEFAULT_PATTERNS=("**/*.md" "*.md")
 DEFAULT_COMMIT_PREFIX="Auto Commit"
 
 # 读取 commit-prefix（优先使用传入值）

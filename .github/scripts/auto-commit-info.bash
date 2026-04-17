@@ -47,7 +47,7 @@ else
         then
             key="${line%%=*}"
             value="${line#*=}"
-            echo "    git confg --local ${key} \"${value}\""
+            echo "    git config --local ${key} \"${value}\""
             git config --local "${key}" "${value}"
         fi
     done
