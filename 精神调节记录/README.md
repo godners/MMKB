@@ -1,4 +1,8 @@
-## 精神调节记录
+# 精神调节记录
+
+    > 本文件由 GitHub Actions 根据 `.README` 或 `CONTENTS.md` 自动生成，请勿手动修改。
+
+    ## 精神调节记录
 
 仓库文件与子目录结构（由 GitHub Actions 自动生成，请勿手动修改）
 
@@ -10,16 +14,22 @@
 - [曲马多](精神调节记录/曲马多.md)
 - [酒石酸伐尼克兰片](精神调节记录/酒石酸伐尼克兰片.md)
 
-**子目录：**
 
-### [清风微醺档案](精神调节记录/清风微醺档案/README.md)
+---
 
+### [[清风微醺档案]](精神调节记录/清风微醺档案/CONTENTS.md)
+
+- [.README_HEADER](精神调节记录/清风微醺档案/.README_HEADER)
 - [亚硝酸异丁酯](精神调节记录/清风微醺档案/亚硝酸异丁酯.md)
 - [亚硝酸异丙酯](精神调节记录/清风微醺档案/亚硝酸异丙酯.md)
 - [亚硝酸异戊酯](精神调节记录/清风微醺档案/亚硝酸异戊酯.md)
 - [亚硝酸正丁酯](精神调节记录/清风微醺档案/亚硝酸正丁酯.md)
 - [亚硝酸酯（综述）](精神调节记录/清风微醺档案/亚硝酸酯（综述）.md)
-### [生化演变纪略](精神调节记录/生化演变纪略/README.md)
+
+
+---
+
+### [[生化演变纪略]](精神调节记录/生化演变纪略/CONTENTS.md)
 
 - [右美沙芬（DXM）](精神调节记录/生化演变纪略/右美沙芬（DXM）.md)
 - [普瑞巴林（PGB）](精神调节记录/生化演变纪略/普瑞巴林（PGB）.md)
@@ -29,11 +39,19 @@
 - [邻苯二甲酸二甲酯（DMP）](精神调节记录/生化演变纪略/邻苯二甲酸二甲酯（DMP）.md)
 - [链脲佐菌素（STZ）](精神调节记录/生化演变纪略/链脲佐菌素（STZ）.md)
 
+
 > 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。
 
 
+---
 **许可声明**  
-本文件内容采用 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)（CC BY-NC-SA 4.0）许可。  
+本文件内容采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可。  
 您可以自由分享、修改本作品，但必须**署名原作者**、**非商业用途**，且修改后的作品需采用**相同许可协议**。  
 
-© Godners[](https://github.com/godners/MMKB)
+© [Godners](https://github.com/godners/MMKB)
+
+---
+> License Added
+
+> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。
+
