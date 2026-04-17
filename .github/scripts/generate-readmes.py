@@ -15,7 +15,7 @@ def load_config():
         import json
         with open(CONFIG_FILE, encoding="utf-8") as f:
             return json.load(f)
-    except Exception
+    except:
         print(f"警告：配置文件 {CONFIG_FILE} 加载失败，使用空配置。")
         return {}
     
