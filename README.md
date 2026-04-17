@@ -4,7 +4,6 @@
 
 > 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。
 
-- [auto-commit-test](auto-commit-test.md)
 - [Markdown表格](Markdown表格.md)
 - [Markdown规则](Markdown规则.md)
 - [Markdown语法](Markdown语法.md)
