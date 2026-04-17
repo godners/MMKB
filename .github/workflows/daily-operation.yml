@@ -40,4 +40,4 @@ jobs:
 
   call-auto-release:
     uses: ./.github/workflows/auto-release.yml
-    needs: call-add-license-footer
+    needs: daily-operation
