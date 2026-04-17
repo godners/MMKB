@@ -19,6 +19,8 @@ jobs:
       - name: Make some changes
         shell: bash
         run: echo "- $(date '+%F %T')" >> /auto-commit-test.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Run Auto Commit
         uses: ./.github/actions/auto-commit
