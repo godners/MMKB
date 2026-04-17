@@ -19,7 +19,7 @@ jobs:
       
       - name: Make some changes
         shell: bash
-        run: echo "- $(date '+%F %T')" >> .github/resources/auto-commit-test.md
+        run: echo "- $(date -u -d '8 hours' '+%F %T')" >> .github/resources/auto-commit-test.md
       
       - name: Run Auto Commit
         uses: ./.github/actions/auto-commit
