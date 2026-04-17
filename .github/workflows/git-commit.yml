@@ -16,6 +16,10 @@ jobs:
         with:
           fetch-depth: 0
       
+      - name: Make some changes
+        shell: bash
+        run: echo "- $(date '+%F %T')" >> /auto-commit-test.md
+      
       - name: Run Auto Commit
         uses: ./.github/actions/auto-commit
         with:

@@ -36,7 +36,7 @@ done
 
 # 检查是否有实际变更
 if git diff --staged --quiet; then
-    echo "   No changes detected. Skipping commit."
+    echo "没有检测到任何变更，跳过提交。"
     exit 0
 fi
 
