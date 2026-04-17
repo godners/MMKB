@@ -41,7 +41,7 @@ if git diff --staged --quiet; then
 fi
 
 # ====================== Commit & Push ======================
-COMMIT_TIME=$(date '+%F %T')
+COMMIT_TIME=$(date -u -d '8 hours' '+%F %T')
 COMMIT_MESSAGE="${COMMIT_PREFIX} on ${COMMIT_TIME}"
 
 echo "Committing: ${COMMIT_MESSAGE}"

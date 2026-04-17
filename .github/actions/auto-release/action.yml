@@ -1,0 +1,40 @@
+name: 04. Auto Release
+
+description: '根据最新提交自动创建 GitHub Release'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 生成 Release 信息
+      id: release_info
+      shell: bash
+      run: bash .github/scripts/auto-release-info.bash
+    
+    - name: 检查最后一次 Release 后是否有新提交
+      id: has_changes
+      shell: bash
+      run: bash .github/scripts/auto-release-check.bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: 如果 Release 已存在则删除
+      if: steps.has_changes.outputs.has_changes == 'true'
+      shell: bash
+      run: gh release delete ${{ steps.release_info.outputs.tag }} --yes --cleanup-tag 2>/dev/null || echo ""
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: 创建新的 GitHub Release
+      if: steps.has_changes.outputs.has_changes == 'true'
+      uses: softprops/action-gh-release@v3
+      with:
+        tag_name: ${{ steps.release_info.outputs.tag}}
+        name: "${{ steps.release_info.outputs.tag }}"
+        body: |
+          ## 生成时间（GMT+8）：${{ steps.release_info.outputs.time }}
+
+          此 Release 为自动每日构建，仅因有新提交而触发。
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
