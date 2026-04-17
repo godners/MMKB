@@ -1,7 +1,5 @@
 name: 99. Daily Operation
 
-description: 每日定时（北京时间 02:00）依次执行：generate-readmes → add-license-footer → auto-release
-
 on:
   schedule:
     - cron: '0 18 * * *'      # 北京时间每天凌晨 02:00 (UTC+8)
@@ -11,16 +9,35 @@ permissions:
   contents: write
 
 jobs:
-  call-auto-contents:
-    uses: ./.github/workflows/auto-contents.yml
+  daily-operation:
+    runs-on: ubuntu-latest
     
-  call-generate-readmes:
-    uses: ./.github/workflows/auto-readmes.yml
-    
-  call-add-license-footer:
-    uses: ./.github/workflows/auto-license.yml
-    needs: call-generate-readmes
-  
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Run Auto License
+        run: python .github/scripts/auto-contents.py
+      
+      - name: Run Auto Readmes
+        run: python .github/scripts/auto-readmes.py
+
+      - name: Run Auto License
+        run: python .github/scripts/auto-license.py
+
+      - name: Run Auto Commit
+        uses: ./.github/actions/auto-commit
+        with:
+          patterns: |
+            **/*.md
+            *.md
+          commit-prefix: "Auto License"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   call-auto-release:
     uses: ./.github/workflows/auto-release.yml
     needs: call-add-license-footer
