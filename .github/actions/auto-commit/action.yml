@@ -28,5 +28,5 @@ runs:
       env:
         INPUT_PATTERNS: ${{ inputs.patterns }}
         INPUT_COMMIT_PREFIX: ${{ inputs.commit-prefix }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
         

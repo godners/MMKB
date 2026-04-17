@@ -22,5 +22,6 @@ jobs:
           patterns: |
             **/*.md
             *.md
-
           commit-prefix: "[TEST] Auto Commit"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
