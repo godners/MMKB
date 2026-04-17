@@ -75,7 +75,8 @@ def parse_readme_template(content: str, base_dir: Path) -> str:
         # 普通行直接保留
         result.append(lines[i])
         i += 1
-
+    
+    return ''.join(result)
 
 def generate_readme_for_dir(dir_path: Path, root: Path):
     """为单个目录生成 README.md"""
@@ -112,8 +113,8 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
         return
 
     header = f"# {dir_path.name if dir_path.name != '.' else '项目根目录'}"
-
-    final_content = header + final_content.rstrip() 
+    body = final_content if final_content is not None else ""
+    final_content = header + body.rstrip() 
 
     # 写入或更新
     if readme_path.exists():
