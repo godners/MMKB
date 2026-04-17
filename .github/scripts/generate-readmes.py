@@ -4,7 +4,6 @@ import json
 import re
 from pathlib import Path
 
-# ====================== 配置 ======================
 CONFIG_FILE = Path(".github/configs/generate-readmes.json")
 
 def load_config():
@@ -16,7 +15,7 @@ def load_config():
         with open(CONFIG_FILE, encoding="utf-8") as f:
             return json.load(f)
     except:
-        print(f"警告：配置文件 {CONFIG_FILE} 加载失败，使用空配置。")
+        # print(f"警告：配置文件 {CONFIG_FILE} 加载失败，使用空配置。")
         return {}
     
 config = load_config()
@@ -43,7 +42,7 @@ def parse_readme_template(content: str, base_dir: Path) -> str:
                     with open(include_path, encoding="utf-8") as f:
                         included = f.read()
                     result.append(included)
-                    print(f"   已嵌入：{filename}")
+                    # print(f"   已嵌入：{filename}")
                 except Exception as e:
                     result.append(f"<!-- 嵌入失败 {filename}: {e} -->\n")
                     print(f"  嵌入失败: {filename} -> {e}")
@@ -92,7 +91,7 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
         try:
             with open(template_path, encoding="utf-8") as f:
                 template_content = f.read()
-            print(f"处理目录 (使用 .README): {dir_path.relative_to(root)}")
+            # print(f"处理目录 (使用 .README): {dir_path.relative_to(root)}")
             final_content = parse_readme_template(template_content, dir_path)
         except Exception as e:
             print(f"读取 .README 失败: {dir_path} -> {e}")
@@ -103,13 +102,13 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
         try:
             with open(contents_path, encoding="utf-8") as f:
                 final_content = f.read()
-            print(f"处理目录 (使用 CONTENTS.md): {dir_path.relative_to(root)}")            
+            # print(f"处理目录 (使用 CONTENTS.md): {dir_path.relative_to(root)}")            
         except Exception as e:
             print(f"读取 CONTENTS.md 失败: {dir_path} -> {e}")
     
     # 情况3: 两者都不存在
     else:
-        print(f"跳过（无 .README 和 CONTENTS.md）: {dir_path.relative_to(root)}")
+        # print(f"跳过（无 .README 和 CONTENTS.md）: {dir_path.relative_to(root)}")
         return
 
     final_content = (final_content if final_content is not None else "").rstrip()
@@ -119,7 +118,7 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
         try:
             old_content = readme_path.read_text(encoding="utf-8")
             if old_content.strip() == final_content.strip():
-                print(f"  内容未变化，跳过写入")
+                # print(f"  内容未变化，跳过写入")
                 return
         except Exception:
             pass

@@ -49,6 +49,6 @@ body:
       options:
         - label: 我已搜索现有 Issue 和 Discussions，没有重复建议。
           required: true
-        - label: 这个请求与医学知识笔记、仓库结构或写作体验相关。
+        - label: 这个请求与知识笔记、仓库结构或写作体验相关。
           required: true
         - label: 我理解本仓库为个人学习用途，新增内容需符合 CC-BY-NC-SA 许可。
