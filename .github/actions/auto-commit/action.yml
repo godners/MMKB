@@ -2,13 +2,6 @@ name: 04. Auto Commit
 
 description: '自动提交并推送指定的 Markdown 文件'
 
-on:
-  workflow_call:
-  workflow_dispatch:
-
-permissions:
-  contents: write
-
 inputs:
   patterns:
     description: '要提交的文件模式列表（每行一个）'
@@ -33,7 +26,7 @@ runs:
       shell: bash
       run: bash .github/scripts/auto-commit-push.bash
       env:
-        INPUT_PATTERNS: ${{ input.patterns }}
-        INPUT_COMMIT_PREFIX: ${{ input.commit-prefix }}
+        INPUT_PATTERNS: ${{ inputs.patterns }}
+        INPUT_COMMIT_PREFIX: ${{ inputs.commit-prefix }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
