@@ -8,7 +8,7 @@ We as members, contributors, and maintainers of MMKB pledge to make participatio
 
 ## Our Standards / 我们的标准
 
-### Examples of behavior that contributes to creating a positive environment / 积极行为示例：
+### Examples of behavior that contributes to creating a positive environment / 积极行为示例
 
 - Using welcoming and inclusive language / 使用友好且包容的语言
 - Being respectful of differing viewpoints and experiences / 尊重不同的观点和经验
@@ -16,7 +16,7 @@ We as members, contributors, and maintainers of MMKB pledge to make participatio
 - Focusing on what is best for the community / 专注于对社区最有利的事情
 - Showing empathy towards other community members / 对其他社区成员表现出同理心
 
-### Examples of unacceptable behavior / 不被接受的行为：
+### Examples of unacceptable behavior / 不被接受的行为
 
 - The use of sexualized language or imagery, and sexual attention or advances / 使用带有性意味的语言或图像，以及任何形式的献殷勤或挑逗行为
 - Trolling, insulting or derogatory comments, and personal or political attacks / 挑衅、侮辱或贬低性评论，以及人身攻击或政治攻击
@@ -42,6 +42,6 @@ This Code of Conduct is adapted from the [Contributor Covenant](https://www.cont
 
 ---
 
-**Repository / 仓库**：https://github.com/godners/MMKB  
+**Repository / 仓库**：<https://github.com/godners/MMKB>  
 **Author / 作者**：godners  
 **License / 许可证**：[CC BY-NC-SA 4.0 International](LICENSE)

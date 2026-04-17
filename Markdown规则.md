@@ -1,3 +1,4 @@
+
 # Markdown 规则
 
 ## 1. 标题（Headings）相关规则
@@ -110,7 +111,7 @@
 
 - MD011 no-reversed-links
   - 中文：禁止反向链接语法
-  - 解释：链接不能写成反向形式（如 [text](url) 而不是 (url)[text]）。
+  - 解释：链接不能写成反向形式（如 [text](url) 而不是 [url](text)）。
 - MD034 no-bare-urls
   - 中文：禁止裸 URL
   - 解释：直接写网址应使用 <https://...> 或 [文本](url) 形式。
@@ -125,10 +126,10 @@
   - 解释：图片 ![alt](url) 中的 alt 文字不能为空，提升可访问性。
 - MD051 link-fragments
   - 中文：链接片段（锚点）必须有效
-  - 解释：[text](#anchor) 中的 anchor 必须在文档中存在。
+  - 解释：[text](#anchor) 中的 anchor 必须在文档中存在。<!-- markdownlint-disable-line MD051 -->
 - MD052 reference-links-images
   - 中文：引用式链接/图片的标签必须已定义
-  - 解释：使用 [text][label] 时，文档底部必须有对应的 [label]: url 定义。
+  - 解释：使用 [text][label] 时，文档底部必须有对应的 [label]: url 定义。<!-- markdownlint-disable-line MD052 -->
 - MD053 link-image-reference-definitions
   - 中文：引用式链接/图片定义必须被使用
   - 解释：定义了 [label]: url 但文档中未使用时触发。

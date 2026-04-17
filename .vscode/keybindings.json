@@ -9,6 +9,7 @@
 * Ctrl + Shift + 3：替换符号数字
 * Ctrl + Shift + 4：删除空行，包括仅有空格和Tab符号的行
 * Ctrl + Shift + 5：数字开头提升为一级标题
+* Ctrl + Shift + 6: #、## 标题降级
 */
 [
     {
@@ -148,5 +149,51 @@
             ]
         },
         "when": "editorTextFocus && !editorReadonly"
+    },
+
+    {
+        /* #、## 标题降级 */
+        "key": "ctrl+shift+6",   
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                {
+                    "command": "editor.actions.findWithArgs",
+                    "args": {
+                        "searchString": "^## ",
+                        "replaceString": "### ",
+                        "isRegex": true,
+                        "isCaseSensitive": false,
+                        "matchWholeWord": false,
+                        "findInSelection": false
+                    }
+                },
+                "editor.action.selectAllMatches",
+                "editor.action.replaceAll",
+                "closeFindWidget",
+                {
+                    "command": "editor.actions.findWithArgs",
+                    "args": {
+                        "searchString": "^# ",
+                        "replaceString": "## ",
+                        "isRegex": true,
+                        "isCaseSensitive": false,
+                        "matchWholeWord": false,
+                        "findInSelection": false
+                    }
+                },
+                "editor.action.selectAllMatches",
+                "editor.action.replaceAll",
+                "closeFindWidget",
+                "cancelSelection",
+                {
+                    "command": "cursorTop",
+                    "args": {
+                        "select": false
+                    }
+                }
+            ]
+        },
+        "when": "editorTextFocus && !editorReadonly && editorLangId == 'markdown'"
     }
 ]

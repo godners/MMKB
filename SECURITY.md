@@ -3,9 +3,9 @@
 ## Supported Versions / 支持的版本
 
 | Version / 版本       | Supported / 是否支持 |
-|----------------------|----------------------|
-| Latest (main branch) | Yes / 是            |
-| Older releases       | No / 否             |
+|:--------------------:|:--------------------:|
+| Latest (main branch) |       Yes / 是       |
+| Older releases       |       No / 否        |
 
 本仓库为个人医学知识库，主要包含 Markdown 笔记。目前仅维护 `main` 分支。
 
@@ -27,6 +27,7 @@
    - Email: （你可以在这里填写你的邮箱，如果不想公开可留空）
 
 **请在报告中尽量提供以下信息：**
+
 - 问题描述
 - 具体文件路径或 affected area
 - 重现步骤（如果适用）
@@ -47,5 +48,5 @@
 **感谢您帮助维护 MMKB 的安全！**  
 **Thank you for helping keep MMKB secure.**
 
-仓库地址 / Repository: https://github.com/godners/MMKB  
+仓库地址 / Repository: <https://github.com/godners/MMKB>  
 作者 / Author: Godners

@@ -1,0 +1,10 @@
+{
+  "[markdown]": {
+    "editor.formatOnSave": false,                    // 可选：不强制格式化整个文件
+    "editor.codeActionsOnSave": {
+      "source.fixAll.markdownlint": "explicit"       // 保存时显示修复选项（推荐）
+    }
+  },
+  "markdownlint.configFile": ".vscode/.markdownlint.json",
+  "markdownlint.lintWorkspaceGlobs": [ "**/*.md"  ]
+}
