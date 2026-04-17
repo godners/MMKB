@@ -1,7 +1,5 @@
 name: 90. Auto Release
 
-description: 创建每日自动 Release
-
 on:
   workflow_call:
   workflow_dispatch:
@@ -25,9 +23,9 @@ jobs:
 
       - name: 检查最后一次 Release 后是否有新提交
         id: has_changes
+        run: bash .github/scripts/auto-release-check.bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bash .github/scripts/auto-release-check.bash
 
       - name: 如果 Release 已存在则删除
         if: steps.has_changes.outputs.has_changes == 'true'
