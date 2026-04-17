@@ -139,7 +139,9 @@ def generate_contents_for_dir(dir_path: Path, root: Path):
 
     lines.append("")
     lines.append("> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。")
-
+    lines.append("")
+    lines.append("---")
+    lines.append("")
     new_content = "\n".join(lines)
 
     # 如果内容未变化则跳过写入
