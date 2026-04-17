@@ -53,6 +53,6 @@ else
     done
 fi
 
-
+echo "======== 参数列表 ========"
 git config --local --list 
 

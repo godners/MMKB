@@ -15,5 +15,5 @@ updates:
       - "dependencies"
       - "github-actions"
     commit-message:
-      prefix: "chore"
+      prefix: "BOT"
       include: "scope"
