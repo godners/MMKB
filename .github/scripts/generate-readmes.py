@@ -112,17 +112,9 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
         print(f"跳过（无 .README 和 CONTENTS.md）: {dir_path.relative_to(root)}")
         return
 
-    header = f"""# {dir_path.name if dir_path.name != '.' else '项目根目录'}
+    header = f"# {dir_path.name if dir_path.name != '.' else '项目根目录'}"
 
-    > 本文件由 GitHub Actions 根据 `.README` 或 `CONTENTS.md` 自动生成，请勿手动修改。
-
-    """
-    footer = f"""
-
-> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。
-
-"""
-    final_content = header + final_content.rstrip() + footer
+    final_content = header + final_content.rstrip() 
 
     # 写入或更新
     if readme_path.exists():
