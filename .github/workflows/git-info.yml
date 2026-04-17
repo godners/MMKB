@@ -1,8 +1,7 @@
-name: 00. Git Info
+name: [TEST] Git Info
 
 on:
   workflow_dispatch:
-  workflow_call:
 
 permissions:
   contents: write

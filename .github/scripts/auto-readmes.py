@@ -4,7 +4,7 @@ import json
 import re
 from pathlib import Path
 
-CONFIG_FILE = Path(".github/configs/generate-readmes.json")
+CONFIG_FILE = Path(".github/configs/auto-readmes.json")
 
 def load_config():
     if not CONFIG_FILE.exists():

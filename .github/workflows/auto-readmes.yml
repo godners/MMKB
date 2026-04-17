@@ -26,7 +26,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
 
       - name: 运行 Python 脚本生成所有 README.md
-        run: python .github/scripts/generate-readmes.py
+        run: python .github/scripts/auto-readmes.py
 
       - name: Commit 并 Push README 更新
         run: |

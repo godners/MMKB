@@ -1,0 +1,26 @@
+name: [TEST] Auto Commit
+
+on: 
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      
+      - name: Run Auto Commit
+        uses: ./.github/actions/auto-commit
+        with:
+          patterns: |
+            **/*.md
+            *.md
+
+          commit-prefix: "[TEST] Auto Commit"
