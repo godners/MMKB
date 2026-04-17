@@ -1,4 +1,4 @@
-name: 02. Auto README
+name: 02. Auto Readmes
 
 description: 递归遍历所有目录，自动生成/更新 README.md，并提交更改
 
@@ -20,19 +20,15 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 设置 Git 用户信息
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-
       - name: 运行 Python 脚本生成所有 README.md
         run: python .github/scripts/auto-readmes.py
 
-      - name: Commit 并 Push README 更新
-        run: |
-          if ! git diff --quiet -- "**/README.md" "README.md"; then
-            COMMIT_TIME=$(date '+%F %T')
-            git add "**/README.md" "README.md"
-            git commit -m "Auto READMEs on ${COMMIT_TIME}"
-            git push
-          fi
+      - name: Run Auto Commit
+        uses: ./.github/actions/auto-commit
+        with:
+          patterns: |
+            **/README.md
+            README.md
+          commit-prefix: "Auto Readmes"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
