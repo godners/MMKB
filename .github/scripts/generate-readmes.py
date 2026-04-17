@@ -112,9 +112,6 @@ def generate_readme_for_dir(dir_path: Path, root: Path):
         print(f"跳过（无 .README 和 CONTENTS.md）: {dir_path.relative_to(root)}")
         return
 
-    # header = f"# {dir_path.name if dir_path.name != '.' else '项目根目录'}"
-    # body = final_content if final_content is not None else ""
-    # final_content = header + body.rstrip() 
     final_content = (final_content if final_content is not None else "").rstrip()
 
     # 写入或更新

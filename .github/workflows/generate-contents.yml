@@ -1,4 +1,4 @@
-name: Generate Contents
+name: Auto Contents
 
 description: 递归遍历所有目录，自动生成/更新 CONTENTS.md，并提交更改
 
