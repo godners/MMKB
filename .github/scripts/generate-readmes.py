@@ -42,7 +42,7 @@ def parse_readme_template(content: str, base_dir: Path) -> str:
                 try:
                     with open(include_path, encoding="utf-8") as f:
                         included = f.read()
-                    result.append(include)
+                    result.append(included)
                     print(f"   已嵌入：{filename}")
                 except Exception as e:
                     result.append(f"<!-- 嵌入失败 {filename}: {e} -->\n")
@@ -75,7 +75,6 @@ def parse_readme_template(content: str, base_dir: Path) -> str:
         # 普通行直接保留
         result.append(lines[i])
         i += 1
-
 
 
 def generate_readme_for_dir(dir_path: Path, root: Path):
