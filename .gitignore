@@ -20,7 +20,6 @@ ehthumbs.db
 Thumbs.db
 
 # 编辑器 / IDE
-.vscode/
 .idea/
 *.swp
 *.swo

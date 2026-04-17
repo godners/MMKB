@@ -1,0 +1,54 @@
+name: 功能请求 / Feature Request
+description: 提出对仓库的新功能建议、改进想法或新笔记主题
+title: "[Feature] "
+labels: ["enhancement"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您提出功能请求！请先搜索现有 Issue 是否已有类似建议，以避免重复。
+        
+        **注意**：本仓库功能请求优先考虑笔记组织、自动化、写作体验等方向。
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 功能描述 / Feature Description
+      description: 请详细描述您希望添加的功能、改进或新笔记主题。
+      placeholder: 例如：希望增加药物搜索索引、添加激素作用的对比表格、优化 Markdown 写作模板等。
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: 为什么需要这个功能？ / Why is this needed?
+      description: 说明这个功能对仓库或使用者的价值、解决的问题或使用场景。
+      placeholder: 它能让笔记更易搜索/整理/学习...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 建议的实现方式 / Proposed Solution
+      description: 如果有，描述您建议如何实现（可选）。
+      placeholder: 例如：修改 GitHub Actions、添加新 Markdown 模板、在 README 中增加索引表等。
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 其他考虑 / Alternatives
+      description: 是否有其他替代方案或已尝试的方法？（可选）
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 检查清单 / Checklist
+      options:
+        - label: 我已搜索现有 Issue 和 Discussions，没有重复建议。
+          required: true
+        - label: 这个请求与医学知识笔记、仓库结构或写作体验相关。
+          required: true
+        - label: 我理解本仓库为个人学习用途，新增内容需符合 CC-BY-NC-SA 许可。

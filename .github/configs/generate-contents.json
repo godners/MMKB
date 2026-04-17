@@ -9,7 +9,8 @@
         { "name": ".github", "type": "dir" },
         { "name": ".git", "type": "dir" },
         { "name": "CONTENTS.md", "type": "file" },
-        { "name": ".README", "type": "file" }
+        { "name": ".README", "type": "file" },
+        { "name": ".vscode", "type": "dir" }
     ],
     "name_mapping": [
         { "name": "keybindings.json", "new_name": "VS CODE 键盘映射" }

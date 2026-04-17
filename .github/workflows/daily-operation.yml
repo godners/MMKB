@@ -1,4 +1,4 @@
-name: Daily Operation
+name: 99. Daily Operation
 
 description: 每日定时（北京时间 02:00）依次执行：generate-readmes → add-license-footer → auto-release
 

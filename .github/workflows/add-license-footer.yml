@@ -1,4 +1,4 @@
-name: Auto License
+name: 03. Auto License
 
 on:
   workflow_dispatch:
