@@ -15,14 +15,14 @@ runs:
       shell: bash
       run: bash .github/scripts/auto-release-check.bash
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
 
     - name: 如果 Release 已存在则删除
       if: steps.has_changes.outputs.has_changes == 'true'
       shell: bash
       run: gh release delete ${{ steps.release_info.outputs.tag }} --yes --cleanup-tag 2>/dev/null || echo ""
       env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ env.GITHUB_TOKEN }}
     
     - name: 创建新的 GitHub Release
       if: steps.has_changes.outputs.has_changes == 'true'
