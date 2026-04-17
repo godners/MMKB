@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 # ====================== 配置 ======================
-CONFIG_FILE = Path(".github/configs/generate-contents.json")
+CONFIG_FILE = Path(".github/configs/auto-contents.json")
 
 def load_config():
     if not CONFIG_FILE.exists():

@@ -11,6 +11,9 @@ permissions:
   contents: write
 
 jobs:
+  call-auto-contents:
+    uses: ./.github/workflows/auto-contents.yml
+    
   call-generate-readmes:
     uses: ./.github/workflows/generate-readmes.yml
     

@@ -1,0 +1,32 @@
+name: 00. Git Info
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  git-info:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: action/checkout@v6
+        with:
+          fetch-depth: 0
+        
+      - name: run bash
+        run: bash .github/scripts/git-info.bash
+        shell: bash
+
+      - name: verify git config
+        run: |
+          echo "user.name  = $(git config --local user.name)"
+          echo "user.email = $(git config --local user.email)"
+          git config --local --list
+        shell: bash
+        
+
+        
