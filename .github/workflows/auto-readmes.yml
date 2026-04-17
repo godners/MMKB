@@ -1,7 +1,5 @@
 name: 02. Auto Readmes
 
-description: 递归遍历所有目录，自动生成/更新 README.md，并提交更改
-
 on:
   workflow_dispatch:        # 手动触发
   workflow_call:            # 允许被其他 workflow 调用
