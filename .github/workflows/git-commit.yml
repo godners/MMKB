@@ -1,4 +1,4 @@
-name: [TEST] Auto Commit
+name: TEST. Auto Commit
 
 on: 
   workflow_dispatch:

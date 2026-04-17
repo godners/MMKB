@@ -1,4 +1,4 @@
-name: [TEST] Git Info
+name: TEST. Git Info
 
 on:
   workflow_dispatch:
