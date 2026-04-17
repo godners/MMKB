@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-JSON_FILE="../configs/git-info.json"
+JSON_FILE=".github/configs/git-info.json"
 
 echo "Reading git configuration from ${JSON_FILE}..."
 
