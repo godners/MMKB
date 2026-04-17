@@ -1,8 +1,4 @@
-# 分段量化调研
-
-    > 本文件由 GitHub Actions 根据 `.README` 或 `CONTENTS.md` 自动生成，请勿手动修改。
-
-    ### 分段量化调研
+# 分段量化调研### 分段量化调研
 
 仓库文件与子目录结构（由 GitHub Actions 自动生成，请勿手动修改）
 
@@ -12,6 +8,3 @@
 
 
 > 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。
-
-> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。
-

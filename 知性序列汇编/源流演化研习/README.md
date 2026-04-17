@@ -1,8 +1,4 @@
-# 源流演化研习
-
-    > 本文件由 GitHub Actions 根据 `.README` 或 `CONTENTS.md` 自动生成，请勿手动修改。
-
-    ### 源流演化研习
+# 源流演化研习### 源流演化研习
 
 仓库文件与子目录结构（由 GitHub Actions 自动生成，请勿手动修改）
 
@@ -17,6 +13,3 @@
 
 
 > 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。
-
-> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。
-

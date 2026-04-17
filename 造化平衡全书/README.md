@@ -1,8 +1,4 @@
-# 造化平衡全书
-
-    > 本文件由 GitHub Actions 根据 `.README` 或 `CONTENTS.md` 自动生成，请勿手动修改。
-
-    ## 造化平衡全书
+# 造化平衡全书## 造化平衡全书
 
 仓库文件与子目录结构（由 GitHub Actions 自动生成，请勿手动修改）
 
@@ -83,6 +79,3 @@
 
 ---
 > License Added
-
-> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。
-
