@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-TODAY=$(date -u -d '8 hours' '+%T')
+TODAY=$(date -u -d '8 hours' '+%Y.%m.%d')
 TAG="${TODAY}.auto"
 echo "tag=${TAG}" >> $GITHUB_OUTPUT
 

@@ -37,8 +37,8 @@ This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAl
 
 - **Attribution** - You must give appropriate credit, provide a link to the license, and indicate if changes were made.
 - **NonCommercial** - You may not use the material for commercial purposes.
-- **ShareAlike** - If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.  
-- **No additional restrictions** - You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+- **ShareAlike** - If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original. <!-- markdownlint-disable-line MD013 -->
+- **No additional restrictions** - You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.<!-- markdownlint-disable-line MD013 -->
 
 ---
 

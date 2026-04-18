@@ -2,9 +2,10 @@
 
 ## Our Pledge / 我们的承诺
 
-We as members, contributors, and maintainers of MMKB pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
-
-我们作为 MMKB 的成员、贡献者和维护者，承诺为所有人营造一个无骚扰的友好、安全、包容的参与环境，无论参与者的年龄、体型、残疾、民族、性别认同与表达、经验水平、教育程度、社会经济地位、国籍、外貌、种族、宗教或性取向与性别认同如何。
+```plaintext
+     We as members, contributors, and maintainers of MMKB pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
+     我们作为 MMKB 的成员、贡献者和维护者，承诺为所有人营造一个无骚扰的友好、安全、包容的参与环境，无论参与者的年龄、体型、残疾、民族、性别认同与表达、经验水平、教育程度、社会经济地位、国籍、外貌、种族、宗教或性取向与性别认同如何。
+```
 
 ## Our Standards / 我们的标准
 
@@ -26,13 +27,12 @@ We as members, contributors, and maintainers of MMKB pledge to make participatio
 
 ## Enforcement / 执行
 
-Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.
-
-项目维护者有责任澄清可接受行为的标准，并对任何不当行为采取适当且公平的纠正措施。
-
-If you experience or witness unacceptable behavior, please contact the project maintainer as soon as possible.
-
-如果您遇到或目睹了违反本行为准则的行为，请尽快联系项目维护者。
+```plaintext
+     Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.
+     项目维护者有责任澄清可接受行为的标准，并对任何不当行为采取适当且公平的纠正措施。
+     If you experience or witness unacceptable behavior, please contact the project maintainer as soon as possible.
+     如果您遇到或目睹了违反本行为准则的行为，请尽快联系项目维护者。
+```
 
 ## Attribution / 来源
 
@@ -43,5 +43,5 @@ This Code of Conduct is adapted from the [Contributor Covenant](https://www.cont
 ---
 
 **Repository / 仓库**：<https://github.com/godners/MMKB>  
-**Author / 作者**：godners  
+**Author / 作者**：Godners  
 **License / 许可证**：[CC BY-NC-SA 4.0 International](LICENSE)
