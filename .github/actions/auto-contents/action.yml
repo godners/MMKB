@@ -7,4 +7,4 @@ runs:
   steps:
     - name: 运行 Python 脚本生成所有 CONTENTS.md
       run: python .github/scripts/auto-contents.py
-      shell: python
+      shell: bash
