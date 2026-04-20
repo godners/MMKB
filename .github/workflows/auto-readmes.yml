@@ -8,7 +8,7 @@ permissions:
   contents: write
 
 jobs:
-  generate:
+  auto-readmes:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,10 +18,8 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: 运行 Python 脚本生成所有 README.md
-      #   run: python .github/scripts/auto-readmes.py
       - name: Run Auto Readmes
-        run: python .github/scripts/auto-readmes.py
+        uses: ./.github/actions/auto-readmes
 
       - name: Run Auto Commit
         uses: ./.github/actions/auto-commit

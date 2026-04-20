@@ -1,4 +1,4 @@
-name: 0x. Daily Operation
+name: PERIOD. Daily Operation
 
 on:
   schedule:
@@ -21,11 +21,11 @@ jobs:
       
       - name: Run Auto Contents
         uses: ./.github/actions/auto-contents
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
+      # - name: Run Auto Readmes
+      #   run: python .github/scripts/auto-readmes.py
       - name: Run Auto Readmes
-        run: python .github/scripts/auto-readmes.py
+        uses: ./.github/actions/auto-readmes
 
       - name: Run Auto License
         run: python .github/scripts/auto-license.py
