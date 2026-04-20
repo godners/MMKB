@@ -2,16 +2,26 @@ import os
 import json
 from pathlib import Path
 
-LICENSE_FILE = ".github/resources/license-footer.md"
-EXCLUDE_FILE = ".github/configs/auto-license.json"
-CHECK_KEYWORD = "> License Added"
+# LICENSE_FILE = ".github/resources/license-footer.md"
+CONFIG_FILE = ".github/configs/auto-license.json"
+# CHECK_KEYWORD = "> License Added"
 
-def load_ignore_list():
-    if os.path.exists(EXCLUDE_FILE):
-        with open(EXCLUDE_FILE, 'r', encoding='utf-8') as f:
+def load_config():
+    if os.path.exists(CONFIG_FILE):
+        with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
             data = json.load(f)
-            return data.get("ignore_objects", [])
-    return []
+            return {
+                "license_footer": data.get("license_footer", ".github/resources/license-footer.md"),
+                "check_keyword": data.get("check_keyword", "> License Added"),
+                "ignore_objects": data.get("ignore_objects", [])
+            }
+    else:
+        print(f"警告：配置文件 {CONFIG_FILE} 不存在，使用默认值")
+        return {
+            "license_footer": ".github/resources/license-footer.md",
+            "check_keyword": "> License Added",
+            "ignore_objects": []
+        }
 
 def should_ignore(file_path, ignore_list):
     # 规范化路径（使用 / 作为分隔符）
@@ -31,11 +41,16 @@ def should_ignore(file_path, ignore_list):
                 return True
     return False
 
-def has_license(content):
-    return CHECK_KEYWORD in content
+def has_license(content, check_keyword):
+    return check_keyword in content
 
 def main():
-    ignore_list = load_ignore_list()
+    config = load_config()
+
+    LICENSE_FILE = config["license_footer"]
+    CHECK_KEYWORD = config["check_keyword"]
+    ignore_list = config["ignore_objects"]
+
     if not os.path.exists(LICENSE_FILE):
         print(f"错误：许可文件 {LICENSE_FILE} 不存在")
         return
@@ -50,15 +65,13 @@ def main():
     added_count = 0
     for md_file in md_files:
         if should_ignore(md_file, ignore_list):
-            # print(f"已忽略: {md_file}")
             continue
         
         try:
             with open(md_file, 'r', encoding='utf-8') as f:
                 content = f.read()
             
-            if has_license(content):
-                # print(f"已有声明: {md_file}")
+            if has_license(content, CHECK_KEYWORD):
                 continue
             
             # 添加声明
