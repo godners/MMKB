@@ -21,7 +21,7 @@ jobs:
       # - name: 运行 Python 脚本生成所有 CONTENTS.md
       #   run: python .github/scripts/auto-contents.py
       - name: Run Auto Contents
-        uses: ./.github/action/auto-contents
+        uses: ./.github/actions/auto-contents
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
