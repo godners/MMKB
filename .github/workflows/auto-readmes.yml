@@ -1,4 +1,4 @@
-name: 02. Auto Readmes
+name: Auto Readmes
 
 on:
   workflow_dispatch:        # 手动触发
@@ -18,7 +18,9 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 运行 Python 脚本生成所有 README.md
+      # - name: 运行 Python 脚本生成所有 README.md
+      #   run: python .github/scripts/auto-readmes.py
+      - name: Run Auto Readmes
         run: python .github/scripts/auto-readmes.py
 
       - name: Run Auto Commit

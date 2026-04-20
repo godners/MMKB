@@ -1,0 +1,10 @@
+name: 02. Auto Readmes
+
+description: '自动生成 README.md 文件'
+
+runs:
+  using: composite
+  steps:
+    - name: 运行 Python 脚本生成所有 README.md
+      run: python .github/scripts/auto-contents.py
+      shell: bash
