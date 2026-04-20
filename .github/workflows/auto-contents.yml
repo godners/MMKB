@@ -18,8 +18,12 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 运行 Python 脚本生成所有 CONTENTS.md
-        run: python .github/scripts/auto-contents.py
+      # - name: 运行 Python 脚本生成所有 CONTENTS.md
+      #   run: python .github/scripts/auto-contents.py
+      - name: Run Auto Contents
+        uses: ./.github/action/auto-contents
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Auto Commit
         uses: ./.github/actions/auto-commit

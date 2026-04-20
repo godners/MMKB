@@ -2,24 +2,25 @@ import os
 import json
 from pathlib import Path
 
-# LICENSE_FILE = ".github/resources/license-footer.md"
 CONFIG_FILE = ".github/configs/auto-license.json"
-# CHECK_KEYWORD = "> License Added"
+FALLBACK_LICENSE_FOOTER = ".github/resources/license-footer.md"
+FALLBACK_CHECK_KEYWORD = "> License Added"
 
+# 加载配置文件
 def load_config():
     if os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
             data = json.load(f)
             return {
-                "license_footer": data.get("license_footer", ".github/resources/license-footer.md"),
-                "check_keyword": data.get("check_keyword", "> License Added"),
+                "license_footer": data.get("license_footer", FALLBACK_LICENSE_FOOTER),
+                "check_keyword": data.get("check_keyword", FALLBACK_CHECK_KEYWORD),
                 "ignore_objects": data.get("ignore_objects", [])
             }
     else:
-        print(f"警告：配置文件 {CONFIG_FILE} 不存在，使用默认值")
+        print(f"警告：配置文件 {CONFIG_FILE} 不存在，使用 Fallback 值")
         return {
-            "license_footer": ".github/resources/license-footer.md",
-            "check_keyword": "> License Added",
+            "license_footer": FALLBACK_LICENSE_FOOTER,
+            "check_keyword": FALLBACK_CHECK_KEYWORD,
             "ignore_objects": []
         }
 
