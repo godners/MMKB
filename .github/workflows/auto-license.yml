@@ -1,4 +1,4 @@
-name: 03. Auto License
+name: Auto License
 
 on:
   workflow_dispatch:
@@ -18,7 +18,9 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}        
 
-      - name: 运行 Python 脚本添加License声明
+      # - name: 运行 Python 脚本添加License声明
+      #   run: python .github/scripts/auto-license.py
+      - name: Run Auto License
         run: python .github/scripts/auto-license.py
       
       - name: Run Auto Commit
