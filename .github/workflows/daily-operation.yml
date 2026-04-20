@@ -21,14 +21,12 @@ jobs:
       
       - name: Run Auto Contents
         uses: ./.github/actions/auto-contents
-      
-      # - name: Run Auto Readmes
-      #   run: python .github/scripts/auto-readmes.py
+
       - name: Run Auto Readmes
         uses: ./.github/actions/auto-readmes
 
       - name: Run Auto License
-        run: python .github/scripts/auto-license.py
+        uses: python ./.github/actions/auto-license
 
       - name: Run Auto Commit
         uses: ./.github/actions/auto-commit
