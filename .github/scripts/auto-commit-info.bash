@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONFIG_FILE=".github/configs/auto-commit-new.json"
+CONFIG_FILE=".github/configs/auto-commit.json"
 
 echo "从配置文件读取： ${CONFIG_FILE}..."
 

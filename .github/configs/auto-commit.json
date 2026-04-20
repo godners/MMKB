@@ -1,6 +1,12 @@
 {
-    "user": {
-        "name": "github-actions[bot]",
-        "email": "github-actions[bot]@users.noreply.github.com"
+    "git": {
+        "user": {
+            "name": "github-actions[bot]",
+            "email": "github-actions[bot]@users.noreply.github.com"
+       }
+    },
+        "default": {
+            "commit-prefix": "Auto Commit",
+            "patterns": ["**/*.md", "*.md"]
     }
 }

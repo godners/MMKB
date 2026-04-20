@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONFIG_FILE=".github/configs/auto-commit-new.json"
+CONFIG_FILE=".github/configs/auto-commit.json"
 
 # ====================== 1. 确保 jq 已安装 ======================
 if ! command jq > /dev/null 2>&1; then
