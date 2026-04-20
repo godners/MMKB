@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-JSON_FILE=".github/configs/auto-commit-new.json"
+CONFIG_FILE=".github/configs/auto-commit-new.json"
 
-echo "Reading git configuration from ${JSON_FILE}..."
+echo "从配置文件读取： ${CONFIG_FILE}..."
 
 # ====================== 1. 确保 jq 已安装 ======================
 if ! command jq > /dev/null 2>&1; then
@@ -13,10 +13,10 @@ if ! command jq > /dev/null 2>&1; then
 fi
 
 # ====================== 2. 检查并创建默认 JSON ======================
-if [ ! -f "${JSON_FILE}" ];
+if [ ! -f "${CONFIG_FILE}" ];
 then
-  echo "    ${JSON_FILE} 未找到, 按默认配置创建..."
-  cat > "${JSON_FILE}" << EOF
+  echo "    ${CONFIG_FILE} 未找到, 按默认配置创建..."
+  cat > "${CONFIG_FILE}" << EOF
 {
     "git": {
         "user": {
@@ -38,7 +38,7 @@ echo "读取应用全部参数..."
 mapfile -t git_configs < <(jq -r '
     .git.user | to_entries[] |
     "user.\(.key)=\(.value)"
-' "${JSON_FILE}" 2>/dev/null || echo "")
+' "${CONFIG_FILE}" 2>/dev/null || echo "")
 
 if [ ${#git_configs[@]} -gt 0 ]
 then

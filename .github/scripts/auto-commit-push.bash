@@ -1,29 +1,66 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ====================== 从 inputs 读取参数 ======================
-# 默认值
-DEFAULT_PATTERNS=("**/*.md" "*.md")
-DEFAULT_COMMIT_PREFIX="Auto Commit"
+CONFIG_FILE=".github/configs/auto-commit-new.json"
 
-# 读取 commit-prefix（优先使用传入值）
-COMMIT_PREFIX="${INPUT_COMMIT_PREFIX:-${DEFAULT_COMMIT_PREFIX}}"
-
-# 读取 patterns（支持多行列表）
-if [ -n "${INPUT_PATTERNS:-}" ]
-then
-    # 将多行输入转为数组
-    mapfile -t PATTERNS <<< "${INPUT_PATTERNS}"
-else
-    # 使用默认值
-    PATTERNS=("${DEFAULT_PATTERNS[@]}")
+# ====================== 1. 确保 jq 已安装 ======================
+if ! command jq > /dev/null 2>&1; then
+    echo "Installing jq..."
+    sudo apt-get update -qq
+    sudo apt-get install -y jq
 fi
 
-# 显示配置
-echo "Commit Prefix : ${COMMIT_PREFIX}"
-for pattern in "${PATTERNS[@]}"; do
-    echo "   Pattern     : ${pattern}"
-done
+# ====================== 1. 从 Inputs 读取参数 ======================
+# 默认值（仅作为最终 fallback）
+FALLBACK_COMMIT_PREFIX="Auto Commit"
+FALLBACK_PATTERNS=("**/*.md" "*.md")
+
+# 读取 commit-prefix（如果 Inputs 传入则使用，否则后面从 JSON 读取）
+COMMIT_PREFIX="${INPUT_COMMIT_PREFIX:-}"
+
+# 读取 patterns（支持多行输入）
+if [ -n "${INPUT_PATTERNS:-}" ]
+then
+    mapfile -t PATTERNS <<< ${INPUT_PATTERNS}
+else
+    PATTERNS=()
+fi
+
+# ====================== 2. 如果 Inputs 未提供，则从 JSON 读取 ==================
+if [ -z "${COMMIT_PREFIX}" ] || [ ${#PATTERNS[@]} -eq 0 ];
+then
+    echo "Inputs 未提供参数，从 ${CONFIG_FILE} 中读取默认值..."
+
+    if [ -f "${JSON_FILE}" ];
+    then
+        # 读取 commit-prefix（如果 Inputs 为空则从 JSON 获取）
+        if [ -z "${COMMIT_PREFIX}" ]
+        then
+            COMMIT_PREFIX=$(jq -r '.default["commit-prefix"] // ""' "${CONFIG_FILE}")
+        fi
+
+        # 从 JSON 读取 patterns，如果不存在则使用 DEFAULT_PATTERNS
+        if [ ${#PATTERNS[@]} -eq 0 ]
+        then
+            mapfile -t PATTERNS < <(jq -r '.default.patterns[]? // empty' "${CONFIG_FILE}")
+        fi
+    else
+        echo "未找到 ${CONFIG_FILE}，使用默认值..."
+    fi
+fi
+
+# ====================== 3. 最终 fallback ======================
+if [ -z "${COMMIT_PREFIX}"];
+then
+    COMMIT_PREFIX="${FALLBACK_COMMIT_PREFIX}"
+    echo "警告：未找到 [提交前缀] 配置，使用 Fallback 配置"
+fi
+
+if [ ${#PATTERNS[@]} -eq 0]
+then
+    PATTERNS=("${FALLBACK_PATTERNS[@]}")
+    echo "警告：未找到 [模式] 配置，使用 Fallback 配置"
+fi
 
 # ====================== 执行 git add ======================
 echo "Adding files..."
