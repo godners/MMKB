@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-JSON_FILE=".github/configs/auto-commit.json"
+JSON_FILE=".github/configs/auto-commit-new.json"
 
 echo "Reading git configuration from ${JSON_FILE}..."
 
@@ -15,39 +15,39 @@ fi
 # ====================== 2. 检查并创建默认 JSON ======================
 if [ ! -f "${JSON_FILE}" ];
 then
-  echo "    ${JSON_FILE} not found, creating default..."
+  echo "    ${JSON_FILE} 未找到, 按默认配置创建..."
   cat > "${JSON_FILE}" << EOF
 {
-    "user": {
-        "name": "github-actions[bot]",
-        "email": "github-actions[bot]@users.noreply.github.com"
+    "git": {
+        "user": {
+            "name": "github-actions[bot]",
+            "email": "github-actions[bot]@users.noreply.github.com"
+        }
+    },
+    "default": {
+        "commit-prefix": "Auto Commit",
+        "patterns": ["**/*.md", "*.md"]
     }
 }
 EOF
 fi
 
 # ====================== 3. 动态读取 JSON 并设置所有 git config ======================
-echo "Reading and alllying git configurations from JSON"
+echo "读取应用全部参数..."
 
-# 先把 jq 输出保存到临时变量，避免 pipefail + while read 的经典 broken pipe 问题
-mapfile -t configs < <(jq -r '
-    to_entries[] |
-    .key as $section |
-    (.value | to_entries[]?) |
-    "\($section).\(.key)=\(.value)"
+mapfile -t git_configs < <(jq -r '
+    .git.user | to_entries[] |
+    "user.\(.key)=\(.value)"
 ' "${JSON_FILE}" 2>/dev/null || echo "")
 
-if [ ${#configs[@]} -eq 0 ]
+if [ ${#git_configs[@]} -gt 0 ]
 then
-    echo "    No configurations found in JSON or JSON is invalid."
-else
-    for line in "${configs[@]}"
+    for line in "${git_configs[@]}"
     do
         if [ -n "$line" ]
         then
             key="${line%%=*}"
             value="${line#*=}"
-            echo "    git config --local ${key} \"${value}\""
             git config --local "${key}" "${value}"
         fi
     done
