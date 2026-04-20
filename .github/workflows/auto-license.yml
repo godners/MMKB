@@ -19,7 +19,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}        
 
       - name: Run Auto License
-        uses: python ./.github/actions/auto-license
+        uses: ./.github/actions/auto-license
       
       - name: Run Auto Commit
         uses: ./.github/actions/auto-commit

@@ -26,7 +26,7 @@ jobs:
         uses: ./.github/actions/auto-readmes
 
       - name: Run Auto License
-        uses: python ./.github/actions/auto-license
+        uses: ./.github/actions/auto-license
 
       - name: Run Auto Commit
         uses: ./.github/actions/auto-commit
