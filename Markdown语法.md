@@ -1,8 +1,8 @@
 # **GitHub Flavored Markdown (GFM)** 完整语法指南
 
 - 官方参考：
-  + GitHub 文档：基本写作和格式语法
-  + GFM 规范：<https://github.github.com/gfm/>
+  - GitHub 文档：基本写作和格式语法
+  - GFM 规范：<https://github.github.com/gfm/>
 
 ## 1. 标题 (Headings)
 
