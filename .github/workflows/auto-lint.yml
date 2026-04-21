@@ -29,8 +29,8 @@ jobs:
         uses: ./.github/actions/auto-commit
         with:
           patterns: |
-            **/CONTENTS.md
-            CONTENTS.md
+            **/*.md
+            *.md
           commit-prefix: "Auto MDLint"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
