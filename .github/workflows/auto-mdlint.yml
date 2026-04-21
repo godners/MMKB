@@ -19,11 +19,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Auto MDLint
-        uses: DavidAnson/markdownlint-cli2-action@main
+        uses: ./.github/actions/auto-mdlint
         with:
-          fix: true
-          globs: '知性序列汇编/README.md'
-          config: '.github/configs/auto-lint.jsonc'
+          patterns: |
+            **/*.md
+            *.md
 
       - name: Run Auto Commit
         uses: ./.github/actions/auto-commit

@@ -1,0 +1,26 @@
+name: 04. Auto MDLint
+
+description: '自动修正 Markdown 文档格式错误'
+
+inputs:
+  patterns:
+    description: '要修正的文件模式列表（每行一个）'
+    required: false
+    default: |
+      **/*.md
+      *.md
+      !.github/**
+      !.vscode/**
+
+runs:
+  using: composite
+  steps:
+    - name: Run Auto MDLint
+      uses: DavidAnson/markdownlint-cli2-action@main
+      with: 
+        fix: true
+        globs: |
+          ${{ inputs.patterns }}
+          !.github/**
+          !.vscode/**
+        config: '.github/configs/auto-lint.jsonc'
