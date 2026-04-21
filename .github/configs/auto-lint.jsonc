@@ -1,0 +1,117 @@
+{
+  "default": false,
+  "MD001": { "enabled": false },  // 标题层级只能逐级递增，不能跳级。
+  "MD003": { "enabled": false },  // 文档中所有标题必须使用一致的样式。
+  "MD004": {                      // 无序列表符号必须一致。
+    "enabled": true,
+    "style": "sublist"               /// 子列表模式
+  },  
+  "MD005": { "enabled": true },   // 同一层级的列表项缩进空格必须相同。
+  "MD007": {                      // 无序列表子项默认缩进空格。
+    "enabled": true,
+    "indent": 2,                     /// 每级 2 个空格
+    "start_indented": false          /// 顶级不缩进
+  },
+  "MD009": {                      // 每行末尾不能有多余空格。
+    "enabled": true,
+    "br_spaces": 2,                  /// 换行空个 2 个
+    "code_blocks": true,             /// 代码块有效
+    "list_item_empty_lines": false   /// 列表空行中不允许    
+  },
+  "MD010": {                      // 禁止使用硬制表符，必须使用空格缩进。
+    "enabled": true,
+    "code_blocks": true,             /// 代码块中启用
+    "spaces_per_tab": 2              /// 每个制表符修正为 2 个空格
+  },
+  "MD011": { "enabled": true },   // 禁止反向链接语法。
+  "MD012": {                      // 禁止多个连续空行。
+    "enabled": true,
+    "maximum": 1                     /// 最多 1 个空行
+  },
+  "MD013": {                      // 单行字符数不能超过设定长度。
+    "enabled": true,
+    "code_blocks": false,            /// 代码块禁用
+    "heading_line_length": 40,       /// 标题长度40字符
+    "headings": true,                /// 对标题启用
+    "line_length": 120,              /// 默认长度120字符
+    "tables": false                  /// 对表格禁用    
+  },
+  "MD014": { "enabled": false },  // 代码块中如果用 $ 命令，则应同时展示输出。
+  "MD018": { "enabled": true },   // 标题的 # 符号后必须有一个空格。
+  "MD019": { "enabled": true },   // 标题后只能有一个空格。
+  "MD020": { "enabled": true },   // 闭合式标题的 # 符号内部必须有空格。
+  "MD021": { "enabled": true },   // 闭合 # 内部不能有多余空格。
+  "MD022": {                      // 标题前后必须有空白行。
+    "enabled": true,
+    "lines_above": 1,                /// 标题后 1 个空行
+    "lines_below": 1                 /// 标题前 1 个空行
+  },
+  "MD023": { "enabled": true },   // 标题行不能有缩进，必须从最左侧开始。
+  "MD024": { "enabled": false },  // 同一文档中不能出现内容完全相同的标题。
+  "MD025": { "enabled": false },  // 文档只能有一个一级标题（H1）
+  "MD026": {                      // 标题末尾不应有标点。
+    "enabled": true,
+    "punctuation": ".,;:?!。，；：！？"  /// 字符清单
+  },
+  "MD027": { "enabled": true },   // > 后只能有一个空格。
+  "MD028": { "enabled": true },   // 引用块内部不能有空行。
+  "MD029": {                      // 有序列表编号风格必须一致。
+    "enabled": true,
+    "style": "ordered"               /// 有序模式
+  },
+  "MD030": {                      // 列表符号后必须有且只有一个空格。
+    "enabled": true,
+    "ol_multi": 1,                   /// 有序多行列表空 1 格
+    "ol_single": 1,                  /// 有序单行列表空 1 格
+    "ul_multi": 1,                   /// 无序多行列表空 1 格   
+    "ul_single": 1                   /// 无序单行列表空 1 格
+  },
+  "MD031": { "enabled": true },   // 代码围栏周围需空行。
+  "MD032": { "enabled": true },   // 列表前后必须有空白行，与正文分隔。
+  "MD033": {                      // Markdown 中不应直接使用 HTML 标签。
+    "enabled": true,
+    "allowed_elements": [],          /// 无任何元素允许
+    "table_allowed_elements": ["br"] /// 表格中允许<br>标签
+  },
+  "MD034": { "enabled": true },   // 禁止裸 URL
+  "MD035": { "enabled": true },   // 水平分隔线样式必须风格一致。
+  "MD036": { "enabled": false },  // 禁止用强调代替标题。
+  "MD037": { "enabled": true },   // 强调标记内禁止空格。
+  "MD038": { "enabled": true },   // 行内代码内禁止空格。
+  "MD039": { "enabled": true },   // 链接文字两端不能有多余空格。
+  "MD040": { "enabled": false },  // 代码围栏需指定语言，便于语法高亮。
+  "MD041": { "enabled": false },  // 文件第一行应为一级标题。
+  "MD042": { "enabled": false },  // 链接不能没有内容或 URL。
+  "MD043": { "enabled": false },  // 要求特定标题结构。
+  "MD044": {                      // 指定专有名词必须使用正确的大小写。
+    "enabled": true,
+    "code_blocks": true,             /// 代码块中生效
+    "html_elements": false,          /// HTML 元素中无效
+    "names": [                       /// 指定大小写样式
+      "MMKB", "GitHub", "github.com",
+      "Markdown", "Actions", "Godners", 
+      "https://github.com/godners"
+    ]
+  },
+  "MD045": { "enabled": false },  // 图片图片必须有替代文本，alt 文字不能为空。
+  "MD046": { "enabled": false },  // 代码块必须统一使用围栏式或缩进式。
+  "MD047": { "enabled": true },   // 文件必须以一个换行符结束。
+  "MD048": { "enabled": false },  // 代码块围栏必须统一。
+  "MD049": {                      // 斜体样式规则必须统一。
+    "enabled": true,
+    "style": "asterisk"              /// 指定符号
+  },
+  "MD050": {                      // 斜体样式规则必须统一。
+    "enabled": true,
+    "style": "asterisk"              /// 指定符号
+  },
+  "MD051": { "enabled": false },  // 链接片段（锚点）必须有效。
+  "MD052": { "enabled": false },  // 引用式链接、图片的标签必须已定义。
+  "MD053": { "enabled": false },  // 引用式链接/图片定义必须被使用。
+  "MD054": { "enabled": true },   // 链接文字应具有描述性。
+  "MD055": { "enabled": false },  // 表格的管道符必须风格一致。
+  "MD056": { "enabled": false },  // 同一表格所有行的列数必须相同。
+  "MD058": { "enabled": true },   // 表格前后必须有空白行。
+  "MD059": { "enabled": false },  // 链接文字应具有描述性。
+  "MD060": { "enabled": false }   // 表格列的对齐方式应保持一致。
+}

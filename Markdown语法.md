@@ -109,7 +109,7 @@ def hello():
     print("Hello, GitHub!")
 ```
 
-指定语言后 GitHub 会自动语法高亮。支持数百种语言（如 `javascript`、`java`、`bash`、`yaml`、`markdown` 等）。
+指定语言后 GitHub 会自动语法高亮。支持数百种语言（如 `javascript`、`java`、`bash`、`yaml`、`markdown` 等）。<!-- markdownlint-disable-line MD044 -->
 
 ## 7. 分隔线 (Horizontal Rule)
 
@@ -160,7 +160,7 @@ ___
 **示例**：
 
 ```markdown
-![GitHub Logo](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png)
+![GitHub Logo](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png)<!-- markdownlint-disable-line MD044 -->
 ```
 
 支持相对路径、GitHub 仓库内的图片、外部 URL。

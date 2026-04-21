@@ -1,4 +1,4 @@
-name: 04. Auto Release
+name: 06. Auto Release
 
 description: '根据最新提交自动创建 GitHub Release'
 

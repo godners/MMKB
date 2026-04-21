@@ -1,0 +1,27 @@
+name: Auto MDLint
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  auto-mdlint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Auto MDLint
+        uses: DavidAnson/markdownlint-cli2-action@main
+        with:
+          fix: true
+          globs: '知性序列汇编/README.md'
+          config: '.github/configs/auto-lint.jsonc'
+

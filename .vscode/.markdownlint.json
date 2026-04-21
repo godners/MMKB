@@ -14,5 +14,15 @@
     "allowed_elements": [],
     "table_allowed_elements": ["br"]
   },
+    "MD044": {                   
+    "enabled": true,
+    "code_blocks": true,         
+    "html_elements": false,      
+    "names": [                   
+      "MMKB", "GitHub", "github.com",
+      "Markdown", "Actions", "Godners", 
+      "https://github.com/godners"
+    ]
+  },
   "MD060": false
 }
