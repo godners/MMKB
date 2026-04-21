@@ -70,7 +70,7 @@ last_updated: 2026-04-19
 tags: [药物, 机制, 皮肤, 激素]   # 多个标签用数组
 categories: [常用药物记录, 皮肤养护资料]
 aliases: [VB3, Nicotinamide]     # 别名，便于搜索
-sources: 
+sources:
 - "PubMed: PMID XXXXX"
 - "临床指南名称"
 disclaimer: 本笔记为个人知识整理，仅供参考，不构成医疗建议。
