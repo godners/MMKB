@@ -11,13 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Checkout repository
-      #   uses: actions/checkout@v6
-      #   with:
-      #     fetch-depth: 0
-      #     token: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout repository
-        uses: ./.github/actions/checkout
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: run bash
         run: bash .github/scripts/auto-commit-info.bash
