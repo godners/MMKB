@@ -28,14 +28,7 @@
     "enabled": true,
     "maximum": 1                     /// 最多 1 个空行
   },
-  "MD013": {                      // 单行字符数不能超过设定长度。
-    "enabled": true,
-    "code_blocks": false,            /// 代码块禁用
-    "heading_line_length": 40,       /// 标题长度40字符
-    "headings": true,                /// 对标题启用
-    "line_length": 120,              /// 默认长度120字符
-    "tables": false                  /// 对表格禁用    
-  },
+  "MD013": { "enabled": false },  // 单行字符数不能超过设定长度。
   "MD014": { "enabled": false },  // 代码块中如果用 $ 命令，则应同时展示输出。
   "MD018": { "enabled": true },   // 标题的 # 符号后必须有一个空格。
   "MD019": { "enabled": true },   // 标题后只能有一个空格。
