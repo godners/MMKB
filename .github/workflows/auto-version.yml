@@ -18,19 +18,10 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Load Git Info
-        shell: bash
-        run: bash .github/scripts/auto-commit-info.bash
-
-      - name: Load Release & Commit Data
-        id: data
-        run: bash .github/scripts/auto-version.bash
+      - name: Run Auto Version
+        uses: ./.github/actions/auto-version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate VERSION.md
-        shell: bash
-        run: python .github/scripts/auto-version.py
 
       - name: Run Auto Commit
         uses: ./.github/actions/auto-commit

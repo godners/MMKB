@@ -1,0 +1,22 @@
+name: 06. Auto Version
+
+description: '自动生成 VERSION.md 文件'
+
+runs:
+  using: composite
+  steps:
+    - name: Load Git Info
+      shell: bash
+      run: bash .github/scripts/auto-commit-info.bash
+
+    - name: Load Release & Commit Data
+      shell: bash
+      run: bash .github/scripts/auto-version.bash
+      env:
+        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+    
+    - name: Generate VERSION.md
+      shell: bash
+      run: python .github/scripts/auto-version.py
+
+      
