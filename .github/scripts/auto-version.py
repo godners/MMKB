@@ -121,10 +121,10 @@ def write_version_md(tag: str, release_time: str, commits: list, stats: dict, co
     with open("VERSION.md", "w", encoding="utf-8") as f:
         f.write("## 项目版本信息\n\n")
         f.write("### 最后一次 Release\n\n")
-        f.write("- **标签**：{tag}\n")
-        f.write("- **时间**：{release_time}\n\n")
+        f.write(f"- **标签**：{tag}\n")
+        f.write(f"- **时间**：{release_time}\n\n")
         f.write("### 最后一次 Commit\n\n")
-        f.write("> 仅显示 {commits_review} 人的最后一次 Commit\n\n")
+        f.write(f"> 仅显示 {commits_review} 人的最后一次 Commit\n\n")
         for author, isodate, msg in commits:
             try:
                 if isodate.endswith("Z"):
