@@ -1,6 +1,7 @@
 import os
 import json5
 from pathlib import Path
+import traceback
 
 print("[PYTHON] Auto License")
 # CONFIG_FILE = ".github/configs/auto-license.json"
@@ -63,9 +64,7 @@ def main():
     
     with open(LICENSE_FILE, 'r', encoding='utf-8') as f:
         license_text = "\n\n" + f.read().strip() + "\n"
-        f.seek(0)
-        print(f.read())
-        
+
     # 获取所有 .md 文件
     root = Path(".")
     md_files = [str(p) for p in root.rglob("*.md") if p.is_file()]
@@ -87,6 +86,8 @@ def main():
                 content += "\n"
             content += license_text
 
+            print(f"开始写入 {md_file}") ######
+            
             with open(md_file, 'w', encoding='utf-8') as f:
                 f.write(content)
 
@@ -95,6 +96,7 @@ def main():
 
         except Exception as e:
             print(f"处理失败 {md_file} : {e}")
+            traceback.print_exc()  ######
 
     print(f"\n完成！本次共处理 {len(md_files)} 个 .md 文件，其中新增声明 {added_count} 个")
 
