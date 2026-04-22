@@ -1,22 +1,27 @@
-name: 06. Auto Version
+name: "[ACTION] Auto Version"
 
 description: '自动生成 VERSION.md 文件'
 
 runs:
   using: composite
   steps:
-    - name: Load Git Info
-      shell: bash
-      run: bash .github/scripts/auto-commit-info.bash
+    # - name: "[STEP] Run Git Info via Action"
+    #   uses: ./.github/actions/git-info
 
-    - name: Load Release & Commit Data
+    - name: "[STEP] Run Worker via Bash"
       shell: bash
-      run: bash .github/scripts/auto-version.bash
+      run: bash ${{ github.action_path }}/worker.bash
       env:
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
-    
-    - name: Generate VERSION.md
+
+    - name: "[STEP] Install dependencies"
       shell: bash
-      run: python .github/scripts/auto-version.py
+      run: pip install -r ${{ github.action_path }}/pylib.txt
+    
+    - name: "[STEP] Run Worker via Python"
+      shell: bash
+      run: python ${{ github.action_path }}/worker.py
+      env:
+        ACTION_PATH: ${{ github.action_path }}
 
       

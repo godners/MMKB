@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-# echo "${GITHUB_TOKEN}" | gh auth login --with-token
+echo "[BASH] Auto Version"
 
 echo "Load last release info..."
 TAG=$(gh release list --limit 1 --json tagName -q '.[0].tagName' 2>/dev/null || echo "暂无 Release")

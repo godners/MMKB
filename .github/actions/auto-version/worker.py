@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-import json, os
+import json5, os
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
-CONFIG_FILE = Path(".github/configs/auto-version.json")
+print("[PYTHON] Auto Version")
+
+# CONFIG_FILE = Path(".github/configs/auto-version.json")
+CONFIG_FILE = Path(os.getenv("ACTION_PATH")) / "configs.jsonc"
 
 def load_config() -> dict:
     try:
         with open(CONFIG_FILE, "r", encoding="utf-8") as f:
-            data = json.load(f)
+            data = json5.load(f)
         return {
             "commits_review": data.get("commits_review", 50),
             "ignore_objects": data.get("ignore_objects", [])
