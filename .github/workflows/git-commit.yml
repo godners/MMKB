@@ -18,7 +18,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Run Auto Commit
-        uses: ./.github/actions/auto-commit
+        uses: ./.github/actions/git-commit
         with:
           patterns: |
             **/*.md
