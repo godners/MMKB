@@ -1,9 +1,9 @@
-name: PERIOD. Daily Operation
+name: "[WORKFLOW] Daily Operation (Scheduled)"
 
 on:
   schedule:
-    - cron: '0 18 * * *'      # 北京时间每天凌晨 02:00 (UTC+8)
-  workflow_dispatch:          # 支持手动测试
+    - cron: '0 18 * * *'
+  workflow_dispatch: 
 
 permissions:
   contents: write
@@ -28,17 +28,38 @@ jobs:
       - name: Run Auto License
         uses: ./.github/actions/auto-license
 
+      - name: Run Auto MDLint
+        uses: ./.github/actions/auto-mdlint
+
       - name: Run Auto Commit
-        uses: ./.github/actions/auto-commit
+        uses: ./.github/actions/git-commit
         with:
           patterns: |
             **/*.md
             *.md
-          commit-prefix: "Auto License"
+          commit-prefix: "Daily Operation"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Auto Release
-        uses: ./.github/actions/auto-release
+        uses: ./.github/actions/git-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Run Auto Version
+        uses: ./.github/action/auto-version
+      
+      - name: Run Auto Commit for Version
+        uses: ./.github/actions/git-commit
+        with:
+          patterns: |
+            VERSION.md
+          commit-prefix: "Daily Version Check"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Auto Release
+        uses: ./.github/actions/git-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
