@@ -8,7 +8,7 @@ runs:
     - name: "[STEP] Install dependencies"
       shell: bash
       run: pip install -r ${{ github.action_path }}/pylib.txt
-      
+
     - name: "[STEP] Run Worker via Python"
       run: python ${{ github.action_path }}/worker.py
       shell: bash

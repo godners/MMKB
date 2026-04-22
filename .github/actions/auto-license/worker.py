@@ -12,7 +12,6 @@ CONFIG_FILE = Path(os.getenv("ACTION_PATH")) / "configs.jsonc"
 def load_config():
     if os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
-            print(f.read())
             data = json5.load(f)
             try:
                 config = {
