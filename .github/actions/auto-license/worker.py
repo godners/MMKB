@@ -1,7 +1,6 @@
 import os
 import json5
 from pathlib import Path
-import traceback
 
 print("[PYTHON] Auto License")
 # CONFIG_FILE = ".github/configs/auto-license.json"

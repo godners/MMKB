@@ -1,0 +1,7 @@
+// [CONFIG] Git Commit
+{
+    "default": {
+        "commit-prefix": "Auto Commit",
+        "patterns": ["**/*.md", "*.md"]
+    }
+}

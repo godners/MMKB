@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONFIG_FILE=".github/configs/auto-commit.json"
+echo "[BASH] Git Commit"
+
+CONFIG_FILE="${ACTION_PATH}/configs.jsonc"
 
 # ====================== 1. 确保 jq 已安装 ======================
 if ! command jq > /dev/null 2>&1; then
@@ -11,9 +13,9 @@ if ! command jq > /dev/null 2>&1; then
 fi
 
 # ====================== 1. 从 Inputs 读取参数 ======================
-# 默认值（仅作为最终 fallback）
-FALLBACK_COMMIT_PREFIX="Auto Commit"
-FALLBACK_PATTERNS=("**/*.md" "*.md")
+# # 默认值（仅作为最终 fallback）
+# FALLBACK_COMMIT_PREFIX="Auto Commit"
+# FALLBACK_PATTERNS=("**/*.md" "*.md")
 
 # 读取 commit-prefix（如果 Inputs 传入则使用，否则后面从 JSON 读取）
 COMMIT_PREFIX="${INPUT_COMMIT_PREFIX:-}"
@@ -36,31 +38,33 @@ then
         # 读取 commit-prefix（如果 Inputs 为空则从 JSON 获取）
         if [ -z "${COMMIT_PREFIX}" ]
         then
-            COMMIT_PREFIX=$(jq -r '.default["commit-prefix"] // ""' "${CONFIG_FILE}")
+            COMMIT_PREFIX=$(grep -v '^//' "${CONFIG_FILE}" |
+                jq -r '.default["commit-prefix"] // ""')
         fi
 
         # 从 JSON 读取 patterns，如果不存在则使用 DEFAULT_PATTERNS
         if [ ${#PATTERNS[@]} -eq 0 ]
         then
-            mapfile -t PATTERNS < <(jq -r '.default.patterns[]? // empty' "${CONFIG_FILE}")
+            mapfile -t PATTERNS < <(grep -v '^//' "${CONFIG_FILE}" |
+                jq -r '.default.patterns[]? // empty')
         fi
     else
         echo "未找到 ${CONFIG_FILE}，使用默认值..."
     fi
 fi
 
-# ====================== 3. 最终 fallback ======================
-if [ -z "${COMMIT_PREFIX}"];
-then
-    COMMIT_PREFIX="${FALLBACK_COMMIT_PREFIX}"
-    echo "警告：未找到 [提交前缀] 配置，使用 Fallback 配置"
-fi
+# # ====================== 3. 最终 fallback ======================
+# if [ -z "${COMMIT_PREFIX}"];
+# then
+#     COMMIT_PREFIX="${FALLBACK_COMMIT_PREFIX}"
+#     echo "警告：未找到 [提交前缀] 配置，使用 Fallback 配置"
+# fi
 
-if [ ${#PATTERNS[@]} -eq 0]
-then
-    PATTERNS=("${FALLBACK_PATTERNS[@]}")
-    echo "警告：未找到 [模式] 配置，使用 Fallback 配置"
-fi
+# if [ ${#PATTERNS[@]} -eq 0]
+# then
+#     PATTERNS=("${FALLBACK_PATTERNS[@]}")
+#     echo "警告：未找到 [模式] 配置，使用 Fallback 配置"
+# fi
 
 # ====================== 执行 git add ======================
 echo "Adding files..."

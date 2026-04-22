@@ -1,4 +1,4 @@
-name: TEST. Auto Commit
+name: "[WORKFLOW] Git Commit"
 
 on: 
   workflow_dispatch:
@@ -16,10 +16,6 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Make some changes
-        shell: bash
-        run: echo "- $(date -u -d '8 hours' '+%F %T')" >> .github/resources/auto-commit-test.md
       
       - name: Run Auto Commit
         uses: ./.github/actions/auto-commit

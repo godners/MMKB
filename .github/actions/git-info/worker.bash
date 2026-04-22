@@ -3,7 +3,6 @@ set -euo pipefail
 
 echo "[BASH] Git Info"
 
-# CONFIG_FILE=".github/configs/auto-commit.json"
 CONFIG_FILE="${ACTION_PATH}/configs.jsonc"
 
 echo "从配置文件读取： ${CONFIG_FILE}..."
@@ -28,10 +27,6 @@ echo "读取应用全部参数..."
 mapfile -t git_configs < <(grep -v '^//' "${CONFIG_FILE}" |
     jq -r '.git.user | to_entries[] | "user.\(.key)=\(.value)"' 2>/dev/null || echo "")
 
-echo =============
-echo $git_configs
-echo =============
-
 if [ ${#git_configs[@]} -gt 0 ]
 then
     for line in "${git_configs[@]}"
@@ -44,8 +39,3 @@ then
         fi
     done
 fi
-
-echo "======== 参数列表 ========"
-git config --local --list 
-echo "========================="
-

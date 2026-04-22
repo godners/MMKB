@@ -1,4 +1,4 @@
-name: 05. Auto Commit
+name: "[ACTION] Auto Commit"
 
 description: '自动提交并推送指定的 Markdown 文件'
 
@@ -13,20 +13,20 @@ inputs:
   commit-prefix:
     description: '提交信息的前缀'
     required: false
-    default: 'Auto License'
+    default: 'Auto Commit'
   
 runs:
   using: composite
   steps:
-    - name: Load git configuration from JSON
-      shell: bash
-      run: bash .github/scripts/auto-commit-info.bash
+    - name: "[STEP] Run Git Info via Action"
+      uses: ./.github/actions/git-info
 
-    - name: Check, commit and push
+    - name: "[STEP] Run Worker via Bash"
       shell: bash
-      run: bash .github/scripts/auto-commit-push.bash
+      run: bash ${{ github.action_path }}/worker.bash
       env:
         INPUT_PATTERNS: ${{ inputs.patterns }}
         INPUT_COMMIT_PREFIX: ${{ inputs.commit-prefix }}
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+        ACTION_PATH: ${{ github.action_path }}
         
