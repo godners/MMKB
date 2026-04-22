@@ -3,8 +3,8 @@ set -euo pipefail
 
 echo "[BASH] Git Info"
 
-# CONFIG_FILE=".github/configs/auto-commit.json"
-CONFIG_FILE="${ACTION_PATH}/configs.json"
+CONFIG_FILE=".github/configs/auto-commit.json"
+#CONFIG_FILE="${ACTION_PATH}/configs.json"
 
 echo "从配置文件读取： ${CONFIG_FILE}..."
 
