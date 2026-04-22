@@ -37,7 +37,7 @@ jobs:
           patterns: |
             **/*.md
             *.md
-          commit-prefix: "Daily Operation"
+          commit-prefix: "Daily Markdown Fix"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -47,6 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   daily-version-check:
+    needs: daily-markdown-fix
     runs-on: ubuntu-latest
 
     steps:
