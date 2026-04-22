@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-import datetime, json, os
+import json, os
 from pathlib import Path
+from datetime import datetime, timezone, timedelta
 
 CONFIG_FILE = Path(".github/configs/auto-version.json")
 
@@ -118,30 +119,30 @@ def calc_repo_stats(ignore_objects: list) -> dict:
         
 def write_version_md(tag: str, release_time: str, commits: list, stats: dict, commits_review: int):
     with open("VERSION.md", "w", encoding="utf-8") as f:
-        f.write("# 项目版本信息\n")
-        f.write("## 最后一次 Release\n")
+        f.write("## 项目版本信息\n\n")
+        f.write("### 最后一次 Release\n\n")
         f.write("- **标签**：{tag}\n")
-        f.write("- **时间：{release_time}\n")
-        f.write("## 最后一次 Commit\n")
-        f.write("> 仅显示 {commits_reivew} 次提交\n")
+        f.write("- **时间**：{release_time}\n\n")
+        f.write("### 最后一次 Commit\n\n")
+        f.write("> 仅显示 {commits_review} 人的最后一次 Commit\n\n")
         for author, isodate, msg in commits:
             try:
                 if isodate.endswith("Z"):
                     isodate = isodate[:-1] + "+00:00"
-                dt = datetime.datetime.fromisoformat(isodate)
-                dt_tz = dt + datetime.timedelta(hours=8)
+                dt = datetime.fromisoformat(isodate)
+                dt_tz = dt + timedelta(hours=8)
                 localtime = dt_tz.strftime("%Y-%m-%d %H:%M:%S +0800")
-                f.write(f"- 【**{localtime}**】 {author}：{msg}\n")
+                f.write(f"- [ {localtime} ] {author}：{msg}\n")
             except Exception:
-                f.write(f"- 【 **N/A** 】 {author}：{msg}\n")
-        f.write("## 仓库内容\n")
-        f.write("> 已按 auto-version.json 中的 ignore_objects 规则排除）\n")
+                f.write(f"- [ **N/A** ] {author}：{msg}\n")
+        f.write("\n### 仓库内容\n\n")
+        f.write("> 已按 auto-version.json 中的 ignore_objects 规则排除）\n\n")
         f.write(f"- **总计文件夹数量**：{stats['folder_count']}\n")
         f.write(f"- **总计文件数量**：{stats['file_count']}\n")
-        f.write(f"- **总计文件大小**：{stats['size_hr']}\n")
-        f.write("---")
-        utc_now = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
-        f.write(f"> 最后生成时间：{utc_now}\n")
+        f.write(f"- **总计文件大小**：{stats['size_hr']}\n\n")
+        f.write("---\n\n")
+        utc_now = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S $z")
+        f.write(f"> 最后生成时间：{utc_now}\n\n")
 
 def main():
     config =load_config()
