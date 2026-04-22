@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  daily-operation:
+  daily-markdown-fix:
     runs-on: ubuntu-latest
     
     steps:
@@ -45,7 +45,16 @@ jobs:
         uses: ./.github/actions/git-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
+  daily-version-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run Auto Version
         uses: ./.github/actions/auto-version
 
