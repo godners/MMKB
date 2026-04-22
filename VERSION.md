@@ -2,15 +2,15 @@
 
 ### 最后一次 Release
 
-- **标签**：{tag}
-- **时间**：{release_time}
+- **标签**：暂无 Release
+- **时间**：N/A
 
 ### 最后一次 Commit
 
-> 仅显示 {commits_review} 人的最后一次 Commit
+> 仅显示 50 人的最后一次 Commit
 
-- [ 2026-04-22 20:15:36 +0800 ] TianYue Ren：2026.04.22.10
-- [ 2026-04-22 12:00:39 +0800 ] github-actions[bot]：Auto Version on 2026-04-22 12:00:39
+- [ 2026-04-22 20:17:30 +0800 ] TianYue Ren：2026.04.22.11
+- [ 2026-04-22 12:16:08 +0800 ] github-actions[bot]：Auto Version on 2026-04-22 12:16:08
 - [ 2026-04-14 18:35:23 +0800 ] dependabot[bot]：chore(deps): bump softprops/action-gh-release from 2 to 3
 
 ### 仓库内容
@@ -23,5 +23,5 @@
 
 ---
 
-> 最后生成时间：2026-04-22 12:16:08 $z
+> 最后生成时间：2026-04-22 12:17:55 $z
 
