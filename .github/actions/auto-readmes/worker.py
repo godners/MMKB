@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import os
-import json
+import json5
 import re
 from pathlib import Path
 
@@ -13,9 +13,8 @@ def load_config():
         # print(f"警告：配置文件 {CONFIG_FILE} 不存在，使用默认忽略规则。")
         return {}
     try:
-        import json
         with open(CONFIG_FILE, encoding="utf-8") as f:
-            return json.load(f)
+            return json5.load(f)
     except:
         # print(f"警告：配置文件 {CONFIG_FILE} 加载失败，使用空配置。")
         return {}

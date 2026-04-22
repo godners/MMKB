@@ -35,9 +35,13 @@ fi
 echo "读取应用全部参数..."
 
 mapfile -t git_configs < <(jq -r '
-    .git.user | to_entries[] |
-    "user.\(.key)=\(.value)"
-' "${CONFIG_FILE}" 2>/dev/null || echo "")
+        .git.user | to_entries[] |
+        "user.\(.key)=\(.value)"
+    ' "${CONFIG_FILE}" 2>/dev/null || echo "")
+
+echo =============
+echo $git_configs
+echo =============
 
 if [ ${#git_configs[@]} -gt 0 ]
 then

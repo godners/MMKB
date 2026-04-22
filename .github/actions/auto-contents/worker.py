@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import os
-import json
+import json5
 from pathlib import Path
 
 print("[PYTHON] Auto Contents")
@@ -14,7 +14,7 @@ def load_config():
         return {"ignore_objects": [], "name_mapping": [], "head_additional": []}
     
     with open(CONFIG_FILE, encoding="utf-8") as f:
-        data = json.load(f)
+        data = json5.load(f)
 
     print(f"""配置文件加载成功，包含：
     ignore_objects 配置: {len(data.get("ignore_objects", []))} 条
