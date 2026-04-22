@@ -89,7 +89,7 @@ def calc_repo_stats(ignore_objects: list) -> dict:
 
         rel_root = os.path.relpath(root, ".")
         if rel_root == ".":
-            rel_root = "
+            rel_root = ""
         
         current_dir = os.path.basename(root) if root != "." else ""
         if current_fir in ignore_dirs and rel_root != "":
