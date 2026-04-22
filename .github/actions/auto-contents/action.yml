@@ -1,4 +1,4 @@
-name: 01. Auto Contents
+name: "[ACTION] Auto Contents"
 
 description: '自动生成 CONTENTS.md 文件'
 
@@ -6,5 +6,7 @@ runs:
   using: composite
   steps:
     - name: 运行 Python 脚本生成所有 CONTENTS.md
-      run: python .github/scripts/auto-contents.py
+      run: python ${{ github.action_path }}/auto-contents.py
       shell: bash
+      env:
+        ACTION_PATH: ${{ github.action_path }}

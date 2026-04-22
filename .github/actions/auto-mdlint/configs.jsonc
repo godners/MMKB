@@ -1,3 +1,4 @@
+// [CONFIG] Auto MDLint
 {
   "default": false,
   "MD001": { "enabled": false },  // 标题层级只能逐级递增，不能跳级。

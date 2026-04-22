@@ -1,4 +1,4 @@
-name: Auto MDLint
+name: "[WORKFLOW] Auto MDLint"
 
 on:
   workflow_dispatch:

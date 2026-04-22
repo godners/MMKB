@@ -1,4 +1,4 @@
-name: 04. Auto MDLint
+name: "[ACTION] Auto MDLint"
 
 description: '自动修正 Markdown 文档格式错误'
 

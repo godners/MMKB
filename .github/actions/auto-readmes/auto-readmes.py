@@ -4,7 +4,10 @@ import json
 import re
 from pathlib import Path
 
-CONFIG_FILE = Path(".github/configs/auto-readmes.json")
+print("[PYTHON] Auto Readmes")
+
+#CONFIG_FILE = Path(".github/configs/auto-readmes.json")
+CONFIG_FILE = Path(os.getenv("ACTION_PATH")) / configs.json
 
 def load_config():
     if not CONFIG_FILE.exists():
