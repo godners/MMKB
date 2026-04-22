@@ -5,9 +5,8 @@ description: '自动生成 CONTENTS.md 文件'
 runs:
   using: composite
   steps:
-    - name: Load Git Info
-      shell: bash
-      run: bash .github/scripts/auto-commit-info.bash
+    - name: Run Git Info via Action
+      uses: ./.github/actions/git-info
 
     - name: "[STEP] Run Worker via Python"
       run: python ${{ github.action_path }}/worker.py
