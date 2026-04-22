@@ -23,7 +23,9 @@ else
     TIMESTAMP=$(date -d "$PUBLISHED_AT" +%s 2>/dev/null || echo "")
     if [ -n "$TIMESTAMP" ]
     then
-        RELEASE_TIME=$(date -d "@$TIMESTAMP + 8 hours" '+%T %F')
+        #RELEASE_TIME=$(date -d "@$TIMESTAMP + 8 hours" '+%T %F')
+        NEW_TIMESTAMP=$((TIMESTAMP + 28800))
+        RELEASE_TIME=$(date -d "@$NEW_TIMESTAMP" '+%T %F')
     else
         RELEASE_TIME="N/A"
     fi
