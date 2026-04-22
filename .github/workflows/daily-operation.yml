@@ -48,6 +48,9 @@ jobs:
       
       - name: Run Auto Version
         uses: ./.github/action/auto-version
+
+      - name: Run Auto Readmes
+        uses: ./.github/actions/auto-readmes
       
       - name: Run Auto Commit for Version
         uses: ./.github/actions/git-commit
