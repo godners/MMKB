@@ -8,7 +8,7 @@ runs:
     - name: "[STEP] Run Worker (Info) via Bash"
       id: release_info
       shell: bash
-      run: bash .github/scripts/auto-release-info.bash
+      run: bash ${{ github.action_path }}/worker-info.bash
     
     - name: "[STEP] Run Worker (Check) via Bash"
       id: has_changes
