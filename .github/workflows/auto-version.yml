@@ -1,4 +1,4 @@
-name: Auto Version
+name: "[WORKFLOW] Auto Version"
 
 on:
     workflow_dispatch:
