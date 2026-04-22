@@ -17,9 +17,6 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: run bash
-      #   run: bash .github/scripts/auto-commit-info.bash
-      #   shell: bash
       - name: Run Git Info via Action
         uses: ./.github/actions/git-info
         

@@ -21,6 +21,9 @@ jobs:
       - name: Run Auto Contents
         uses: ./.github/actions/auto-contents
 
+      - name: Run Git Info via Action
+        uses: ./.github/actions/git-info
+        
       - name: Run Auto Commit
         uses: ./.github/actions/auto-commit
         with:
