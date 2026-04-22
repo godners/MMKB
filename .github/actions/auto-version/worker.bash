@@ -6,7 +6,8 @@ echo "[BASH] Auto Version"
 echo "Load last release info..."
 # TAG=$(gh release list --limit 1 --json tagName -q '.[0].tagName' 2>/dev/null || echo "暂无 Release")
 # PUBLISHED_AT=$(gh release list --limit 1 --json publishedAt -q '.[0]publishedAt' 2>/dev/null || echo "" )
-TAG=$(gh release list --limit 1 --json tagName -q '.[0].tagName' 2>/dev/null || echo "暂无 Release")
+#TAG=$(gh release list --limit 1 --json tagName -q '.[0].tagName' 2>/dev/null || echo "暂无 Release")
+TAG=$(gh release list --limit 1 | head -n 1 | awk '{print $1}' 2>/dev/null || echo "暂无 Release")
 PUBLISHED_AT=$(gh release list --limit 1 --json publishedAt -q '.[0].publishedAt' 2>/dev/null || echo "null" )
 
 echo "Raw output: $(gh release list --limit 1)"
@@ -23,7 +24,6 @@ else
     TIMESTAMP=$(date -d "$PUBLISHED_AT" +%s 2>/dev/null || echo "")
     if [ -n "$TIMESTAMP" ]
     then
-        #RELEASE_TIME=$(date -d "@$TIMESTAMP + 8 hours" '+%T %F')
         NEW_TIMESTAMP=$((TIMESTAMP + 28800))
         RELEASE_TIME=$(date -d "@$NEW_TIMESTAMP" '+%T %F')
     else
