@@ -4,10 +4,14 @@ set -e
 echo "[BASH] Auto Version"
 
 echo "Load last release info..."
+# TAG=$(gh release list --limit 1 --json tagName -q '.[0].tagName' 2>/dev/null || echo "暂无 Release")
+# PUBLISHED_AT=$(gh release list --limit 1 --json publishedAt -q '.[0]publishedAt' 2>/dev/null || echo "" )
 TAG=$(gh release list --limit 1 --json tagName -q '.[0].tagName' 2>/dev/null || echo "暂无 Release")
-PUBLISHED_AT=$(gh release list --limit 1 --json publishedAt -q '.[0]publishedAt' 2>/dev/null || echo "" )
+PUBLISHED_AT=$(gh release list --limit 1 --json publishedAt -q '.[0].publishedAt' 2>/dev/null || echo "null" )
 
-if [ "$TAG" = "null" ] || [ -z "$TAG" ] || [ -z "$PUBLISHED_AT" ] || [ "PUBLISHED_AT" = "null" ]
+echo "Raw output: $(gh release list --limit 1)"
+
+if [ "$TAG" = "null" ] || [ -z "$TAG" ] || [ -z "$PUBLISHED_AT" ] || [ "$PUBLISHED_AT" = "null" ]
 then
     RELEASE_TAG="暂无 Release"
     RELEASE_TIME="N/A"
