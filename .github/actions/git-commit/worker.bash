@@ -72,7 +72,9 @@ git commit -m "${COMMIT_MESSAGE}"
 CURRENT_BRANCH=$(git branch --show-current)
 
 echo "Pushing changes..."
+git stash save "Stash dirty files before pull" || true
 git pull --rebase origin "${CURRENT_BRANCH}"
+git stash pop || true
 git push origin "${CURRENT_BRANCH}"
 
 echo "Auto commit and push completed successfully!"
