@@ -85,8 +85,6 @@ def main():
             if not content.endswith("\n"):
                 content += "\n"
             content += license_text
-
-            print(f"开始写入 {md_file}") ######
             
             with open(md_file, 'w', encoding='utf-8') as f:
                 f.write(content)

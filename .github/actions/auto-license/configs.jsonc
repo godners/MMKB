@@ -16,6 +16,6 @@
         { "name": "CONTENTS.md", "type": "file" },
         { "name": ".git", "type": "dir" }
     ],
-    "tag_words": "> License Added",
+    "check_keyword": "> License Added",
     "license_file": "license.md"
 }
