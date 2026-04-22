@@ -127,19 +127,19 @@ def write_version_md(tag: str, release_time: str, commits: list, stats: dict, co
         f.write(f"- **标签**：{tag}\n")
         f.write(f"- **时间**：{release_time}\n\n")
         f.write("### 最后一次 Commit\n\n")
-        f.write(f"> 仅显示 {commits_review} 人的最后一次 Commit\n\n")
+        f.write(f"> 最多显示 {commits_review} 人的最后一次 Commit\n\n")
         for author, isodate, msg in commits:
             try:
                 if isodate.endswith("Z"):
                     isodate = isodate[:-1] + "+00:00"
                 dt = datetime.fromisoformat(isodate)
                 dt_tz = dt + timedelta(hours=8)
-                localtime = dt_tz.strftime("%Y-%m-%d %H:%M:%S +0800")
-                f.write(f"- [ {localtime} ] {author}：{msg}\n")
+                localtime = dt_tz.strftime("%Y-%m-%d %H:%M:%S +08:00")
+                f.write(f"- [ {localtime} ] **{author}**：{msg}\n")
             except Exception:
                 f.write(f"- [ **N/A** ] {author}：{msg}\n")
         f.write("\n### 仓库内容\n\n")
-        f.write("> 已按 auto-version.json 中的 ignore_objects 规则排除）\n\n")
+        f.write("> 已按配置规则排除）\n\n")
         f.write(f"- **总计文件夹数量**：{stats['folder_count']}\n")
         f.write(f"- **总计文件数量**：{stats['file_count']}\n")
         f.write(f"- **总计文件大小**：{stats['size_hr']}\n\n")

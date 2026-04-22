@@ -1,34 +1,34 @@
-name: 06. Auto Release
+name: "[ACTION] Git Release"
 
 description: '根据最新提交自动创建 GitHub Release'
 
 runs:
   using: 'composite'
   steps:
-    - name: 生成 Release 信息
+    - name: "[STEP] Run Worker (Info) via Bash"
       id: release_info
       shell: bash
       run: bash .github/scripts/auto-release-info.bash
     
-    - name: 检查最后一次 Release 后是否有新提交
+    - name: "[STEP] Run Worker (Check) via Bash"
       id: has_changes
       shell: bash
-      run: bash .github/scripts/auto-release-check.bash
+      run: bash ${{ github.action_path }}/worker-check.bash
       env:
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
 
-    - name: 如果 Release 已存在则删除
+    - name: "[STEP] Remove Release If Exists"
       if: steps.has_changes.outputs.has_changes == 'true'
       shell: bash
       run: gh release delete ${{ steps.release_info.outputs.tag }} --yes --cleanup-tag 2>/dev/null || echo ""
       env:
         GH_TOKEN: ${{ env.GITHUB_TOKEN }}
     
-    - name: 创建新的 GitHub Release
+    - name: "[STEP] Create New Release"
       if: steps.has_changes.outputs.has_changes == 'true'
       uses: softprops/action-gh-release@v3
       with:
-        tag_name: ${{ steps.release_info.outputs.tag}}
+        tag_name: ${{ steps.release_info.outputs.tag }}
         name: "${{ steps.release_info.outputs.tag }}"
         body: |
           ## 生成时间（GMT+8）：${{ steps.release_info.outputs.time }}

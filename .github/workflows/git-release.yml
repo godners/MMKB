@@ -1,4 +1,4 @@
-name: Auto Release
+name: "[WORKFLOW] Git Release"
 
 on:
   workflow_call:
@@ -19,7 +19,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Run Auto Release
-        uses: ./.github/actions/auto-release
+        uses: ./.github/actions/git-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
