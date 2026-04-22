@@ -92,7 +92,7 @@ def calc_repo_stats(ignore_objects: list) -> dict:
             rel_root = ""
         
         current_dir = os.path.basename(root) if root != "." else ""
-        if current_fir in ignore_dirs and rel_root != "":
+        if current_dir in ignore_dirs and rel_root != "":
             continue
 
         folder_count += 1
@@ -109,15 +109,6 @@ def calc_repo_stats(ignore_objects: list) -> dict:
                 total_size += os.path.getsize(file_path)
             except OSError:
                 pass
-        
-    # if total_size >= 1073741824:
-    #     size_hr = f"{total_size / 1073741824:.2f} GiB"
-    # elif total_size >= 1048576:
-    #     size_hr = f"{total_size / 1048576:.2f} MiB"
-    # elif total_size >= 1024:
-    #     size_hr = f"{total_size / 1024:.2f} KiB"
-    # else:
-    #     size_hr = f"{total_size} Byte"
 
     return {
         "folder_count": folder_count,
