@@ -1,4 +1,4 @@
-name: TEST. Git Info
+name: "[WORKFLOW] Git Info"
 
 on:
   workflow_dispatch:
@@ -17,10 +17,12 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: run bash
-        run: bash .github/scripts/auto-commit-info.bash
-        shell: bash
-
+      # - name: run bash
+      #   run: bash .github/scripts/auto-commit-info.bash
+      #   shell: bash
+      - name: Run Git Info via Action
+        uses: ./.github/actions/git-info
+        
       - name: verify git config
         run: git config --local --list
         shell: bash

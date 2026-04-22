@@ -1,0 +1,12 @@
+name: "[ACTION] Git Info"
+
+description: Load Git Info
+
+runs:
+  using: composite
+  steps:
+    - name: "[STEP] Run Worker via Bash"
+      run: bash .github/sctipts/worker.bash
+      shell: bash
+      env:
+        ACTION_PATH: ${{ github.action_path }}
