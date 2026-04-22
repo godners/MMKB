@@ -4,7 +4,7 @@ set -euo pipefail
 echo "[BASH] Git Info"
 
 # CONFIG_FILE=".github/configs/auto-commit.json"
-CONFIG_FILE="${ACTION_PATH}/configs.json"
+CONFIG_FILE="${ACTION_PATH}/configs.jsonc"
 
 echo "从配置文件读取： ${CONFIG_FILE}..."
 
@@ -18,26 +18,15 @@ fi
 # ====================== 2. 检查并创建默认 JSON ======================
 if [ ! -f "${CONFIG_FILE}" ];
 then
-  echo "    ${CONFIG_FILE} 未找到, 按默认配置创建..."
-  cat > "${CONFIG_FILE}" << EOF
-{
-    "git": {
-        "user": {
-            "name": "github-actions[bot]",
-            "email": "github-actions[bot]@users.noreply.github.com"
-        }
-    }
-}
-EOF
+  echo "    ${CONFIG_FILE} 未找到..."
+  exit 1
 fi
 
 # ====================== 3. 动态读取 JSON 并设置所有 git config ======================
 echo "读取应用全部参数..."
 
-mapfile -t git_configs < <(jq -r '
-        .git.user | to_entries[] |
-        "user.\(.key)=\(.value)"
-    ' "${CONFIG_FILE}" 2>/dev/null || echo "")
+mapfile -t git_configs < <(grep -v '^//' "${CONFIG_FILE}" |
+    jq -r '.git.user | to_entries[] | "user.\(.key)=\(.value)"' 2>/dev/null || echo "")
 
 echo =============
 echo $git_configs
