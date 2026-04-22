@@ -125,7 +125,7 @@ def calc_repo_stats(ignore_objects: list) -> dict:
         "size_hr": size_hr(total_size)
     }
         
-def write_version_md(tag: str, release_time: str, commits: list, stats: dict, commits_review: int)
+def write_version_md(tag: str, release_time: str, commits: list, stats: dict, commits_review: int):
     with open("VERSION.md", "w", encoding="utf-8") as f:
         f.write("# 项目版本信息\n")
         f.write("## 最后一次 Release\n")
