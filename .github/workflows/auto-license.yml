@@ -1,4 +1,4 @@
-name: Auto License
+name: "[WORKFLOW] Auto License"
 
 on:
   workflow_dispatch:

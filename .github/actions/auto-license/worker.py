@@ -1,5 +1,5 @@
 import os
-import json
+import json5
 from pathlib import Path
 
 print("[PYTHON] Auto License")
@@ -12,7 +12,8 @@ CONFIG_FILE = Path(os.getenv("ACTION_PATH")) / "configs.jsonc"
 def load_config():
     if os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
-            data = json.load(f)
+            print(f.read())
+            data = json5.load(f)
             try:
                 config = {
                     "license_file": data.get("license_file"),
