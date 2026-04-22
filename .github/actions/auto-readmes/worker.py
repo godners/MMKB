@@ -6,8 +6,7 @@ from pathlib import Path
 
 print("[PYTHON] Auto Readmes")
 
-#CONFIG_FILE = Path(".github/configs/auto-readmes.json")
-CONFIG_FILE = Path(os.getenv("ACTION_PATH")) / "configs.json"
+CONFIG_FILE = Path(os.getenv("ACTION_PATH")) / "configs.jsonc"
 
 def load_config():
     if not CONFIG_FILE.exists():

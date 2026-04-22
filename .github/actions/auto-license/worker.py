@@ -2,27 +2,30 @@ import os
 import json
 from pathlib import Path
 
-CONFIG_FILE = ".github/configs/auto-license.json"
-FALLBACK_LICENSE_FOOTER = ".github/resources/license-footer.md"
-FALLBACK_CHECK_KEYWORD = "> License Added"
+print("[PYTHON] Auto License")
+# CONFIG_FILE = ".github/configs/auto-license.json"
+CONFIG_FILE = Path(os.getenv("ACTION_PATH")) / "configs.jsonc"
+# FALLBACK_LICENSE_FOOTER = Path(os.getenv("ACTION_PATH")) / "license.md"
+# FALLBACK_CHECK_KEYWORD = "> License Added"
 
 # 加载配置文件
 def load_config():
     if os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
             data = json.load(f)
-            return {
-                "license_footer": data.get("license_footer", FALLBACK_LICENSE_FOOTER),
-                "check_keyword": data.get("check_keyword", FALLBACK_CHECK_KEYWORD),
-                "ignore_objects": data.get("ignore_objects", [])
-            }
+            try:
+                config = {
+                    "license_file": data.get("license_file"),
+                    "check_keyword": data.get("check_keyword"),
+                    "ignore_objects": data.get("ignore_objects")
+                    }
+                return config
+            except:
+                print(f"警告：读取配置文件 {CONFIG_FILE} 失败")
+                return {}
     else:
-        print(f"警告：配置文件 {CONFIG_FILE} 不存在，使用 Fallback 值")
-        return {
-            "license_footer": FALLBACK_LICENSE_FOOTER,
-            "check_keyword": FALLBACK_CHECK_KEYWORD,
-            "ignore_objects": []
-        }
+        print(f"警告：配置文件 {CONFIG_FILE} 不存在")
+        return {}
 
 def should_ignore(file_path, ignore_list):
     # 规范化路径（使用 / 作为分隔符）
@@ -47,8 +50,10 @@ def has_license(content, check_keyword):
 
 def main():
     config = load_config()
+    if config == {}:
+        return
 
-    LICENSE_FILE = config["license_footer"]
+    LICENSE_FILE = Path(os.getenv("ACTION_PATH")) / config["license_file"]
     CHECK_KEYWORD = config["check_keyword"]
     ignore_list = config["ignore_objects"]
 

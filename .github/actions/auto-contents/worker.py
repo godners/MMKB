@@ -6,8 +6,7 @@ from pathlib import Path
 print("[PYTHON] Auto Contents")
 
 # ====================== 配置 ======================
-#CONFIG_FILE = Path(".github/configs/auto-contents.json")
-CONFIG_FILE = Path(os.getenv("ACTION_PATH")) / "configs.json"
+CONFIG_FILE = Path(os.getenv("ACTION_PATH")) / "configs.jsonc"
 
 def load_config():
     if not CONFIG_FILE.exists():

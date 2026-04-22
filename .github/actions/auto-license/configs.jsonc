@@ -1,3 +1,4 @@
+// [CONFIG] Auto License
 {
     "ignore_objects": [
         { "name": "README.md", "type": "file" },
@@ -6,14 +7,15 @@
         { "name": "LICENSE.md", "type": "file" },
         { "name": "SECURITY.md", "type": "file" },
         { "name": ".gitignore", "type": "file" },
+        { "name": "Markdown语法.md", "type": "file" },
+        { "name": "Markdown表格.md", "type": "file" },
+        { "name": "Markdown链接.md", "type": "file" },
+        { "name": "Markdown规则.md", "type": "file" },
+        { "name": "keybindings.json", "type": "file" },
         { "name": ".github", "type": "dir" },
-        { "name": ".git", "type": "dir" },
         { "name": "CONTENTS.md", "type": "file" },
-        { "name": ".README", "type": "file" },
-        { "name": ".vscode", "type": "dir" }
+        { "name": ".git", "type": "dir" }
     ],
-    "name_mapping": [
-        { "name": "keybindings.json", "new_name": "VS CODE 键盘映射" }
-    ]
+    "tag_words": "> License Added",
+    "license_file": "license.md"
 }
-

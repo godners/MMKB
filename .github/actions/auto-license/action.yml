@@ -1,10 +1,12 @@
-name: 03. Auto Contents
+name: "[ACTION] Auto Contents"
 
-description: '自动添加 License 声明'
+description: 'Auto add License'
 
 runs:
   using: composite
   steps:
-    - name: 运行 Python 脚本生成所有 CONTENTS.md
-      run: python .github/scripts/auto-contents.py
+    - name: "[STEP] Run Worker via Python"
+      run: python ${{ github.action_path }}/worker.py
       shell: bash
+      env:
+        ACTION_PATH: ${{ github.action_path }}
