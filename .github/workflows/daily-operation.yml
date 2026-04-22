@@ -47,7 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Run Auto Version
-        uses: ./.github/action/auto-version
+        uses: ./.github/actions/auto-version
 
       - name: Run Auto Readmes
         uses: ./.github/actions/auto-readmes
