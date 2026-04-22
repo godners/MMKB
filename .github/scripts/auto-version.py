@@ -68,17 +68,17 @@ def size_hr(total_size: int) -> str:
         return f"{total_size} Byte"
 
 def calc_repo_stats(ignore_objects: list) -> dict:
-    ignore_set = set()
+    ignore_objs = set()
     ignore_dirs = set()
     for obj in ignore_objects:
         name = obj.get("name")
         if not name:
             continue
-        if obj.get("type") == "dir"
-            ignore_set.add(name)
+        if obj.get("type") == "dir":
+            ignore_objs.add(name)
             ignore_dirs.add(name)
         else:
-            ignore_set.add(name)
+            ignore_objs.add(name)
     
     folder_count = 0
     file_count = 0
@@ -101,7 +101,7 @@ def calc_repo_stats(ignore_objects: list) -> dict:
             file_path = os.path.join(root, f)
             rel_path = os.path.relpath(file_path, ".")
 
-            if f in ignore_set or any(rel_path.startswith(d + "/") or rel_path == d for d in ignore_dirs):
+            if f in ignore_objs or any(rel_path.startswith(d + "/") or rel_path == d for d in ignore_dirs):
                 continue
             
             file_count += 1
