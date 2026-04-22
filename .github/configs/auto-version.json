@@ -1,0 +1,9 @@
+{
+    "ignore_objects": [
+        { "name": ".vscode", "type": "dir" },
+        { "name": ".gitignore", "type": "file" },
+        { "name": ".github", "type": "dir" },
+        { "name": ".git", "type": "dir" },
+        { "name": "VERSION.md", "type": "file"}
+    ]
+}

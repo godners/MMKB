@@ -1,0 +1,44 @@
+name: Auto Version
+
+on:
+    workflow_dispatch:
+    workflow_call:
+
+permissions:
+    contents: write
+
+jobs:
+  auto-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Chekcout repository
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Load Git Info
+        shell: bash
+        run: bash .github/scripts/auto-commit-info.bash
+
+      - name: Load Release & Commit Data
+        id: data
+        run: bash .github/scripts/auto-version.bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Authenticate GitHub CLI
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: Generate VERSION.md
+        shell: bash
+        run: python .github/scripts/auto-version.py
+
+      - name: Run Auto Commit
+        uses: ./.github/actions/auto-commit
+        with:
+          patterns: VERSION.md
+          commit-prefix: Auto Version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
