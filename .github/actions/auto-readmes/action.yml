@@ -5,8 +5,8 @@ description: '自动生成 README.md 文件'
 runs:
   using: composite
   steps:
-    - name: 运行 Python 脚本生成所有 README.md
-      run: python ${{ github.action_path }}/auto-contents.py
+    - name: "[STEP] Run Worker via Python"
+      run: python ${{ github.action_path }}/worker.py
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}

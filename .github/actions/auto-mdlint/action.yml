@@ -15,7 +15,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Run Auto MDLint
+    - name: "[STEP] Run Worker via External action"
       uses: DavidAnson/markdownlint-cli2-action@main
       with: 
         fix: true
