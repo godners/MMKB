@@ -63,7 +63,9 @@ def main():
     
     with open(LICENSE_FILE, 'r', encoding='utf-8') as f:
         license_text = "\n\n" + f.read().strip() + "\n"
-
+        f.seek(0)
+        print(f.read())
+        
     # 获取所有 .md 文件
     root = Path(".")
     md_files = [str(p) for p in root.rglob("*.md") if p.is_file()]
