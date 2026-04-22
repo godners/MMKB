@@ -21,8 +21,8 @@ jobs:
       - name: Run Auto Readmes
         uses: ./.github/actions/auto-readmes
 
-      - name: Run Auto Commit
-        uses: ./.github/actions/auto-commit
+      - name: Run Git Commit
+        uses: ./.github/actions/git-commit
         with:
           patterns: |
             **/README.md

@@ -23,8 +23,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Auto Commit
-        uses: ./.github/actions/auto-commit
+      - name: Run Git Commit
+        uses: ./.github/actions/git-commit
         with:
           patterns: VERSION.md
           commit-prefix: Auto Version

@@ -24,8 +24,8 @@ jobs:
       - name: Run Git Info via Action
         uses: ./.github/actions/git-info
         
-      - name: Run Auto Commit
-        uses: ./.github/actions/auto-commit
+      - name: Run Git Commit
+        uses: ./.github/actions/git-commit
         with:
           patterns: |
             **/CONTENTS.md
