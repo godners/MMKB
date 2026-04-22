@@ -6,7 +6,7 @@ runs:
   using: composite
   steps:
     - name: "[STEP] Run Worker via Bash"
-      run: bash .github/sctipts/worker.bash
+      run: bash ${{ github.action_path }}/worker.bash
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
