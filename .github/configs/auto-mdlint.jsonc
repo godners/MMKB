@@ -83,7 +83,8 @@
     "names": [                       /// 指定大小写样式
       "MMKB", "GitHub", "github.com",
       "Markdown", "Actions", "Godners", 
-      "https://github.com/godners"
+      "https://github.com/godners",
+      "github-actions"
     ]
   },
   "MD045": { "enabled": false },  // 图片图片必须有替代文本，alt 文字不能为空。

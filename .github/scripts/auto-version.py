@@ -142,7 +142,7 @@ def write_version_md(tag: str, release_time: str, commits: list, stats: dict, co
         f.write(f"- **总计文件大小**：{stats['size_hr']}\n\n")
         f.write("---\n\n")
         utc_now = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S $z")
-        f.write(f"> 最后生成时间：{utc_now}\n\n")
+        f.write(f"> 最后生成时间：{utc_now}\n")
 
 def main():
     config =load_config()
