@@ -53,7 +53,7 @@ def get_commits_data(commits_data: str, max_count: int) -> list[tuple]:
         if author not in seen:
             seen.add(author)
             commits.append((author, isodate, msg))
-             if len(commits) >= max_count:
+            if len(commits) >= max_count:
                 break
     return commits
 
