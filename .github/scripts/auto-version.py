@@ -166,6 +166,6 @@ def main():
 
     write_version_md(tag, release_time, commits, stats, commits_review)
 
-if __name__ == "__main__"
+if __name__ == "__main__":
     main()
     
