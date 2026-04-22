@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-import os
-import json5
+import os, json5
 from pathlib import Path
 
 print("[PYTHON] Auto Contents")
