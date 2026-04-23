@@ -10,7 +10,7 @@ def parse_readme_template(content: str, base_dir: Path) -> str:
     i = 0
     n = len(lines)
 
-    with i < n:
+    while i < n:
         line = lines[i].rstrip('\n')
 
         # 匹配 <include>xxx</include>
