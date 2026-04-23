@@ -6,8 +6,8 @@ runs:
   using: composite
   steps:
     - name: "[STEP] Install Dependencies"
-      uses: dcarbone/install-jq-action@main
-      
+      uses: ./.github/actions/apt-dependencies
+
     - name: "[STEP] Run Worker via Bash"
       run: bash ${{ github.action_path }}/worker.bash
       shell: bash

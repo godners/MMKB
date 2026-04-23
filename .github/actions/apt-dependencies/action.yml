@@ -1,0 +1,9 @@
+name: "[ACTION] Apt Dependencies"
+
+description: '安装 Bash 依赖，使用 Apt'
+
+runs:
+  using: composite
+  steps:
+    - name: "[STEP] Install JQ" 
+      uses: dcarbone/install-jq-action@main
