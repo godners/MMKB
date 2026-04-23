@@ -11,20 +11,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Checkout repository
-      #   uses: actions/checkout@main
-      #   with:
-      #     fetch-depth: 0
-      #     token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout repository
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Run Git Checkout via Action
-      #   uses: ./.github/actions/git-checkout
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: temp apt dep
-        uses: ./.github/actions/apt-dependencies
-
+      - name: Run Auto Dependencies via Action
+        uses: ./.github/actions/auto-deps
+        
       - name: Run Git Info via Action
         uses: ./.github/actions/git-info
         
