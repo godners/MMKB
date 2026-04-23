@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     if dest.exists():
         current_content = dest.read_text(encoding='utf-8').strip()
-        if current_content = content:
+        if current_content == content:
             needs_update = False
 
     if needs_update:
