@@ -5,9 +5,6 @@ description: 'Auto add License'
 runs:
   using: composite
   steps:
-    - name: "[Step] Run Pip Dependencies via Action"
-      uses: ./.github/actions/pip-dependencies
-
     - name: "[STEP] Run Worker via Python"
       run: python ${{ github.action_path }}/worker.py
       shell: bash
