@@ -11,7 +11,7 @@ then
     RELEASE_TAG=$(echo "$RELEASE_INFO" | awk '{print $1}')
     PUBLISHED_AT=$(echo "$RELEASE_INFO" | awk '{print $4}')
     # 2. 计算本地时间 (GMT+8)
-    RELEASE_TIME=$(date -d "$PUBLISHEDAT + 8 hours" '+%T %F' 2>/dev/null || echo "N/A")
+    RELEASE_TIME=$(date -d "$PUBLISHEDAT + 8 hours" '+%F %T' 2>/dev/null || echo "N/A")
 else
     RELEASE_TAG="No Release"
     RELEASE_TIME="N/A"
