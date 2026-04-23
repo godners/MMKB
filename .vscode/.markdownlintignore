@@ -1,0 +1,6 @@
+VERSION.md
+.github/**
+.vscode/**
+.git/**
+.README
+**/.README

@@ -8,6 +8,7 @@
   },
   "MD022": { "enabled": true },
   "MD024": { "siblings_only": true },
+  "MD029": { "enabled": false },
   "MD031": { "enabled": true },
   "MD032": { "enabled": true },  
   "MD033": {
