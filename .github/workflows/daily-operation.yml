@@ -59,9 +59,8 @@ jobs:
         uses: ./.github/actions/git-commit
         with:
           patterns: |
-            **/*.md
-            *.md
-            !VERSION.md
+            README.md
+            VERSION.md
           commit-prefix: "Daily Markdown Fix"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
