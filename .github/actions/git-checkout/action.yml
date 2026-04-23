@@ -1,0 +1,19 @@
+name: "[ACTION] Git Checkout"
+
+description: '自动签出 Repository，引入依赖项'
+
+runs:
+  using: composite
+  steps:
+    - name: "[STEP] Checkout Repository"
+      uses: actions/checkout@main
+      with:
+        fetch-depth: 0
+        token: ${{ env.GITHUB_TOKEN }}
+        show-progress: false
+    
+    - name: "[STEP] Run Apt Dependencies via Action:"
+      uses: ./.github/actions/apt-dependencies
+
+    - name: "[STEP] Run Pip Dependencies via Action"
+      uses: ./.github/actions/pip-dependencies
