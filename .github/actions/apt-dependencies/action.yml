@@ -5,5 +5,12 @@ description: '安装 Bash 依赖，使用 Apt'
 runs:
   using: composite
   steps:
+    - name: "[STEP] Checkout Repository"
+      uses: actions/checkout@main
+      with:
+        fetch-depth: 0
+        token: ${{ env.GITHUB_TOKEN }}
+        show-progress: false
+        
     - name: "[STEP] Install JQ" 
       uses: dcarbone/install-jq-action@main
