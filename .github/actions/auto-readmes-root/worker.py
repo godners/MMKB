@@ -2,7 +2,7 @@
 import os, re
 from pathlib import Path
 
-print("[PYTHON] Auto Readme (Root)")
+print("[PYTHON] Auto Readmes (Root)")
 
 def parse_readme_template(content: str, base_dir: Path) -> str:
     lines = content.splitlines(keepends=True)

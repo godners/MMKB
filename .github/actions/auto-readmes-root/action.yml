@@ -1,4 +1,4 @@
-name: "[ACTION] Auto Readme (Root)"
+name: "[ACTION] Auto Readmes (Root)"
 
 description: '自动生成 README.md 文件 （仅根文件夹）'
 
