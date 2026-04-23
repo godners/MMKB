@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  daily-markdown-fix:
+  daily-operation:
     runs-on: ubuntu-latest
     
     steps:
@@ -31,6 +31,14 @@ jobs:
       - name: Run Auto MDLint
         uses: ./.github/actions/auto-mdlint
 
+      - name: Run Auto Version
+        uses: ./.github/actions/auto-version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Auto Readmes (Root)
+        uses: ./.github/actions/auto-readmes-root
+
       - name: Run Auto Commit
         uses: ./.github/actions/git-commit
         with:
@@ -47,37 +55,34 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  daily-version-check:
-    needs: daily-markdown-fix
-    runs-on: ubuntu-latest
+  # daily-version-check:
+  #   needs: daily-markdown-fix
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@main
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@main
+  #       with:
+  #         fetch-depth: 0
+  #         token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Auto Version
-        uses: ./.github/actions/auto-version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Auto Readmes (Root)
-        uses: ./.github/actions/auto-readmes-root
+
+  #     - name: Run Auto Readmes (Root)
+  #       uses: ./.github/actions/auto-readmes-root
       
-      - name: Run Auto Commit for Version
-        uses: ./.github/actions/git-commit
-        with:
-          patterns: |
-            VERSION.md
-            README.md
-          commit-prefix: "Daily Version Check"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Run Auto Commit for Version
+  #       uses: ./.github/actions/git-commit
+  #       with:
+  #         patterns: |
+  #           VERSION.md
+  #           README.md
+  #         commit-prefix: "Daily Version Check"
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Auto Release
-        uses: ./.github/actions/git-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Run Auto Release
+  #       uses: ./.github/actions/git-release
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
