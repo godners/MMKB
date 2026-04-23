@@ -23,4 +23,5 @@ runs:
           ${{ inputs.patterns }}
           !.github/**
           !.vscode/**
+          !VERSION.md
         config: '${{ github.action_path }}/configs.jsonc'
