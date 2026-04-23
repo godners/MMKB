@@ -5,9 +5,8 @@ description: '自动生成 README.md 文件'
 runs:
   using: composite
   steps:
-    - name: "[STEP] Install dependencies"
-      shell: bash
-      run: pip install -r ${{ github.action_path }}/pylib.txt
+    - name: "[Step] Run Pip Dependencies via Action"
+      uses: ./.github/actions/pip-dependencies
       
     - name: "[STEP] Run Worker via Python"
       run: python ${{ github.action_path }}/worker.py
