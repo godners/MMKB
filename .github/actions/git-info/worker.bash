@@ -8,11 +8,11 @@ CONFIG_FILE="${ACTION_PATH}/configs.jsonc"
 echo "从配置文件读取： ${CONFIG_FILE}..."
 
 # ====================== 1. 确保 jq 已安装 ======================
-if ! command jq > /dev/null 2>&1; then
-    echo "Installing jq..."
-    sudo apt-get update -qq
-    sudo apt-get install -y jq
-fi
+# if ! command jq > /dev/null 2>&1; then
+#     echo "Installing jq..."
+#     sudo apt-get update -qq
+#     sudo apt-get install -y jq
+# fi
 
 # ====================== 2. 检查并创建默认 JSON ======================
 if [ ! -f "${CONFIG_FILE}" ];
