@@ -127,7 +127,7 @@ def write_version_md(tag: str, release_time: str, commits: list, stats: dict, co
         f.write(f"- **标签**：{tag}\n")
         f.write(f"- **时间**：{release_time}\n\n")
         f.write("### 最后一次 Commit\n\n")
-        f.write(f"> 最多显示 {commits_review} 人的最后一次 Commit\n\n")
+        f.write(f"> 最多显示最近 {commits_review} 人的 Commit\n\n")
         for author, isodate, msg in commits:
             try:
                 if isodate.endswith("Z"):
@@ -139,12 +139,12 @@ def write_version_md(tag: str, release_time: str, commits: list, stats: dict, co
             except Exception:
                 f.write(f"- [ **N/A** ] {author}：{msg}\n")
         f.write("\n### 仓库内容\n\n")
-        f.write("> 已按配置规则排除）\n\n")
+        f.write("> 已按配置规则排除\n\n")
         f.write(f"- **总计文件夹数量**：{stats['folder_count']}\n")
         f.write(f"- **总计文件数量**：{stats['file_count']}\n")
         f.write(f"- **总计文件大小**：{stats['size_hr']}\n\n")
         f.write("---\n\n")
-        utc_now = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S $z")
+        utc_now = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
         f.write(f"> 最后生成时间：{utc_now}\n")
 
 def main():
