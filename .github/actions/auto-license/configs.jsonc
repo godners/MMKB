@@ -14,7 +14,8 @@
         { "name": "keybindings.json", "type": "file" },
         { "name": ".github", "type": "dir" },
         { "name": "CONTENTS.md", "type": "file" },
-        { "name": ".git", "type": "dir" }
+        { "name": ".git", "type": "dir" },
+        { "name": "VERSION.md", "type": "file" }
     ],
     "check_keyword": "> License Added",
     "license_file": "license.md"

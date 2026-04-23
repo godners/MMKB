@@ -1,0 +1,12 @@
+name: "[ACTION] Auto Readme (Root)"
+
+description: '自动生成 README.md 文件 （仅根文件夹）'
+
+runs:
+  using: composite
+  steps:
+    - name: "[STEP] Run Worker via Python"
+      run: python ${{ github.action_path }}/worker.py
+      shell: bash
+      env:
+        ACTION_PATH: ${{ github.action_path }}
