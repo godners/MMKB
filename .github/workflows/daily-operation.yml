@@ -63,8 +63,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Auto Readmes
-        uses: ./.github/actions/auto-readmes
+      - name: Run Auto Readmes (Root)
+        uses: ./.github/actions/auto-readmes-root
       
       - name: Run Auto Commit for Version
         uses: ./.github/actions/git-commit

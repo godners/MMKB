@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Auto Readmes
+      - name: Run Auto Readmes (Root)
         uses: ./.github/actions/auto-readmes-root
 
       - name: Run Git Commit
