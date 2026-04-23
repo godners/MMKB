@@ -28,7 +28,7 @@ def parse_template(content: str, base_dir: Path) -> str:
             i += 1
             block = []
             while i < len(lines) and not re.match(markdown_regex, lines[i], re.IGNORECASE):
-                block.append(lines[i]
+                block.append(lines[i])
                 i += 1
             result.append(''.join(block))
         else:
