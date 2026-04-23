@@ -11,9 +11,6 @@ runs:
       env:
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
 
-    - name: "[Step] Run Pip Dependencies via Action"
-      uses: ./.github/actions/pip-dependencies
-
     - name: "[STEP] Run Worker via Python"
       shell: bash
       run: python ${{ github.action_path }}/worker.py

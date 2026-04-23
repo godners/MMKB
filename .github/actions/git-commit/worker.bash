@@ -6,11 +6,11 @@ echo "[BASH] Git Commit"
 CONFIG_FILE="${ACTION_PATH}/configs.jsonc"
 
 # ====================== 1. 确保 jq 已安装 ======================
-if ! command jq > /dev/null 2>&1; then
-    echo "Installing jq..."
-    sudo apt-get update -qq
-    sudo apt-get install -y jq
-fi
+# if ! command jq > /dev/null 2>&1; then
+#     echo "Installing jq..."
+#     sudo apt-get update -qq
+#     sudo apt-get install -y jq
+# fi
 
 # 读取 commit-prefix（如果 Inputs 传入则使用，否则后面从 JSON 读取）
 COMMIT_PREFIX="${INPUT_COMMIT_PREFIX:-}"
