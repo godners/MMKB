@@ -12,7 +12,7 @@ def parse_template(content: str, base_dir: Path) -> str:
     result = []
     i = 0
 
-    while i < n:
+    while i < len(lines):
         line = lines[i].rstrip('\n')
 
         # 处理 <include>
@@ -36,7 +36,7 @@ def parse_template(content: str, base_dir: Path) -> str:
         i += 1
     return ''.join(result).strip()
 
-if __name__ == "__main__":
+def main():
     root = Path.cwd()
     readme_path = root / ".README"
     contents_path = root / "CONTENTS.md"
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     content = content.strip()
 
     # 3.写入文件
-    dest = root / README.md
+    dest = root / "README.md"
     needs_update = True
 
     if dest.exists():
