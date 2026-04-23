@@ -63,15 +63,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Auto Commit for Version
-        uses: ./.github/actions/git-commit
-        with:
-          patterns: |
-            VERSION.md
-          commit-prefix: "Daily Version Check"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Run Auto Readmes (Root)
         uses: ./.github/actions/auto-readmes-root
       
@@ -80,6 +71,7 @@ jobs:
         with:
           patterns: |
             VERSION.md
+            README.md
           commit-prefix: "Daily Version Check"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
