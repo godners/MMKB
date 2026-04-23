@@ -5,13 +5,6 @@ echo "[BASH] Git Commit"
 
 CONFIG_FILE="${ACTION_PATH}/configs.jsonc"
 
-# ====================== 1. 确保 jq 已安装 ======================
-# if ! command jq > /dev/null 2>&1; then
-#     echo "Installing jq..."
-#     sudo apt-get update -qq
-#     sudo apt-get install -y jq
-# fi
-
 # 读取 commit-prefix（如果 Inputs 传入则使用，否则后面从 JSON 读取）
 COMMIT_PREFIX="${INPUT_COMMIT_PREFIX:-}"
 
@@ -23,7 +16,7 @@ else
     PATTERNS=()
 fi
 
-# ====================== 2. 如果 Inputs 未提供，则从 JSON 读取 ==================
+
 if [ -z "${COMMIT_PREFIX}" ] || [ ${#PATTERNS[@]} -eq 0 ];
 then
     echo "Inputs 未提供参数，从 ${CONFIG_FILE} 中读取默认值..."
@@ -62,7 +55,7 @@ if git diff --staged --quiet; then
     exit 0
 fi
 
-# ====================== Commit & Push ======================
+
 COMMIT_TIME=$(date -u -d '8 hours' '+%F %T')
 COMMIT_MESSAGE="${COMMIT_PREFIX} on ${COMMIT_TIME}"
 

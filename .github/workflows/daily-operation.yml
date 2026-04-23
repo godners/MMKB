@@ -18,6 +18,9 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Run Auto Dependencies via Action
+        uses: ./.github/actions/auto-deps
       
       - name: Run Auto Contents
         uses: ./.github/actions/auto-contents

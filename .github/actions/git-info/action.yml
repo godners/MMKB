@@ -5,9 +5,6 @@ description: Load Git Info
 runs:
   using: composite
   steps:
-    # - name: "[STEP] Install Dependencies"
-    #   uses: ./.github/actions/apt-dependencies
-
     - name: "[STEP] Run Worker via Bash"
       run: bash ${{ github.action_path }}/worker.bash
       shell: bash

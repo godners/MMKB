@@ -27,6 +27,7 @@ jobs:
             **/*.md
             *.md
             **/*.json
+            **/*.jsonc
             **/*.bash
             **/*.yml
             **/*.py
