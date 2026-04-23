@@ -20,13 +20,11 @@ jobs:
         uses: ./.github/actions/git-checkout
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Run Git Info via Action
         uses: ./.github/actions/git-info
         
       - name: Verify Git Config
         run: git config --local --list
         shell: bash
-        
-
         
