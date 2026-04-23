@@ -34,6 +34,7 @@
 
 ---
 > License Added
+>
 # MMKB
 
 仓库文件与子目录结构
@@ -44,7 +45,6 @@
 - [Markdown规则](Markdown规则.md)
 - [Markdown语法](Markdown语法.md)
 - [Markdown链接](Markdown链接.md)
-- [VERSION](VERSION.md)
 
 ---
 
