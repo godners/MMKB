@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+echo "[BASH] Git Release (Check)"
+echo ".github/actions/git-release/worker-check.bash"
+
 LATEST_TAG=$(gh release list --limit 1 --json tagName --jq '.[0].tagName' 2>/dev/null || echo "")
 
 if [ -z "$LATEST_TAG" ]; then

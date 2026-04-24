@@ -1,4 +1,5 @@
-// [CONFIG] Auto Contents
+// [JSONC] Auto Contents
+// .github/actions/auto-contents/configs.jsonc
 {
     "ignore_objects": [
         { "name": "README.md", "type": "file" },
@@ -16,6 +17,7 @@
     ],
     "name_mapping": [
         { "name": "keybindings.json", "new_name": "VS CODE 键盘映射" }
-    ]
+    ],
+    "auto_footer": "> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。"
 }
 

@@ -1,4 +1,5 @@
 // [CONFIG] Git Info
+// .github/actions/git-info/configs.jsonc
 {
     "git": {
         "user": {

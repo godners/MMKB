@@ -1,4 +1,5 @@
 name: "[ACTION] Git Info"
+# .github/actions/git-info/action.yml
 
 description: Load Git Info
 
@@ -11,7 +12,7 @@ runs:
       env:
         ACTION_PATH: ${{ github.action_path }}
 
-    - name: "[STEP] Print Summary"
+    - name: "[STEP] Print Summary via Action"
       uses: ./.github/actions/bot-summary
       with:
         title: "Git Info"

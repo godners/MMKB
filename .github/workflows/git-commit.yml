@@ -1,4 +1,5 @@
 name: "[WORKFLOW] Git Commit"
+# .github/workflow/git-commit.yml
 
 on: 
   workflow_dispatch:
@@ -11,16 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: "[STEP] Run Checkout Repository via Action"
         uses: actions/checkout@main
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Auto Dependencies via Action
+      - name: "[STEP] Run Auto Dependencies via Action"
         uses: ./.github/actions/auto-deps          
           
-      - name: Run Auto Commit
+      - name: "[STEP] Run Auto Commit via Action"
         uses: ./.github/actions/git-commit
         with:
           patterns: |
@@ -31,6 +32,6 @@ jobs:
             **/*.bash
             **/*.yml
             **/*.py
-          commit-prefix: "[TEST] Auto Commit"
+          commit-prefix: "Git Commit"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

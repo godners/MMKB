@@ -1,14 +1,15 @@
 name: "[ACTION] Auto Dependencies"
+# .github/actions/auto-deps/action.yml
 
 description: '使用 Apt 安装 Bash 依赖，使用缓存安装 Python 依赖'
 
 runs:
   using: composite
   steps:       
-    - name: "[STEP] Install JQ" 
+    - name: "[STEP] Install JQ via Action" 
       uses: dcarbone/install-jq-action@main
     
-    - name: "[STEP] Set Cache Module for Pip"
+    - name: "[STEP] Set Pip-Cache via Action"
       uses: actions/cache@main
       with:
         path: ~/.cache/pip
@@ -16,11 +17,11 @@ runs:
         restore-keys: |
           ${{ runner.os }}-pip-
     
-    - name: "[STEP] Install Dependencies"
+    - name: "[STEP] Install Dependencies via Command"
       shell: bash
       run: pip install -r ${{ github.action_path }}/requirements.txt
 
-    - name: "[STEP] Print Summary"
+    - name: "[STEP] Print Summary via Action"
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto Dependencies"

@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 
 print("[PYTHON] Auto Readmes")
+print(".github/actions/auto-readmes/worker.py")
 
 # 全局计数器
 total_scanned = 0

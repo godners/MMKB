@@ -1,4 +1,5 @@
 name: "[WORKFLOW] Git Info"
+# .github/workflow/git-info.yml
 
 on:
   workflow_dispatch:
@@ -11,19 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: "[STEP] Run Checkout Repository via Action"
         uses: actions/checkout@main
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Auto Dependencies via Action
+      - name: "[STEP] Run Auto Dependencies via Action"
         uses: ./.github/actions/auto-deps
         
-      - name: Run Git Info via Action
+      - name: "[STEP] Run Git Info via Action"
         uses: ./.github/actions/git-info
         
-      - name: Verify Git Config
+      - name: "[STEP] Verify Git Config via Command"
         run: git config --local --list
         shell: bash
         

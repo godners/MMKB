@@ -1,4 +1,5 @@
 // [CONFIG] Auto License
+// .github/actions/auto-license/configs.jsonc
 {
     "ignore_objects": [
         { "name": "README.md", "type": "file" },

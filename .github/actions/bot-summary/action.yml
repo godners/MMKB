@@ -1,4 +1,5 @@
 name: "[ACTION] Bot Summary"
+# .github/actions/bot-summary/action.yml
 
 description: 输出 Summary 信息
 
@@ -15,7 +16,7 @@ inputs:
 runs:
   using: composite
   steps: 
-    - name: "[STEP] Output Summary Information"
+    - name: "[STEP] Output Summary Information via Command"
       shell: bash
       run: |
         TIME=$(date -d '+8 hours' '+%F %T')

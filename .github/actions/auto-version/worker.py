@@ -3,6 +3,9 @@ import json5, os
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
+print("[PYTHON] Auto Version")
+print(".github/actions/auto-version/worker.py")
+
 CONFIG_FILE = Path(os.getenv("ACTION_PATH", ".")) / "configs.jsonc"
 
 def load_config():

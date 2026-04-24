@@ -1,4 +1,5 @@
 name: "[ACTION] Auto Commit"
+# .github/actions/git-commit/action.yml
 
 description: '自动提交并推送指定的 Markdown 文件'
 
@@ -30,7 +31,7 @@ runs:
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
         ACTION_PATH: ${{ github.action_path }}
     
-    - name: "[STEP] Print Summary"
+    - name: "[STEP] Print Summary via Action"
       uses: ./.github/actions/bot-summary
       with:
         title: "Git Commit"

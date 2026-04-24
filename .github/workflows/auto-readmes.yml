@@ -1,8 +1,8 @@
 name: "[WORKFLOW] Auto Readmes"
+# .github/workflow/auto-readmes.yml
 
 on:
-  workflow_dispatch:        # 手动触发
-  workflow_call:            # 允许被其他 workflow 调用
+  workflow_dispatch:  
 
 permissions:
   contents: write
@@ -12,19 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: "[STEP] Run Checkout Repository via Action"
         uses: actions/checkout@main
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Run Auto Dependencies via Action
+      - name: "[STEP] Run Auto Dependencies via Action"
         uses: ./.github/actions/auto-deps
 
-      - name: Run Auto Readmes
+      - name: "[STEP] Run Auto Readmes via Action"
         uses: ./.github/actions/auto-readmes
 
-      - name: Run Git Commit
+      - name: "[STEP] Run Git Commit via Action"
         uses: ./.github/actions/git-commit
         with:
           patterns: |

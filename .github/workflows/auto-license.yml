@@ -1,8 +1,8 @@
 name: "[WORKFLOW] Auto License"
+# .github/workflow/auto-license.yml
 
 on:
   workflow_dispatch:
-  workflow_call:
 
 permissions:
   contents: write
@@ -12,19 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: "[STEP] Run Checkout Repository via Action"
         uses: actions/checkout@main
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}        
       
-      - name: Run Auto Dependencies via Action
+      - name: "[STEP] Run Auto Dependencies via Action"
         uses: ./.github/actions/auto-deps
 
-      - name: Run Auto License
+      - name: "[STEP] Run Auto License via Action"
         uses: ./.github/actions/auto-license
       
-      - name: Run Git Commit
+      - name: "[STEP] Run Git Commit via Action"
         uses: ./.github/actions/git-commit
         with:
           patterns: |

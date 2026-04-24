@@ -3,10 +3,12 @@ import os, json5
 from pathlib import Path
 
 print("[PYTHON] Auto Contents")
+print(".github/actions/auto-contents/worker.py")
+
 
 # ====================== 配置 ======================
 CONFIG_FILE = Path(os.getenv("ACTION_PATH", ".")) / "configs.jsonc"
-AUTO_FOOTER = "> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。"
+# AUTO_FOOTER = "> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。"
 
 # 全局计数器
 total_scanned = 0
@@ -23,6 +25,7 @@ def load_config():
 config = load_config()
 ignore_objects = config.get("ignore_objects", [])
 name_mapping = {item["name"]: item["new_name"] for item in config.get("name_mapping", [])}
+AUTO_FOOTER = config.get("auto_footer", "")
 
 def should_ignore(item: Path) -> bool:
     item_type = "dir" if item.is_dir() else "file"

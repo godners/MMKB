@@ -1,3 +1,4 @@
+<!-- .github/actions/auto-license/license.md -->
 
 ---
 **许可声明**  

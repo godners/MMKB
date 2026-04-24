@@ -2,6 +2,7 @@
 set -e
 
 echo "[BASH] Auto Version"
+echo ".github/actions/auto-version/worker.bash"
 
 # 1. 尝试获取最新 Release 信息
 RELEASE_INFO=$(gh release list --limit 1 2>/dev/null || echo "")

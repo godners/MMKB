@@ -1,4 +1,5 @@
 name: "[ACTION] Auto Contents"
+# .github/actions/auto-contents/action.yml
 
 description: '自动生成 CONTENTS.md 文件'
 
@@ -12,7 +13,7 @@ runs:
       env:
         ACTION_PATH: ${{ github.action_path }}
     
-    - name: "[STEP] Print Summary"
+    - name: "[STEP] Print Summary via Action"
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto Contents"

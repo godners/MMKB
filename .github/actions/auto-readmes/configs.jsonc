@@ -1,4 +1,5 @@
 // [CONFIG] Auto Readmes
+// .github/actions/auto-readmes/configs.jsonc
 {
     "ignore_objects": [
         { "name": "README.md", "type": "file" },

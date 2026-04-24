@@ -2,6 +2,7 @@
 set -euo pipefail
 
 echo "[BASH] Git Commit"
+echo ".github/actions/git-commit/worker.bash"
 
 # 默认设置状态为 Canceled (用于未产生变更的情况)
 echo "COMMIT_STATUS=Commit has been Canceled" >> "$GITHUB_ENV"

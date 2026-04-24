@@ -1,4 +1,5 @@
 // [CONFIG] Auto MDLint
+// .github/actions/auto-mdlint/configs.jsonc
 {
   "default": false,
   "MD001": { "enabled": false },  // 标题层级只能逐级递增，不能跳级。

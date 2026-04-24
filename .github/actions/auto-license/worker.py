@@ -5,6 +5,7 @@ import traceback
 from pathlib import Path
 
 print("[PYTHON] Auto License")
+print(".github/actions/auto-license/worker.py")
 CONFIG_FILE = Path(os.getenv("ACTION_PATH")) / "configs.jsonc"
 
 # 加载配置文件

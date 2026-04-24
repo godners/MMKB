@@ -1,4 +1,5 @@
 name: "[ACTION] Auto MDLint"
+# .github/actions/auto-mdlint/action.yml
 
 description: '自动修正 Markdown 文档格式错误'
 
@@ -15,7 +16,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: "[STEP] Count Patterns"
+    - name: "[STEP] Count Patterns via Command"
       shell: bash
       env:
         RAW_PATTERNS: ${{ inputs.patterns }}
@@ -28,13 +29,13 @@ runs:
         echo "PATTERNS_LIST=${PATTERNS_LIST}" >> $GITHUB_ENV
         echo "PATTERNS_COUNT=${PATTERNS_COUNT}" >> $GITHUB_ENV
 
-    - name: "[STEP] Print Summary (Patterns)"
+    - name: "[STEP] Print Summary via Action (Patterns)"
       uses: ./.github/actions/bot-summary
       with: 
         title: "Auto MDLint"
         message: "Input ${{ env.PATTERN_COUNT }} Patterns: ${{ env.PATTERNS_LIST }}"
 
-    - name: "[STEP] Run Worker via External action"
+    - name: "[STEP] Run Worker via Action"
       uses: DavidAnson/markdownlint-cli2-action@main
       with: 
         fix: true
@@ -45,13 +46,13 @@ runs:
           !VERSION.md
         config: '${{ github.action_path }}/configs.jsonc'
         
-    - name: "[STEP] Count Modified"
+    - name: "[STEP] Count Modified via Command"
       shell: bash
       run: |
         TOTAL_MODIFIED=$(git status --porcelain | wc -l)
         echo "TOTAL_MODIFIED=${TOTAL_MODIFIED}" >> $GITHUB_ENV
 
-    - name: "[STEP] Print Summary (Modified)"
+    - name: "[STEP] Print Summary via Action (Modified)"
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto MDLint"

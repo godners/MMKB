@@ -3,6 +3,7 @@ import os, re
 from pathlib import Path
 
 print("[PYTHON] Auto Readmes (Root)")
+print(".github/actions/auto-readmes-root/worker.py")
 
 # 正则表达式预编译
 INCLUDE_RE = re.compile(r'^\s*<include>\s*(.+?)\s*</include>\s*$', re.I)
