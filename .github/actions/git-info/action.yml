@@ -10,3 +10,9 @@ runs:
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
+
+    - name: "[STEP] Print Summary"
+      uses: ./.github/actions/bot-summary
+      with:
+        title: "Git Info"
+        message: "Loaded ${{ env.CONFIG_COUNT }} Configurations."
