@@ -10,3 +10,9 @@ runs:
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
+
+    - name: "[STEP] Print Summery"
+      uses: ./.github/actions/bot-summary
+      with:
+        title: "Auto Readmes"
+        message: "Scanned ${{ env.TOTAL_SCANNED }} Files, Modified ${{ env.TOTAL_MODIFIED }} Files." 
