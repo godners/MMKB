@@ -44,6 +44,7 @@ runs:
           !.vscode/**
           !VERSION.md
         config: '${{ github.action_path }}/configs.jsonc'
+        
     - name: "[STEP] Count Modified"
       shell: bash
       run: |

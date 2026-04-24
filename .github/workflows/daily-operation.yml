@@ -22,19 +22,19 @@ jobs:
       - name: Run Auto Dependencies via Action
         uses: ./.github/actions/auto-deps
       
-      - name: Run Auto Contents
+      - name: Run Auto Contents via Action
         uses: ./.github/actions/auto-contents
 
-      - name: Run Auto Readmes
+      - name: Run Auto Readmes via Action
         uses: ./.github/actions/auto-readmes
 
-      - name: Run Auto License
+      - name: Run Auto License via Action
         uses: ./.github/actions/auto-license
 
-      - name: Run Auto MDLint
+      - name: Run Auto MDLint via Action
         uses: ./.github/actions/auto-mdlint
 
-      - name: Run Auto Commit - First Time
+      - name: Run Git Commit via Action - First Time
         uses: ./.github/actions/git-commit
         with:
           patterns: |
@@ -45,20 +45,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Auto Release - First Time
+      - name: Run Git Release via Action - First Time
         uses: ./.github/actions/git-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Auto Version
+      - name: Run Auto Version via Action
         uses: ./.github/actions/auto-version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Auto Readmes (Root)
+      - name: Run Auto Readmes via Action (Root)
         uses: ./.github/actions/auto-readmes-root
 
-      - name: Run Auto Commit - Second Time
+      - name: Run Git Commit via Action - Second Time
         uses: ./.github/actions/git-commit
         with:
           patterns: |
@@ -68,7 +68,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Auto Release - Second Time
+      - name: Run Git Release via Action - Second Time
         uses: ./.github/actions/git-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -29,4 +29,9 @@ runs:
         INPUT_COMMIT_PREFIX: ${{ inputs.commit-prefix }}
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
         ACTION_PATH: ${{ github.action_path }}
-        
+    
+    - name: "[STEP] Print Summary"
+      uses: ./.github/actions/bot-summary
+      with:
+        title: "Git Commit"
+        message: "${{ env.COMMIT_STATUS }}"

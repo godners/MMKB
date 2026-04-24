@@ -3,71 +3,59 @@ set -euo pipefail
 
 echo "[BASH] Git Commit"
 
+# 默认设置状态为 Canceled (用于未产生变更的情况)
+echo "COMMIT_STATUS=Commit has been Canceled" >> "$GITHUB_ENV"
+
 CONFIG_FILE="${ACTION_PATH}/configs.jsonc"
 
-# 读取 commit-prefix（如果 Inputs 传入则使用，否则后面从 JSON 读取）
-COMMIT_PREFIX="${INPUT_COMMIT_PREFIX:-}"
-
-# 读取 patterns（支持多行输入）
-if [ -n "${INPUT_PATTERNS:-}" ]
-then
-    mapfile -t PATTERNS <<< ${INPUT_PATTERNS}
-else
-    PATTERNS=()
-fi
-
-
-if [ -z "${COMMIT_PREFIX}" ] || [ ${#PATTERNS[@]} -eq 0 ];
-then
-    echo "Inputs 未提供参数，从 ${CONFIG_FILE} 中读取默认值..."
-
-    if [ -f "${JSON_FILE}" ];
-    then
-        # 读取 commit-prefix（如果 Inputs 为空则从 JSON 获取）
-        if [ -z "${COMMIT_PREFIX}" ]
-        then
-            COMMIT_PREFIX=$(grep -v '^//' "${CONFIG_FILE}" |
-                jq -r '.default["commit-prefix"] // ""')
-        fi
-
-        # 从 JSON 读取 patterns，如果不存在则使用 DEFAULT_PATTERNS
-        if [ ${#PATTERNS[@]} -eq 0 ]
-        then
-            mapfile -t PATTERNS < <(grep -v '^//' "${CONFIG_FILE}" |
-                jq -r '.default.patterns[]? // empty')
-        fi
+# 加载配置函数
+load_config() {
+    if [[ -z "${INPUT_COMMIT_PREFIX:-}" ]]; then
+        COMMIT_PREFIX=$(grep -v '^//' "${CONFIG_FILE}" 2>/dev/null | jq -r '.default["commit-prefix"] // ""')
     else
-        echo "未找到 ${CONFIG_FILE}，使用默认值..."
+        COMMIT_PREFIX="${INPUT_COMMIT_PREFIX}"
     fi
-fi
 
+    if [[ -z "${INPUT_PATTERNS:-}" ]]; then
+        mapfile -t PATTERNS < <(grep -v '^//' "${CONFIG_FILE}" 2>/dev/null | jq -r '.default.patterns[]? // empty')
+    else
+        mapfile -t PATTERNS <<< "${INPUT_PATTERNS}"
+    fi
+}
+
+load_config
+
+# 添加文件
 echo "Adding files..."
 for pattern in "${PATTERNS[@]}"; do
-    if [ -n "${pattern}" ]; then
-        echo "   git add \"${pattern}\""
-        git add "${pattern}" 2>/dev/null || true
+    trimmed_pattern=$(echo "$pattern" | xargs)
+    if [[ -n "$trimmed_pattern" ]]; then
+        git add "$trimmed_pattern" 2>/dev/null || true
     fi
 done
 
-# 检查是否有实际变更
+# 检查变更
 if git diff --staged --quiet; then
     echo "没有检测到任何变更，跳过提交。"
+    # 保持 COMMIT_STATUS 为 Canceled
     exit 0
 fi
 
-
+# 执行提交
 COMMIT_TIME=$(date -u -d '8 hours' '+%F %T')
-COMMIT_MESSAGE="${COMMIT_PREFIX} on ${COMMIT_TIME}"
+COMMIT_MESSAGE="${COMMIT_PREFIX:-Auto Commit} on ${COMMIT_TIME}"
 
 echo "Committing: ${COMMIT_MESSAGE}"
-git commit -m "${COMMIT_MESSAGE}"
-
-CURRENT_BRANCH=$(git branch --show-current)
-
-echo "Pushing changes..."
-git stash save "Stash dirty files before pull" || true
-git pull --rebase origin "${CURRENT_BRANCH}"
-git stash pop || true
-git push origin "${CURRENT_BRANCH}"
-
-echo "Auto commit and push completed successfully!"
+if git commit -m "${COMMIT_MESSAGE}"; then
+    # 提交成功，更新状态字符串
+    echo "COMMIT_STATUS=Commit has been Completed" >> "$GITHUB_ENV"
+    
+    # Push 操作
+    CURRENT_BRANCH=$(git branch --show-current)
+    echo "Pushing changes..."
+    git stash save "Stash dirty files before pull" || true
+    git pull --rebase origin "${CURRENT_BRANCH}"
+    git stash pop || true
+    git push origin "${CURRENT_BRANCH}"
+    echo "Auto commit and push completed successfully!"
+fi
