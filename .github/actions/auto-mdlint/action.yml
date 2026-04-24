@@ -56,4 +56,4 @@ runs:
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto MDLint"
-        message: "Modified ${{ env.TOTAL_MODIFIED }} Files."
+        message: "Modified `${{ env.TOTAL_MODIFIED }}` Files."
