@@ -4,12 +4,18 @@ on:
     workflow_dispatch:
 
 jobs:
-    bot-summary:
-        runs-on: ubuntu-latest
+  bot-summary:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: check bot summary
-              uses: ./.github/actions/bot-summary
-              with:
-                title: "TEST-TITLE"
-                message: "Some Message"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: check bot summary
+        uses: ./.github/actions/bot-summary
+        with:
+        title: "TEST-TITLE"
+        message: "Some Message"
