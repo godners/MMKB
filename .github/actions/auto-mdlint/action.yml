@@ -21,12 +21,13 @@ runs:
         RAW_PATTERNS: ${{ inputs.patterns }}
       run: |
         CLEAN_PATTERNS=$(echo "$RAW_PATTERNS" | awk 'NF')
-        COUNT=$(echo "$CLEAN_PATTERNS" | wc -l
-        echo "PATTERNS_COUNT=$COUNT" >> $GITHUB_ENV
-        LIST=$(echo $CLEAN_PATTERNS | tr '\n' ',' | sed 's/,$//')
+        PATTERNS_COUNT=$(echo "$CLEAN_PATTERNS" | wc -l)
+        LIST=$(echo "$CLEAN_PATTERNS" | tr '\n' ',' | sed 's/,$//')
         PATTERNS_LIST=$(echo "$LIST" | sed 's/,/, /g')
+        
         echo "PATTERNS_LIST=${PATTERNS_LIST}" >> $GITHUB_ENV
-    
+        echo "PATTERNS_COUNT=${PATTERNS_COUNT}" >> $GITHUB_ENV
+
     - name: "[STEP] Print Summary (Patterns)"
       uses: ./.github/actions/bot-summary
       with: 
