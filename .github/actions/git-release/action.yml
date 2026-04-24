@@ -51,4 +51,4 @@ runs:
       uses: ./.github/actions/bot-summary
       with:
         title: "Git Release"
-        message: "New Release Tag is ${{ steps.release_info.outputs.tag }}, Generated At ${{ steps.release_info.outputs.time }} ."
+        message: "Tag is <${{ steps.release_info.outputs.tag }}>, Time is <${{ steps.release_info.outputs.time }}>."
