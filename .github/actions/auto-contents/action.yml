@@ -6,7 +6,14 @@ runs:
   using: composite
   steps:
     - name: "[STEP] Run Worker via Python"
+      id: worker
       run: python ${{ github.action_path }}/worker.py
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
+    
+    - name: "[STEP] Print Summery"
+      uses: ./.github/actions/bot-summary
+      with:
+        title: "Auto Contents"
+        message: "Scanned ${{ env.TOTAL_SCANNED }} Files, Modified ${{ env.TOTAL_MODIFIED }} Files." 

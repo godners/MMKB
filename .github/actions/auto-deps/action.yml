@@ -24,4 +24,4 @@ runs:
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto Dependencies"
-        message: "Installed [BASH]jq, [PYTHON]json5."
+        message: "Installed [BASH] jq, [PYTHON] json5."

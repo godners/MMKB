@@ -8,6 +8,10 @@ print("[PYTHON] Auto Contents")
 CONFIG_FILE = Path(os.getenv("ACTION_PATH", ".")) / "configs.jsonc"
 AUTO_FOOTER = "> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。"
 
+# 全局计数器
+total_scanned = 0
+total_modified = 0
+
 def load_config():
     if not CONFIG_FILE.exists():
         return {"ignore_objects": [], "name_mapping": [], "head_additional": []}
@@ -35,12 +39,9 @@ def get_rel_path_str(item: Path, root: Path) -> str:
 
 def add_special(lines, content):
     """通用格式化函数：确保内容前后各仅有1个空行"""
-    # 确保内容前有空行（如果不是开头且上一行不是空行）
     if lines and lines[-1] != "":
         lines.append("")
-    # 添加内容
     lines.append(content)
-    # 确保内容后有空行
     lines.append("")
 
 def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
@@ -53,11 +54,9 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
     files = sorted([i for i in contents if i.is_file() and not should_ignore(i)], key=lambda x: x.name.lower())
     folders = sorted([i for i in contents if i.is_dir() and not should_ignore(i)], key=lambda x: x.name.lower())
 
-    # 添加文件
     for item in files:
         lines.append(f"- [{get_display_name(item)}]({get_rel_path_str(item, root)})")
 
-    # 添加子文件夹
     if folders:
         if files:
             add_special(lines, "---")
@@ -73,6 +72,7 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
     return lines
 
 def generate_contents_for_dir(dir_path: Path, root: Path):
+    global total_modified
     contents_path = dir_path / "CONTENTS.md"
     try:
         rel_path = dir_path.relative_to(root)
@@ -82,18 +82,13 @@ def generate_contents_for_dir(dir_path: Path, root: Path):
 
     dir_name = dir_path.name if dir_path.name else "项目根目录"
     
-    # 头部标题
     lines = [f"{'#' * level} {dir_name}", "", "仓库文件与子目录结构", ""]
-    
-    # 递归生成树
     tree_lines = build_tree(dir_path, root, level)
     lines.extend(tree_lines if tree_lines else ["（此目录为空）"])
 
-    # 尾部
     add_special(lines, "---")
     lines.append(AUTO_FOOTER)
 
-    # 统一清理：移除末尾可能多余的空行，并最终保留一个换行
     while lines and lines[-1] == "":
         lines.pop()
     lines.append("")
@@ -103,10 +98,24 @@ def generate_contents_for_dir(dir_path: Path, root: Path):
         return
     
     contents_path.write_text(new_content, encoding="utf-8")
+    total_modified += 1
     print(f"更新: {dir_path.name or '根目录'}")
+
+def set_github_env_var(key, value):
+    env_file = os.getenv("GITHUB_ENV")
+    if env_file:
+        with open(env_file, "a", encoding="utf-8") as f:
+            f.write(f"{key}={value}\n")
+    else:
+        print(f"[DEBUG] 本地运行，环境变量 {key}={value} 未写入 GITHUB_ENV")
 
 if __name__ == "__main__":
     root = Path.cwd().resolve()
     for dirpath, dirnames, _ in os.walk(root):
+        total_scanned += 1
         dirnames[:] = [d for d in dirnames if not should_ignore(Path(dirpath) / d)]
         generate_contents_for_dir(Path(dirpath), root)
+    
+    set_github_env_var("TOTAL_SCANNED", total_scanned)
+    set_github_env_var("TOTAL_MODIFIED", total_modified)
+    print(f"扫描结束。共扫描目录: {total_scanned}，实际更新文件: {total_modified}")
