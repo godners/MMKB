@@ -20,7 +20,7 @@ runs:
       shell: bash
       run: pip install -r ${{ github.action_path }}/requirements.txt
 
-    - name: "[STEP] Print Summery"
+    - name: "[STEP] Print Summary"
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto Dependencies"

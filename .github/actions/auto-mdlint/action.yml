@@ -15,6 +15,23 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: "[STEP] Count Patterns"
+      shell: bash
+      env:
+        RAW_PATTERNS: ${{ inputs.patterns }}
+      run: |
+        CLEAN_PATTERNS=$(echo "$RAW_PATTERNS" | awk 'NF')
+        COUNT=$(echo "$CLEAN_PATTERNS" | wc -l
+        echo "PATTERNS_COUNT=$COUNT" >> $GITHUB_ENV
+        LIST=$(echo $CLEAN_PATTERNS | tr '\n' ',' | sed 's/,$//')
+        echo "PATTERNS_LIST=$(echo "$LIST" | sed 's/,/, /g')" >> $GITHUB_ENV
+    
+    - name: "[STEP] Print Summary (Patterns)"
+      uses: ./.github/actions/bot-summary
+      with: 
+        title: "Auto MDLint"
+        message: "Input ${{ env.PATTERN_COUNT }} Patterns: ${{ env.PATTERNS_LIST }}"
+
     - name: "[STEP] Run Worker via External action"
       uses: DavidAnson/markdownlint-cli2-action@main
       with: 
@@ -25,3 +42,14 @@ runs:
           !.vscode/**
           !VERSION.md
         config: '${{ github.action_path }}/configs.jsonc'
+    - name: "[STEP] Count Modified"
+      shell: bash
+      run: |
+        TOTAL_MODIFIED=$(git status --porcelain | wc -l)
+        echo "TOTAL_MODIFIED=${TOTAL_MODIFIED}" >> $GITHUB_ENV
+
+    - name: "[STEP] Print Summary (Modified)"
+      uses: ./.github/actions/bot-summary
+      with:
+        title: "Auto MDLint"
+        message: "Modified ${{ env.TOTAL_MODIFIED }} Files."

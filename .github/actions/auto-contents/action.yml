@@ -12,7 +12,7 @@ runs:
       env:
         ACTION_PATH: ${{ github.action_path }}
     
-    - name: "[STEP] Print Summery"
+    - name: "[STEP] Print Summary"
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto Contents"
