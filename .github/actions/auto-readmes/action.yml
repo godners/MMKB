@@ -14,5 +14,5 @@ runs:
     - name: "[STEP] Print Summery"
       uses: ./.github/actions/bot-summary
       with:
-        title: "Auto Readmes"
+        title: "Auto License"
         message: "Scanned ${{ env.TOTAL_SCANNED }} Files, Modified ${{ env.TOTAL_MODIFIED }} Files." 
