@@ -64,7 +64,7 @@ jobs:
           patterns: |
             README.md
             VERSION.md
-          commit-prefix: "Daily Markdown Fix"
+          commit-prefix: "Daily Version Update"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
