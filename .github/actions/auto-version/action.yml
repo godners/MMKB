@@ -30,5 +30,5 @@ runs:
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto Version"
-        message: "Folder Count = ${{ steps.worker.outputs.folder_count }}, File Count = ${{ steps.worker.outputs.file_count }}, Total Size = ${{ steps.worker.outputs.size_str }}"
+        message: "Folder Count = ${{ steps.worker.outputs.folder_count }}, File Count = ${{ steps.worker.outputs.file_count }}, Total Size = ${{ steps.worker.outputs.size_hr }}"
 

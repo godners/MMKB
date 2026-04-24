@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout repository
+      - name: Run Checkout Repository via Action
         uses: actions/checkout@main
         with:
           fetch-depth: 0
@@ -34,7 +34,7 @@ jobs:
       - name: Run Auto MDLint via Action
         uses: ./.github/actions/auto-mdlint
 
-      - name: Run Git Commit via Action - First Time
+      - name: Run Git Commit via Action (First)
         uses: ./.github/actions/git-commit
         with:
           patterns: |
@@ -45,7 +45,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Git Release via Action - First Time
+      - name: Run Git Release via Action (First)
         uses: ./.github/actions/git-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -58,7 +58,7 @@ jobs:
       - name: Run Auto Readmes via Action (Root)
         uses: ./.github/actions/auto-readmes-root
 
-      - name: Run Git Commit via Action - Second Time
+      - name: Run Git Commit via Action (Second)
         uses: ./.github/actions/git-commit
         with:
           patterns: |
@@ -68,7 +68,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Git Release via Action - Second Time
+      - name: Run Git Release via Action (Second)
         uses: ./.github/actions/git-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

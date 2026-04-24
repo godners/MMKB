@@ -1,76 +1,58 @@
 #!/usr/bin/env python3
-import re
+import os, re
 from pathlib import Path
 
 print("[PYTHON] Auto Readmes (Root)")
 
-include_regex=r'^\s*<include>\s*(.+?)\s*</include>\s*$'
-markdown_regex=r'^\s*<markdown>\s*$'
+# 正则表达式预编译
+INCLUDE_RE = re.compile(r'^\s*<include>\s*(.+?)\s*</include>\s*$', re.I)
+MARKDOWN_RE = re.compile(r'^\s*<markdown>\s*$', re.I)
 
 def parse_template(content: str, base_dir: Path) -> str:
-    lines = content.splitlines(keepends=True)
+    lines = content.splitlines()
     result = []
     i = 0
-
     while i < len(lines):
-        line = lines[i].rstrip('\n')
-
-        # 处理 <include>
-        if match := re.match(include_regex, line, re.IGNORECASE):
+        line = lines[i]
+        if match := INCLUDE_RE.match(line):
             path = (base_dir / match.group(1).strip()).resolve()
-            if path.is_file() and path.is_relative_to(base_dir.resolve()):
-                result.append(path.read_text(encoding='utf-8'))
-            else:
-                result.append(f"\n")
-
-        # 处理 <markdown>
-        elif re.match(markdown_regex, line, re.IGNORECASE):
+            result.append(path.read_text(encoding='utf-8') if path.is_file() and path.is_relative_to(base_dir) else "")
+        elif MARKDOWN_RE.match(line):
             i += 1
             block = []
-            while i < len(lines) and not re.match(markdown_regex, lines[i], re.IGNORECASE):
+            while i < len(lines) and not MARKDOWN_RE.match(lines[i]):
                 block.append(lines[i])
                 i += 1
-            result.append(''.join(block))
+            result.append('\n'.join(block))
         else:
-            result.append(lines[i])
+            result.append(line)
         i += 1
-    return ''.join(result).strip()
+    return '\n'.join(result).strip()
 
 def main():
     root = Path.cwd()
-    readme_path = root / ".README"
-    contents_path = root / "CONTENTS.md"
+    # 优先查找 .README，其次查找 CONTENTS.md
+    src = next((root / f for f in [".README", "CONTENTS.md"] if (root / f).exists()), None)
+    if not src: return
 
-    # 1. 明确源文件查找逻辑
-    if readme_path.exists():
-        src = readme_path
-    elif contents_path.exists():
-        src = contents_path
-    else:
-        return
-    
-    # 2. 根据文件类型处理内容
-    raw_text = src.read_text(encoding='utf-8')
-    
-    if src.name == ".README":
-        content = parse_template(raw_text, root)
-    else:
-        content = raw_text
-    
+    # 生成内容
+    content = parse_template(src.read_text(encoding='utf-8'), root) if src.name == ".README" else src.read_text(encoding='utf-8')
     content = content.strip()
 
-    # 3.写入文件
+    # 检查并更新
     dest = root / "README.md"
-    needs_update = True
-
-    if dest.exists():
-        current_content = dest.read_text(encoding='utf-8').strip()
-        if current_content == content:
-            needs_update = False
-
-    if needs_update:
+    old_content = dest.read_text(encoding='utf-8').strip() if dest.exists() else ""
+    
+    updated = content != old_content
+    if updated:
         dest.write_text(content, encoding='utf-8')
         print(f"README.md updated from {src.name}")
+
+    # 输出状态到 GITHUB_ENV
+    status = "ROOT README has been Updated." if updated else "ROOT README has NO Changed."
+    if env_file := os.getenv("GITHUB_ENV"):
+        with open(env_file, "a", encoding="utf-8") as f:
+            f.write(f"README_STATUS={status}\n")
 
 if __name__ == "__main__":
     main()

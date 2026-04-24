@@ -10,3 +10,9 @@ runs:
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
+    
+    - name: "[STEP] Print Summary via Action"
+      uses: ./.github/actions/bot-summary
+      with:
+        title: "Auto Readme (Root)"
+        message: ${{ env.README_STATUS }}
