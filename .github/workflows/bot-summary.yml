@@ -1,0 +1,15 @@
+name: "[WORKFLOW] Bot Summary"
+
+on:
+    workflow_dispatch:
+
+jobs:
+    bot-summary:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: check bot summary
+              uses: ./.github/actions/bot-summary
+              with:
+                title: "TEST-TITLE"
+                message: "Some Message"

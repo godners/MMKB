@@ -1,0 +1,22 @@
+name: "[ACTION] Bot Summary"
+
+description: 输出 Summary 信息
+
+inputs:
+
+  title:
+    description: '标题'
+    required: true
+
+  message:
+    description: '要输出的信息'
+    required: true
+
+runs:
+  using: composite
+  steps: 
+    - name: "[STEP] Output Summary Information"
+      shell: bash
+      run: |
+        TIME=$(date -d '+8 hours' '+%F $%T'
+        echo "[${title}] ${TIME}: ${message}" >> $GITHUB_STEP_SUMMARY

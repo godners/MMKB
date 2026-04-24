@@ -64,7 +64,7 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
         
         for item in folders:
             display_name = get_display_name(item)
-            bracket = "[" * current_level + display_name + "]" * current_level
+            bracket = "【" * current_level + display_name + "】" * current_level
             header = f"{'#' * (current_level + 1)} {bracket}({get_rel_path_str(item, root)}/CONTENTS.md)"
             
             add_special(lines, header)
