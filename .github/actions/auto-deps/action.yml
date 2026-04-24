@@ -19,3 +19,9 @@ runs:
     - name: "[STEP] Install Dependencies"
       shell: bash
       run: pip install -r ${{ github.action_path }}/requirements.txt
+
+    - name: "[STEP] Print Summery"
+      uses: ./.github/actions/bot-summary
+      with:
+        title: "Auto Dependencies"
+        message: "Installed [BASH]jq, [PYTHON]json5."
