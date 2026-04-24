@@ -24,7 +24,7 @@ runs:
         COUNT=$(echo "$CLEAN_PATTERNS" | wc -l
         echo "PATTERNS_COUNT=$COUNT" >> $GITHUB_ENV
         LIST=$(echo $CLEAN_PATTERNS | tr '\n' ',' | sed 's/,$//')
-        echo "PATTERNS_LIST=$(echo "$LIST" | sed 's/,/, /g')" >> $GITHUB_ENV
+        echo "PATTERNS_LIST=$(echo \"$LIST\" | sed 's/,/, /g')" >> $GITHUB_ENV
     
     - name: "[STEP] Print Summary (Patterns)"
       uses: ./.github/actions/bot-summary
