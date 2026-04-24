@@ -17,5 +17,5 @@ jobs:
       - name: check bot summary
         uses: ./.github/actions/bot-summary
         with:
-        title: "TEST-TITLE"
-        message: "Some Message"
+          title: "TEST-TITLE"
+          message: "Some Message"
