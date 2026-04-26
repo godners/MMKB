@@ -24,9 +24,6 @@ jobs:
         
       - name: "[STEP] Run Auto Contents via Action"
         uses: ./.github/actions/auto-contents
-
-      - name: "[STEP] Run Git Info via Action via Action"
-        uses: ./.github/actions/git-info
         
       - name: "[STEP] Run Git Commit via Action"
         uses: ./.github/actions/git-commit
