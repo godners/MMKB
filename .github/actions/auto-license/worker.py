@@ -39,7 +39,7 @@ def apply_license_to_file(md_file, license_text, check_keyword):
         if has_license(content, check_keyword):
             return False
         with open(md_file, 'w', encoding='utf-8') as f:
-            f.write(f"{content.rstrip()}{license_text}"
+            f.write(f"{content.rstrip()}{license_text}")
         print(f"已添加声明: {md_file}")
         return True
     except Exception as e:
