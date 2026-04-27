@@ -35,6 +35,7 @@ runs:
         files: ${{ inputs.patterns }}    
 
     - name: "[STEP] Worker via Bash (Count)"
+      id: count
       shell: bash
       run: bash ${{ github.action_path }}/count.bash
       env:
@@ -46,7 +47,7 @@ runs:
       uses: ./.github/actions/bot-summary
       with:
         title: "Bot Patterns"
-        message: "Search by ${{ steps.glob.outputs.COUNT_PATTERNS }} Patterns, Filtered ${{ steps.glob.outputs.COUNT_FILES }} Paths." 
+        message: "Search by ${{ steps.count.outputs.COUNT_PATTERNS }} Patterns, Filtered ${{ steps.count.outputs.COUNT_FILES }} Paths." 
 
     - name: "[STEP] Run Worker via Bash (Debug)"
       if: inputs.debug == 'true'
