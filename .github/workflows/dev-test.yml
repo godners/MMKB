@@ -6,22 +6,23 @@ on:
 
 # permissions: read-all
 # permissions: write-all
-
 permissions:
-  actions: none              # 管理 GitHub Actions 相关的操作，如取消工作流运行。
-  checks: read               # 管理检查运行（Check Runs），如创建或更新 CI 检查状态。
-  contents: read             # 管理仓库内容，包括提交、分支、标签等。
-  deployments: none          # 管理部署。
-  discussions: write         # 管理讨论区内容。
-  issues: read               # 管理议题（Issues）。
-  packages: none             # 管理包发布或下载。
-  pages: none                # 管理 GitHub Pages。
-  pull-requests: read        # 管理拉取请求。
-  repository-projects: read  # 管理项目面板（Project Boards）。
-  security-events: none      # 管理代码扫描等安全事件。
-  statuses: read             # 管理提交状态。
-  id-token: none             # 用于获取 OpenID Connect (OIDC) 令牌，以便访问云服务商（如 AWS, Azure, GCP）。
-  
+  actions: read                 # read|write|none，处理 GitHub Actions。
+  artifact-metadata: read       # read|write|none，处理构件元数据。
+  attestations: read            # read|write|none，处理构件证明。
+  checks: read                  # read|write|none，处理检查运行和检查套件。
+  contents: read                # read|write|none，处理仓库内容。
+  deployments: read             # read|write|none，处理部署。
+  discussions: write            # read|write|none，处理 GitHub Discussions。
+  id-token: none                #     |write|none，获取 OpenID Connect (OIDC) 令牌。
+  issues: read                  # read|write|none，处理议题。
+  models: read                  # read|     |none，使用 GitHub Models 生成人工智能推理响应。
+  packages: read                # read|write|none，处理 GitHub Packages。
+  pages: read                   # read|write|none，处理 GitHub Pages。
+  pull-requests: read           # read|write|none，处理拉取请求。
+  security-events: read         # read|write|none，处理 GitHub 代码扫描警报。
+  statuses: read                # read|write|none，处理提交状态。
+  vulnerability-alerts: read    # read|     |none，读取 Dependabot 警报。
 
 jobs:
   dev-test:
