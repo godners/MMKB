@@ -9,6 +9,6 @@ if [ -z "$PATHS" ]
 then
     echo "COUNT_PATHS=0" >> $GITHUB_OUTPUT
 else
-    COUNT_FILES=$(echo "$PATHS" | awk -F \'${SEPARATOR}\' '{print NF}')
+    COUNT_PATHS=$(echo "$PATHS" | awk -F \'${SEPARATOR}\' '{print NF}')
     echo "COUNT_PATHS=${COUNT_PATHS}" >> $GITHUB_OUTPUT
 fi
