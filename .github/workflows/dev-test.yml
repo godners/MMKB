@@ -46,7 +46,7 @@ jobs:
         id: glob
         uses: ./.github/actions/bot-patterns
         with:
-          partterns: |
+          patterns: |
             **/*.md
             !**/README.md
             !**/CONTENTS.md
