@@ -47,7 +47,7 @@ jobs:
         uses: ./.github/actions/bot-patterns
         with:
           patterns: |
-            **/*.md
+            流体静压规约/*.md
             !**/README.md
             !**/CONTENTS.md
             !**/LICENSE.md
