@@ -4,7 +4,6 @@ name: "[WORKFLOW] Auto Contents"
 on:
   workflow_dispatch: 
 
-
 permissions:
   contents: write
 

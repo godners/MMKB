@@ -94,9 +94,16 @@ def generate_contents_for_dir(dir_path: Path, root: Path):
 
     dir_name = dir_path.name if dir_path.name else "项目根目录"
     
-    lines = [f"{'#' * level} {dir_name}", ""] # , "仓库文件与子目录结构", ""]
     tree_lines = build_tree(dir_path, root, level)
-    lines.extend(tree_lines if tree_lines else ["（此目录为空）"])
+
+    if not tree_lines:
+        if contents_path.exists():
+            contents_path.unlink()
+            total_modified += 1
+        return
+    
+    lines = [f"{'#' * (level + 1)} {dir_name}", ""] # , "仓库文件与子目录结构", ""]
+    lines.extend(tree_lines)
 
     add_special(lines, "---")
     lines.append(AUTO_FOOTER)
