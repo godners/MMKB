@@ -65,7 +65,7 @@ def parse_custom_tags(content: str, base_dir: Path) -> str:
         result.append(lines[i])
         i += 1
 
-    return ''..join(result)
+    return ''.join(result)
 
 def is_valid_process_target(dir_path: Path) -> bool:
     """判断目标目录是否包含需要处理的模板文件"""
