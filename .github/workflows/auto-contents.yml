@@ -21,7 +21,7 @@ jobs:
       - name: "[STEP] Run Auto Dependencies via Action"
         uses: ./.github/actions/auto-deps
 
-      - name: "[STEP] Run Bot Glob via Action"
+      - name: "[STEP] Run Bot Patterns via Action"
         id: glob
         uses: ./.github/actions/bot-patterns
         with:

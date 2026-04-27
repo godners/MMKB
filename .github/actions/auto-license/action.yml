@@ -3,6 +3,11 @@ name: "[ACTION] Auto Contents"
 
 description: 'Auto add License'
 
+inputs:
+  FILES:
+    description: '要匹配的文件模式表达式（每行一个）'
+    required: true
+
 runs:
   using: composite
   steps:
@@ -11,9 +16,10 @@ runs:
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
+        FILES: ${{ inputs.FILES }}
 
     - name: "[STEP] Print Summary via Action"
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto License"
-        message: "Scanned ${{ env.TOTAL_SCANNED }} Files, Modified ${{ env.TOTAL_MODIFIED }} Files." 
+        message: "Scanned ${{ env.TOTAL_FOLDERS }} Files, Modified ${{ env.TOTAL_UPDATES }} Files." 

@@ -34,7 +34,7 @@ runs:
         separator: ${{ inputs.separator }}
         files: ${{ inputs.patterns }}    
 
-    - name: "[STEP] Worker via Bash (Count)"
+    - name: "[STEP] Run Worker via Bash (Count)"
       id: count
       shell: bash
       run: bash ${{ github.action_path }}/count.bash
