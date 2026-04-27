@@ -34,12 +34,26 @@ runs:
         separator: ${{ inputs.separator }}
         files: ${{ inputs.patterns }}    
 
-    - name: "[STEP] Print Glob Result via Command"
+    - name: "[STEP] Worker via Bash (Count)"
+      shell: bash
+      run: bash ${{ github.action_path }}/count.bash
+      env:
+        SEPARATOR: ${{ inputs.separator }}
+        PATTERNS: ${{ inputs.patterns }}
+        PATHS: ${{ steps.glob.outputs.paths }}    
+
+    - name: "[STEP] Print Summary via Action"
+      uses: ./.github/actions/bot-summary
+      with:
+        title: "Bot Patterns"
+        message: "Search by ${{ steps.glob.outputs.COUNT_PATTERNS }} Patterns, Filtered ${{ steps.glob.outputs.COUNT_FILES }} Paths." 
+
+    - name: "[STEP] Run Worker via Bash (Debug)"
       if: inputs.debug == 'true'
       shell: bash
       run: bash ${{ github.action_path }}/debug.bash
       env:
         SEPARATOR: ${{ inputs.separator }}
         PATTERNS: ${{ inputs.patterns }}
-        FILES: ${{ steps.glob.outputs.paths }}
+        PATHS: ${{ steps.glob.outputs.paths }}
 
