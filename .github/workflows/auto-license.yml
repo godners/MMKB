@@ -27,11 +27,11 @@ jobs:
         with:
           patterns: |
             **/*.md
-            !README.md
-            !LICENSE.md
-            !CONTENTS.md
+            !**/README.md
+            !**/LICENSE.md
+            !**/CONTENTS.md
             !VERSION.md
-            !/Markdown*.md
+            !Markdown*.md
             !.github/**
             !.git/**
             !.vscode/**
