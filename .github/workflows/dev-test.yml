@@ -1,0 +1,38 @@
+name: "[WORKFLOW] Developing Test"
+# .github/workflows/dev-test.yml
+
+on:
+  workflow_dispatch:
+
+# permissions: read-all
+# permissions: write-all
+
+permissions:
+  actions: none              # 管理 GitHub Actions 相关的操作，如取消工作流运行。
+  checks: read               # 管理检查运行（Check Runs），如创建或更新 CI 检查状态。
+  contents: read             # 管理仓库内容，包括提交、分支、标签等。
+  deployments: none          # 管理部署。
+  discussions: write         # 管理讨论区内容。
+  issues: read               # 管理议题（Issues）。
+  packages: none             # 管理包发布或下载。
+  pages: none                # 管理 GitHub Pages。
+  pull-requests: read        # 管理拉取请求。
+  repository-projects: read  # 管理项目面板（Project Boards）。
+  security-events: none      # 管理代码扫描等安全事件。
+  statuses: read             # 管理提交状态。
+  id-token: none             # 用于获取 OpenID Connect (OIDC) 令牌，以便访问云服务商（如 AWS, Azure, GCP）。
+  
+
+jobs:
+  dev-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "[STEP] Run Checkout Repository via Action"
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "[STEP] Run Developing Test via Action"
+        uses: ./.github/actions/dev-test

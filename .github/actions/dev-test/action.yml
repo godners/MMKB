@@ -1,0 +1,28 @@
+name: "[ACTION] Developing Test"
+# .github/actions/dev-test/action.yml
+
+description: '开发测试'
+
+runs:
+  using: composite
+  steps:
+  
+    - name: "[STEP] Run Glob files via Action"
+      id: glob
+      uses: tj-actions/glob@main
+      with:
+        files: |
+          .github/**/*.bash
+          .github/**/*.py
+        
+
+    - name: "[STEP] Print Glob Result via Command"
+      shell: bash
+      run: |
+        echo "匹配到的文件列表：${{ steps.glob.outputs.paths }}"
+        echo "================================"
+        files = ${{ steps.glob.outputs.paths }}
+        for file in $files
+        do
+          echo "处理文件：$file"
+        done
