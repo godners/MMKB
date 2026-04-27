@@ -17,6 +17,7 @@ inputs:
     description: '输出匹配结果'
     required: false
     default: false
+    type: boolean
 
 outputs:
   files:
