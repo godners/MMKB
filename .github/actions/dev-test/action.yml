@@ -8,7 +8,6 @@ inputs:
     description: '要匹配的文件模式表达式（每行一个）'
     required: true
     
-
 runs:
   using: composite
   steps:
@@ -26,6 +25,7 @@ runs:
         echo "匹配到的文件列表：${{ steps.glob.outputs.paths }}"
         echo "================================"
         files=${{ steps.glob.outputs.paths }}
+        echo "================================"
         for file in $files
         do
           echo "处理文件：$file"
