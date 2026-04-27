@@ -36,3 +36,13 @@ jobs:
 
       - name: "[STEP] Run Developing Test via Action"
         uses: ./.github/actions/dev-test
+        id: glob
+        with:
+          patterns: |
+            .github/**/*.py
+
+      - name: "[STEP] Print Summary via Action"
+        uses: ./.github/actions/bot-summary
+        with:
+          title: "Developing Test"
+          message: ${{ steps.glob.outputs.paths }}
