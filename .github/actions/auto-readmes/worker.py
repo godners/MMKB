@@ -6,8 +6,8 @@ print("[PYTHON] Auto Readmes")
 print(".github/actions/auto-readmes/worker.py")
 
 # 全局计数器
-total_scanned = 0
-total_modified = 0
+total_folders = 0
+total_updates = 0
 
 REGEX_INCLUDE = r'^\s*<include>\s*.+?\s*</include>\s*$'
 REGEX_MARKDOWN = r'^\s*</markdown>\s*$'
@@ -83,7 +83,7 @@ def is_update_needed(readme_path: Path, new_content: str) -> bool:
 
 def process_directory(dir_path: Path, root: Path):
     """处理单个目录，读取模板并生成 README.md。"""
-    global total_modified
+    global total_updates
 
     template_path = dir_path / ".README"
     contents_path = dir_path / "CONTENTS.md"
@@ -110,7 +110,7 @@ def process_directory(dir_path: Path, root: Path):
 
     if is_update_needed(readme_path, final_content):
         readme_path.write_text(final_content, encoding="utf-8")
-        total_modified += 1
+        total_updates += 1
         print(f"更新：{dir_path.relative_to(root) or '/'}")
 
 def set_github_env_var(key, value):
@@ -142,12 +142,12 @@ if __name__ == "__main__":
         
         for dir_path in target_dirs:
             if dir_path.is_relative_to(root) and is_valid_process_target(dir_path):
-                total_scanned += 1
+                total_folders += 1
                 process_directory(dir_path, root)
     else:
         print("未接收到任何文件变更，跳过执行。")
 
-    set_github_env_var("TOTAL_SCANNED", total_scanned)
-    set_github_env_var("TOTAL_MODIFIED", total_modified)
+    set_github_env_var("TOTAL_FOLDERS", total_folders)
+    set_github_env_var("TOTAL_UPDATES", total_updates)
     
-    print(f"完成。共扫描目录: {total_scanned}，修改文件: {total_modified}")
+    print(f"完成。共扫描目录: {total_folders}，修改文件: {total_updates}")
