@@ -36,9 +36,9 @@ runs:
     - name: "[STEP] Print Glob Result via Command"
       if: ${{ inputs.debug == 'true' }}
       shell: bash
-      run: ${{ github.action_path }}/debug.bash
+      run: bash ${{ github.action_path }}/debug.bash
       env:
         SEPARATOR: ${{ inputs.separator }}
         PATTERNS: ${{ inputs.patterns }}
         FILES: ${{ steps.glob.outputs.paths }}
-        
+
