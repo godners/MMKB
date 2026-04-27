@@ -10,7 +10,8 @@ permissions:
 jobs:
   add-license:
     runs-on: ubuntu-latest
-
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: "[STEP] Run Checkout Repository via Action"
         uses: actions/checkout@main
