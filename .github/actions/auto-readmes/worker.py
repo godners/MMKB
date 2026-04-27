@@ -129,7 +129,7 @@ if __name__ == "__main__":
     print("开始生成 README 文件")
 
     if files_input:
-        formatted_files = file_input.replace(',', '\n').replace('\\','')
+        formatted_files = files_input.replace(',', '\n').replace('\\','')
         file_paths = [Path(p.strip()) for p in formatted_files.splitlines() if p.strip()]
 
         target_dirs = set()
