@@ -46,7 +46,7 @@ def parse_custom_tags(content: str, base_dir: Path) -> str:
     i = 0
     n = len(lines)
 
-    while i < n
+    while i < n：
         line = lines[i].rstrip('\n')
 
         # 检查是否为 <include>
