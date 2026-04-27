@@ -16,17 +16,18 @@ runs:
       id: glob
       uses: tj-actions/glob@main
       with:
-        files: ${{ inputs.patterns }}
-        
+        files: ${{ inputs.patterns }}        
 
     - name: "[STEP] Print Glob Result via Command"
       shell: bash
       run: |
         echo "匹配到的文件列表：${{ steps.glob.outputs.paths }}"
         echo "================================"
-        files=${{ steps.glob.outputs.paths }}
-        echo "================================"
-        for file in $files
+        echo ${{ steps.glob.outputs.paths }} | tr ' ' '\n' | while IFS= read -r file
         do
-          echo "处理文件：$file"
+          if [ -n $"file" ]
+          then
+            echo "处理文件：$file"
+          fi
         done
+        echo "================================"
