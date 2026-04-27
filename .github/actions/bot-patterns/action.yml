@@ -12,12 +12,6 @@ inputs:
     description: '输出结果分隔符，默认逗号“,”'
     required: false
     default: ","
-  
-  debug:
-    description: '输出匹配结果'
-    required: false
-    default: false
-    type: boolean
 
 outputs:
   files:
@@ -34,16 +28,11 @@ runs:
         separator: ${{ inputs.separator }}
         files: ${{ inputs.patterns }}    
 
-    - name: "[DEBUG] Print Input Value"
-      shell: bash
-      run: echo "The value of debug input is '${{ inputs.debug }}'"
-
-    - name: "[STEP] Print Glob Result via Command"
-      if: inputs.debug == 'true'
-      shell: bash
-      run: bash ${{ github.action_path }}/debug.bash
-      env:
-        SEPARATOR: ${{ inputs.separator }}
-        PATTERNS: ${{ inputs.patterns }}
-        FILES: ${{ steps.glob.outputs.paths }}
+    # - name: "[STEP] Print Glob Result via Command"
+    #   shell: bash
+    #   run: bash ${{ github.action_path }}/debug.bash
+    #   env:
+    #     SEPARATOR: ${{ inputs.separator }}
+    #     PATTERNS: ${{ inputs.patterns }}
+    #     FILES: ${{ steps.glob.outputs.paths }}
 
