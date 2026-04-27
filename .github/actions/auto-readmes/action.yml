@@ -3,6 +3,11 @@ name: "[ACTION] Auto Readmes"
 
 description: '自动生成 README.md 文件'
 
+inputs:
+  FILES:
+    description: '要匹配的文件模式表达式（每行一个）'
+    required: true
+
 runs:
   using: composite
   steps:
@@ -11,6 +16,7 @@ runs:
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
+        FILES: ${{ inputs.FILES }}
 
     - name: "[STEP] Print Summary via Action"
       uses: ./.github/actions/bot-summary

@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-import os
-import json5
-import re
+import os, re
 from pathlib import Path
 
 print("[PYTHON] Auto Readmes")
@@ -11,102 +9,109 @@ print(".github/actions/auto-readmes/worker.py")
 total_scanned = 0
 total_modified = 0
 
-CONFIG_FILE = Path(os.getenv("ACTION_PATH", ".")) / "configs.jsonc"
+REGEX_INCLUDE = r'^\s*<include>\s*.+?\s*</include>\s*$'
+REGEX_MARKDOWN = r'^\s*</markdown>\s*$'
 
-def load_config():
-    if not CONFIG_FILE.exists():
-        return {}
-    try:
-        with open(CONFIG_FILE, encoding="utf-8") as f:
-            return json5.load(f)
-    except:
-        return {}
+def handle_include_tag(line: str, base_dir: Path) -> str:
+    """处理 <include> 标签，读取指定文件内容。"""
+    match = re.match(REGEX_INCLUDE, line, re.IGNORECASE)
+    if not match:
+        return ""
+    filename = match.group(1).strip()
+    include_path = (base_dir / filename).resolve()
     
-config = load_config()
+    if include_path.is_file() and include_path.is_relative_to(base_dir.resolve()):
+        try:
+            return include_path.read_text(encoding="utf-8")
+        except:
+            return f"<!-- Include Failed: {include_path.resolve()} -->"
+    return f"<!-- Include Failed: {include_path.resolve()} -->"
 
-def parse_readme_template(content: str, base_dir: Path) -> str:
+def handle_markdown_tag(lines: list, start_index: int) -> tuple[str, int]:
+    """处理 <markdown> 标签及其包裹的内容。"""
+    i = start_index + 1
+    markdown_content = []
+    while i < len(lines):
+        inner_line = lines[i].rstrip('\n')
+        if re.match(REGEX_MARKDOWN, inner_line, re.IGNORECASE):
+            return (''.join(markdown_content).strip('\n') + '\n', i + 1)
+        markdown_content.append(lines[i])
+        i += 1
+    return ("", i)
+
+def parse_custom_tags(content: str, base_dir: Path) -> str:
+    """解析文本内容中的 <include> 和 <markdown> 标签。"""
     lines = content.splitlines(keepends=True)
     result = []
     i = 0
     n = len(lines)
 
-    while i < n:
+    while i < name
         line = lines[i].rstrip('\n')
-        include_match = re.match(r'^\s*<include>\s*(.+?)\s*</include>\s*$', line, re.IGNORECASE)
-        if include_match:
-            filename = include_match.group(1).strip()
-            include_path = (base_dir / filename).resolve()
-            if include_path.is_file() and include_path.is_relative_to(base_dir.resolve()):
-                try:
-                    with open(include_path, encoding="utf-8") as f:
-                        included = f.read()
-                    result.append(included)
-                except Exception as e:
-                    result.append(f"\n")
-            else:
-                result.append(f"\n")
+
+        # 检查是否为 <include>
+        if re.match(REGEX_INCLUDE, line, re.IGNORECASE):
+            result.append(handle_include_tag(line, base_dir))
             i += 1
             continue
-
-        markdown_match = re.match(r'^\s*<markdown>\s*$', line, re.IGNORECASE)
-        if markdown_match:
-            i += 1
-            markdown_content = []
-            while i < n:
-                inner_line = lines[i].rstrip('\n')
-                if re.match(r'^\s*</markdown>\s*$', inner_line, re.IGNORECASE):
-                    i += 1
-                    break
-                markdown_content.append(lines[i])
-                i += 1
-            markdown_str = ''.join(markdown_content).strip('\n')
-            if markdown_str:
-                result.append(markdown_str + '\n')
+        
+        # 检查是否为 <markdown>
+        if re.match(REGEX_MARKDOWN, line, re.IGNORECASE):
+            content_str, next_i = handle_markdown_tag(lines, i)
+            result.append(content_str)
+            i = next_i
             continue
         
         result.append(lines[i])
         i += 1
-    
-    return ''.join(result)
 
-def generate_readme_for_dir(dir_path: Path, root: Path):
+    return ''..join(result)
+
+def is_valid_process_target(dir_path: Path) -> bool:
+    """判断目标目录是否包含需要处理的模板文件"""
+    return (dir_path / ".README").is_file() or (dir_path / "CONTENTS.md").is_file()
+
+def is_update_needed(readme_path: Path, new_content: str) -> bool:
+    """比较当前 README.md 内容与新生成的内容，判断是否需要写入更新。"""
+    if not readme_path.exists():
+        return True
+    try:
+        old_content = readme_path.read_text(encoding="utf-8")
+        return old_content.strip() != new_content.strip()
+    except:
+        return True
+
+def process_directory(dir_path: Path, root: Path):
+    """处理单个目录，读取模板并生成 README.md。"""
     global total_modified
-    if dir_path.name.startswith('.'):
-        return
-    
-    readme_path = dir_path / "README.md"
+
     template_path = dir_path / ".README"
     contents_path = dir_path / "CONTENTS.md"
+    readme_path = dir_path / "README.md"
 
-    if template_path.exists() and template_path.is_file():
+    final_content = ""
+
+    if template_path.exists():
         try:
             with open(template_path, encoding="utf-8") as f:
                 template_content = f.read()
-            final_content = parse_readme_template(template_content, dir_path)
-        except Exception as e:
+            final_content = parse_custom_tags(template_content, dir_path)
+        except:
             return
-    elif contents_path.exists() and contents_path.is_file():
+    elif contents_path.exists():
         try:
+            final_content = f"# {dir_path.name}\n\n"
             with open(contents_path, encoding="utf-8") as f:
-                final_content = f.read()
-        except Exception as e:
+                final_content += f.read()
+        except:
             return
-    else:
-        return
+    
+    final_content = final_content.rstrip()
 
-    final_content = (final_content if final_content is not None else "").rstrip()
-
-    if readme_path.exists():
-        try:
-            old_content = readme_path.read_text(encoding="utf-8")
-            if old_content.strip() == final_content.strip():
-                return
-        except Exception:
-            pass
-
-    readme_path.write_text(final_content, encoding="utf-8")
-    total_modified += 1
-    print(f"  生成/更新: {dir_path.relative_to(root) or '根目录'}")
+    if is_update_needed(readme_path, final_content):
+        readme_path.write_text(final_content, encoding="utf-8")
+        total_modified += 1
+        print(f"更新：{dir_path.relative_to(root) or '/'}")
 
 def set_github_env_var(key, value):
     """将变量写入 GitHub 环境文件"""
@@ -119,19 +124,28 @@ def set_github_env_var(key, value):
 
 if __name__ == "__main__":
     root = Path.cwd().resolve()
-    repo = os.getenv("GITHUB_REPOSITORY", "godners/MMKB")
-    ref = os.getenv("GITHUB_REF_NAME", "main")
-
-    print(f"开始生成 READMEs，仓库：{repo}，分支：{ref}，根路径：{root}")
-
-    for dirpath, dirnames, _ in os.walk(root):
-        total_scanned += 1
-        dirnames[:] = [d for d in dirnames if not d.startswith('.')]
-        current = Path(dirpath)
-        if not current.name.startswith('.'):
-            generate_readme_for_dir(current, root)
+    files_input = os.getenv("FILES", "")
     
-    # 输出结果到环境变量
+    print("开始生成 README 文件")
+
+    if files_input:
+        file_paths = [path(p.strip()) for p in files_input.splitlines() if p.strip()]
+
+        target_dirs = set()
+        for p in file_paths:
+            full_path = (root / p).resolve()
+            if full_path.exists():
+                target = full_path if full_path.is_dir() else full_path.parent
+                if not target.name.startswith('.'):
+                    target_dirs.add(target)
+        
+        for dir_path in target_dirs:
+            if dir_path.is_relative_to(root) and is_valid_process_target(dir_path):
+                total_scanned += 1
+                process_directory(dir_path, root)
+    else:
+        print("未接收到任何文件变更，跳过执行。")
+
     set_github_env_var("TOTAL_SCANNED", total_scanned)
     set_github_env_var("TOTAL_MODIFIED", total_modified)
     
