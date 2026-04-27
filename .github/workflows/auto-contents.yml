@@ -21,23 +21,10 @@ jobs:
       - name: "[STEP] Run Auto Dependencies via Action"
         uses: ./.github/actions/auto-deps
 
-      # - name: "[STEP] Run Bot Glob via Action"
-      #   id: glob
-      #   uses: ./.github/actions/bot-patterns
-      #   with:
-      #     partterns: |
-      #       **/*.md
-      #       !README.md
-      #       !LICENSE.md
-      #       !VERSION.md
-      #       !.github/**
-      #       !.git/**
-      #       !.vscode/**
-        
-      - name: "[STEP] Run Auto Contents via Action"
-        uses: ./.github/actions/auto-contents
+      - name: "[STEP] Run Bot Glob via Action"
+        id: glob
+        uses: ./.github/actions/bot-patterns
         with:
-          # patterns: ${{ steps.glob.outputs.files}}
           partterns: |
             **/*.md
             !README.md
@@ -46,6 +33,11 @@ jobs:
             !.github/**
             !.git/**
             !.vscode/**
+        
+      - name: "[STEP] Run Auto Contents via Action"
+        uses: ./.github/actions/auto-contents
+        with:
+          FILES: ${{ steps.glob.outputs.files }}
         
       - name: "[STEP] Run Git Commit via Action"
         uses: ./.github/actions/git-commit

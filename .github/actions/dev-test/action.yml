@@ -21,18 +21,21 @@ runs:
       id: glob
       uses: tj-actions/glob@main
       with:
+        separator: ","
         files: ${{ inputs.patterns }}        
 
     - name: "[STEP] Print Glob Result via Command"
       shell: bash
       run: |
-        echo "匹配到的文件列表：${{ steps.glob.outputs.paths }}"
+        echo "================================"
+        echo  "匹配到的文件列表："
+        echo "${{ steps.glob.outputs.paths }}"
         echo "================================"
         echo ${{ steps.glob.outputs.paths }} | tr ' ' '\n' | while IFS= read -r file
         do
           if [ -n $"file" ]
           then
-            echo "处理文件：$file"
+            echo "匹配文件：$file"
           fi
         done
         echo "================================"

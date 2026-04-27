@@ -20,4 +20,6 @@ runs:
       id: glob
       uses: tj-actions/glob@main
       with:
-        files: ${{ inputs.patterns }}        
+        separator: ","
+        files: ${{ inputs.patterns }}    
+            

@@ -4,7 +4,7 @@ name: "[ACTION] Auto Contents"
 description: '自动生成 CONTENTS.md 文件'
 
 inputs:
-  patterns:
+  FILES:
     description: '要匹配的文件模式表达式（每行一个）'
     required: true
 
@@ -17,7 +17,7 @@ runs:
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
-        PATTERNS: ${{ inputs.patterns }}
+        FILES: ${{ inputs.FILES }}        
     
     - name: "[STEP] Print Summary via Action"
       uses: ./.github/actions/bot-summary
