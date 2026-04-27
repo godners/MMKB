@@ -23,4 +23,4 @@ runs:
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto Contents"
-        message: "Scanned ${{ env.TOTAL_SCANNED }} Files, Modified ${{ env.TOTAL_MODIFIED }} Files." 
+        message: "Scanned ${{ env.TOTAL_FOLDERS }} Folders, Updated ${{ env.TOTAL_UPDATES }} Files." 

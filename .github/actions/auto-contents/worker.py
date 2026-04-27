@@ -8,6 +8,8 @@ print(".github/actions/auto-contents/worker.py")
 
 # 初始化配置与计数器
 CONFIG_FILE = Path(os.getenv("ACTION_PATH", ".")) / "configs.jsonc"
+total_folders = 0
+total_updates = 0
 
 def load_config():
     """读取并返回 JSONC 配置文件内容。"""
@@ -76,6 +78,7 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
 
 def generate_contents_for_dir(dir_path: Path, root: Path):
     """为指定目录生成或删除 CONTENTS.md 文件。"""
+    global total_updates
     contents_path = dir_path / "CONTENTS.md"
 
     # 计算层级
@@ -91,11 +94,12 @@ def generate_contents_for_dir(dir_path: Path, root: Path):
     if not tree_lines:
         if contents_path.exists():
             contents_path.unlink()
+            total_updates += 1
         return
     
     # 生成内容
     dir_name = dir_path.name if dir_path.name else "/"
-    lines = [f"{'#' * (level + 1)} {dir_name}", ""] # , "仓库文件与子目录结构", ""]
+    lines = [f"{'#' * (level + 1)} {dir_name}", ""] 
     lines.extend(tree_lines)
     add_special(lines, "---")
     lines.append(AUTO_FOOTER)
@@ -106,6 +110,7 @@ def generate_contents_for_dir(dir_path: Path, root: Path):
         return
     
     contents_path.write_text(new_content, encoding="utf-8")
+    total_updates += 1
     print(f"更新: {dir_path.name or '/'}")
 
 def set_github_env_var(key, value):
@@ -113,17 +118,15 @@ def set_github_env_var(key, value):
     if env_file:
         with open(env_file, "a", encoding="utf-8") as f:
             f.write(f"{key}={value}\n")
-    else:
-        pass
-        # print(f"[DEBUG] 本地运行，环境变量 {key}={value} 未写入 GITHUB_ENV")
 
 if __name__ == "__main__":
     root = Path.cwd().resolve()
     for dirpath, _, _ in os.walk(root):
         if ".git" in dirpath: continue
+        total_folders += 1
         # dirnames[:] = [d for d in dirnames if not should_ignore(Path(dirpath) / d)]
         generate_contents_for_dir(Path(dirpath), root)
     
-    set_github_env_var("TOTAL_SCANNED", 0)
-    set_github_env_var("TOTAL_MODIFIED", 0)
-    print(f"扫描结束。共扫描目录: {0}，实际更新文件: {0}")
+    set_github_env_var("TOTAL_FOLDERS", total_folders)
+    set_github_env_var("TOTAL_UPDATES", total_updates)
+    print(f"扫描结束。共扫描目录: {total_folders}，实际更新文件: {total_updates}")

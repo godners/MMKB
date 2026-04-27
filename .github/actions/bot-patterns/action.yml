@@ -36,18 +36,9 @@ runs:
     - name: "[STEP] Print Glob Result via Command"
       if: ${{ inputs.debug == 'true' }}
       shell: bash
-      run: |
-        echo "============ [DEBUG] ============"
-        echo "匹配输出字符串："
-        echo "${{ steps.glob.outputs.paths }}"
-        echo "============ [DEBUG] ============"
-        echo ${{ steps.glob.outputs.paths }} | 
-          tr '${{ inputs.separator }}' '\n' | 
-          while IFS= read -r file
-          do
-            if [ -n "$file" ]
-            then
-              echo "匹配文件：$file"
-            fi
-          done
-        echo "============ [DEBUG] ============"
+      run: ${{ github.action_path }}/debug.bash
+      env:
+        SEPARATOR: ${{ inputs.separator }}
+        PATTERNS: ${{ inputs.patterns }}
+        FILES: ${{ steps.glob.outputs.paths }}
+        
