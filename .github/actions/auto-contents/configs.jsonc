@@ -1,20 +1,6 @@
 // [JSONC] Auto Contents
 // .github/actions/auto-contents/configs.jsonc
 {
-//     "ignore_objects": [
-//         { "name": "README.md", "type": "file" },
-//         { "name": "CODE_OF_CONDUCT.md", "type": "file" },
-//         { "name": "CONTRIBUTING.md", "type": "file" },
-//         { "name": "LICENSE.md", "type": "file" },
-//         { "name": "SECURITY.md", "type": "file" },
-//         { "name": ".gitignore", "type": "file" },
-//         { "name": ".github", "type": "dir" },
-//         { "name": ".git", "type": "dir" },
-//         { "name": "CONTENTS.md", "type": "file" },
-//         { "name": ".README", "type": "file" },
-//         { "name": ".vscode", "type": "dir" },
-//         { "name": "VERSION.md", "type": "file" }
-//     ],
     "name_mapping": [
         { "name": "keybindings.json", "new_name": "VS CODE 键盘映射" }
     ],

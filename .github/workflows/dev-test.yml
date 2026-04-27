@@ -35,12 +35,26 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "[STEP] Run Developing Test via Action"
-        uses: ./.github/actions/dev-test
+      # - name: "[STEP] Run Developing Test via Action"
+      #   uses: ./.github/actions/dev-test
+      #   id: glob
+      #   with:
+      #     patterns: |
+      #       .github/**/*.py
+
+      - name: "[STEP] Run Bot Glob via Action"
         id: glob
+        uses: ./.github/actions/bot-patterns
         with:
-          patterns: |
-            .github/**/*.py
+          partterns: |
+            **/*.md
+            !README.md
+            !LICENSE.md
+            !VERSION.md
+            !.github/**
+            !.git/**
+            !.vscode/**
+          debug: true
 
       - name: "[STEP] Print Summary via Action"
         uses: ./.github/actions/bot-summary
