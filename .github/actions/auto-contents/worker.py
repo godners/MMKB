@@ -108,13 +108,14 @@ def generate_contents_for_dir(dir_path: Path, root: Path):
     contents_path.write_text(new_content, encoding="utf-8")
     print(f"更新: {dir_path.name or '/'}")
 
-# def set_github_env_var(key, value):
-#     env_file = os.getenv("GITHUB_ENV")
-#     if env_file:
-#         with open(env_file, "a", encoding="utf-8") as f:
-#             f.write(f"{key}={value}\n")
-#     else:
-#         print(f"[DEBUG] 本地运行，环境变量 {key}={value} 未写入 GITHUB_ENV")
+def set_github_env_var(key, value):
+    env_file = os.getenv("GITHUB_ENV")
+    if env_file:
+        with open(env_file, "a", encoding="utf-8") as f:
+            f.write(f"{key}={value}\n")
+    else:
+        pass
+        # print(f"[DEBUG] 本地运行，环境变量 {key}={value} 未写入 GITHUB_ENV")
 
 if __name__ == "__main__":
     root = Path.cwd().resolve()
