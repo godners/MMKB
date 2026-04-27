@@ -124,6 +124,7 @@
 
 - 文档：[.markdownlint](.vscode/.markdownlint.json)
 - 文档：[.markdownlintignore](.vscode/.markdownlintignore)
+- 文档：[CONTENTS](.vscode/CONTENTS.md)
 - 文档：[VS CODE 键盘映射](.vscode/keybindings.json)
 - 文档：[settings](.vscode/settings.json)
 
