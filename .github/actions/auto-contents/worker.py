@@ -58,8 +58,7 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
 
     for item in files:
         lines.append(f"- 文档：[{get_display_name(item)}]({get_rel_path_str(item, root)})")
-
-    if folders:
+    for item in folders:
         # 仅当子目录中存在我们需要的文件时，才将其加入目录树
         subtree = build_tree(item, root, current_level + 1)
         if subtree:
