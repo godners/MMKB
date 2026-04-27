@@ -1,0 +1,23 @@
+name: "[ACTION] Bot Patterns"
+# .github/actions/bot-patterns/action.yml
+
+description: '模式匹配文件列表'
+
+inputs:
+  patterns:
+    description: '要匹配的文件模式表达式（每行一个）'
+    required: true
+
+outputs:
+  files:
+    description: "匹配到的文件列表"
+    value: ${{ steps.glob.outputs.paths }}
+    
+runs:
+  using: composite
+  steps:  
+    - name: "[STEP] Run Glob files via Action"
+      id: glob
+      uses: tj-actions/glob@main
+      with:
+        files: ${{ inputs.patterns }}        

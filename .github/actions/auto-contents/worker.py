@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os, json5
+from fnmatch import fnmatch
 from pathlib import Path
 
 print("[PYTHON] Auto Contents")
@@ -8,7 +9,9 @@ print(".github/actions/auto-contents/worker.py")
 
 # ====================== 配置 ======================
 CONFIG_FILE = Path(os.getenv("ACTION_PATH", ".")) / "configs.jsonc"
-# AUTO_FOOTER = "> 注意：本文件由 GitHub Actions 自动生成，请勿手动修改。"
+
+patterns_raw = os.getenv("PATTERNS", "")
+patterns = [p.strip() for p in patterns_raw.splitlines() if p.strip()]
 
 # 全局计数器
 total_scanned = 0
@@ -16,20 +19,26 @@ total_modified = 0
 
 def load_config():
     if not CONFIG_FILE.exists():
-        return {"ignore_objects": [], "name_mapping": [], "head_additional": []}
+        return {"name_mapping": [], "auto_footer": []}
     with open(CONFIG_FILE, encoding="utf-8") as f:
         data = json5.load(f)
-    print(f"配置加载成功: ignore={len(data.get('ignore_objects', []))}, mapping={len(data.get('name_mapping', []))}")
     return data
 
 config = load_config()
-ignore_objects = config.get("ignore_objects", [])
 name_mapping = {item["name"]: item["new_name"] for item in config.get("name_mapping", [])}
 AUTO_FOOTER = config.get("auto_footer", "")
 
-def should_ignore(item: Path) -> bool:
-    item_type = "dir" if item.is_dir() else "file"
-    return any(obj.get("name") == item.name and obj.get("type") in (item_type, "both") for obj in ignore_objects)
+def is_match(item: Path, root: Path) -> bool:
+    """检查文件路径是否匹配 patterns"""
+    if not patterns:
+        return True
+            
+    try:
+        rel_path = str(item.relative_to(root))
+        return any(fnmatch(rel_path, p) for p in patterns)
+    except ValueError:
+        return False
+
 
 def get_display_name(item: Path) -> str:
     return name_mapping.get(item.name) or name_mapping.get(item.stem) or item.stem
@@ -54,20 +63,20 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
     except Exception:
         return lines
 
-    files = sorted([i for i in contents if i.is_file() and not should_ignore(i)], key=lambda x: x.name.lower())
-    folders = sorted([i for i in contents if i.is_dir() and not should_ignore(i)], key=lambda x: x.name.lower())
+    files = sorted([i for i in contents if i.is_file() and is_match(i, root)], key=lambda x: x.name.lower())
+    folders = sorted([i for i in contents if i.is_dir()], key=lambda x: x.name.lower())
 
     for item in files:
-        lines.append(f"- [{get_display_name(item)}]({get_rel_path_str(item, root)})")
+        lines.append(f"- 文档：[{get_display_name(item)}]({get_rel_path_str(item, root)})")
 
     if folders:
-        if files:
-            add_special(lines, "---")
+        # if files:
+        #     add_special(lines, "---")
         
         for item in folders:
             display_name = get_display_name(item)
             bracket = "[" + "【" * (current_level - 1) + display_name + "】" * (current_level - 1) + "]"
-            header = f"{'#' * (current_level + 1)} {bracket}({get_rel_path_str(item, root)}/CONTENTS.md)"
+            header = f"{'#' * (current_level + 1)}目录：{bracket}({get_rel_path_str(item, root)}/CONTENTS.md)"
             
             add_special(lines, header)
             lines.extend(build_tree(item, root, current_level + 1))
@@ -85,7 +94,7 @@ def generate_contents_for_dir(dir_path: Path, root: Path):
 
     dir_name = dir_path.name if dir_path.name else "项目根目录"
     
-    lines = [f"{'#' * level} {dir_name}", "", "仓库文件与子目录结构", ""]
+    lines = [f"{'#' * level} {dir_name}", ""] # , "仓库文件与子目录结构", ""]
     tree_lines = build_tree(dir_path, root, level)
     lines.extend(tree_lines if tree_lines else ["（此目录为空）"])
 
