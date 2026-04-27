@@ -69,7 +69,7 @@ def build_tree(dir_path: Path, root: Path, current_level: int) -> list[str]:
             header_num = current_level + 1
             bracket = f"[{'【' * bracket_num}{display_name}{'】' * bracket_num}]"
             header = f"{'#' * header_num} {bracket}({get_rel_path_str(item, root)}/CONTENTS.md)"
-            add_special(line, header)
+            add_special(lines, header)
             lines.extend(subtree)
     
     return lines
