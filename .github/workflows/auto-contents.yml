@@ -28,6 +28,7 @@ jobs:
           partterns: |
             **/*.md
             !README.md
+            !CONTENTS.md
             !LICENSE.md
             !VERSION.md
             !.github/**

@@ -48,9 +48,10 @@ jobs:
         with:
           partterns: |
             **/*.md
-            !README.md
-            !LICENSE.md
-            !VERSION.md
+            !**/README.md
+            !**/CONTENTS.md
+            !**/LICENSE.md
+            !**/VERSION.md
             !.github/**
             !.git/**
             !.vscode/**
