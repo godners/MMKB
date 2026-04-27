@@ -125,7 +125,7 @@ if __name__ == "__main__":
     root = Path.cwd().resolve()
     for dirpath, dirnames, _ in os.walk(root):
         total_scanned += 1
-        dirnames[:] = [d for d in dirnames if not should_ignore(Path(dirpath) / d)]
+        # dirnames[:] = [d for d in dirnames if not should_ignore(Path(dirpath) / d)]
         generate_contents_for_dir(Path(dirpath), root)
     
     set_github_env_var("TOTAL_SCANNED", total_scanned)
