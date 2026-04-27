@@ -14,7 +14,7 @@ def load_config():
         with open(CONFIG_FILE, encoding='utf-8') as f:
             data = json5.load(f)
             return {
-                "license_file": data.get("license_file")
+                "license_file": data.get("license_file"),
                 "check_keyword": data.get("check_keyword")
             }
     print(f"警告：配置文件 {CONFIG_FILE} 不存在")
@@ -58,8 +58,9 @@ def run_license_update(config):
         license_text = f"\n\n{f.read().strip()}\n"
 
 #    root = Path(".")
-    md_files = [f.strip() for f in os.getenv("FILES", "").splitlines() if f.strip()]
-    md_files = [str(p) for p in root.rglob("*.md") if p.is_file()]
+    raw_files = os.getenv("FILES", "").replace('\\', '')
+    md_files = [f.strip() for f in raw_files.split(',') if f.strip()]
+    #md_files = [str(p) for p in root.rglob("*.md") if p.is_file()]
     
     total_folders = 0
     total_updates = 0
