@@ -35,6 +35,7 @@ jobs:
             !.github/**
             !.git/**
             !.vscode/**
+          debug: true
 
       - name: "[STEP] Run Auto License via Action"
         uses: ./.github/actions/auto-license
