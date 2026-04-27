@@ -22,8 +22,8 @@ AUTO_FOOTER = config.get("auto_footer", "")
 
 # 获取白名单文件集合
 raw_files = os.getenv("FILES", "")
-# tj-actions/glob 默认以逗号分隔
-valid_files = {path(f).resolve() for f in raw_files.split(",") if f.strip()}
+SEPARATOR = os.getenv("SEPARATOR", ",")
+valid_files = {Path(f).resolve() for f in raw_files.split(SEPARATOR) if f.strip()}
 
 def get_display_name(item: Path) -> str:
     """根据映射表获取文件的显示名称。"""

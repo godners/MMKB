@@ -7,6 +7,11 @@ inputs:
   patterns:
     description: '要匹配的文件模式表达式（每行一个）'
     required: true
+  
+  separator:
+    description: '输出结果分隔符，默认逗号“,”'
+    required: false
+    default: ","
 
 outputs:
   files:
@@ -20,6 +25,6 @@ runs:
       id: glob
       uses: tj-actions/glob@main
       with:
-        separator: ","
-        files: ${{ inputs.patterns }}    
+        SEPARATOR: ${{ inputs.separator }}
+        FILES: ${{ inputs.patterns }}    
             
