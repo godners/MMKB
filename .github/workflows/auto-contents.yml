@@ -34,7 +34,6 @@ jobs:
             !.github/**
             !.git/**
             !.vscode/**
-          debug: true
         
       - name: "[STEP] Run Auto Contents via Action"
         uses: ./.github/actions/auto-contents

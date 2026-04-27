@@ -28,11 +28,11 @@ runs:
         separator: ${{ inputs.separator }}
         files: ${{ inputs.patterns }}    
 
-    # - name: "[STEP] Print Glob Result via Command"
-    #   shell: bash
-    #   run: bash ${{ github.action_path }}/debug.bash
-    #   env:
-    #     SEPARATOR: ${{ inputs.separator }}
-    #     PATTERNS: ${{ inputs.patterns }}
-    #     FILES: ${{ steps.glob.outputs.paths }}
+    - name: "[STEP] Print Glob Result via Command"
+      shell: bash
+      run: bash ${{ github.action_path }}/debug.bash
+      env:
+        SEPARATOR: ${{ inputs.separator }}
+        PATTERNS: ${{ inputs.patterns }}
+        FILES: ${{ steps.glob.outputs.paths }}
 

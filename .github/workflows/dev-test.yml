@@ -55,6 +55,7 @@ jobs:
             !.github/**
             !.git/**
             !.vscode/**
+          debug: true
 
       - name: "[STEP] Print Summary via Action"
         uses: ./.github/actions/bot-summary
