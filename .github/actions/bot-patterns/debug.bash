@@ -5,7 +5,7 @@ echo "[BASH] Bot Patterns"
 echo ".github/actions/bot-patterns/debug.bash"
 
 echo "================== 分隔符 ==================="
-echo "\${{ inputs.separator }} = ${SEPARATOR}"
+echo "\${{ inputs.separator }} = \"${SEPARATOR}\""
 echo "============ 匹配模式值（字符串） ============"
 echo "\${{ inputs.patterns }} = ${PATTERNS}"
 echo "============ 匹配输出值（字符串） ============"
