@@ -26,6 +26,8 @@ jobs:
         uses: ./.github/actions/bot-patterns
         with:
           patterns: |
+            !**/CONTENTS.md
+            !**/README.md
             !.github/**
             !.git/**
             !.vscode/**
