@@ -1,141 +1,15 @@
 ## MMKB
 
-- 文档：[.gitignore](.gitignore)
-- 文档：[.README](.README)
-- 文档：[CONTENTS](CONTENTS.md)
-- 文档：[LICENSE](LICENSE.md)
 - 文档：[Markdown表格](Markdown表格.md)
 - 文档：[Markdown规则](Markdown规则.md)
 - 文档：[Markdown语法](Markdown语法.md)
 - 文档：[Markdown链接](Markdown链接.md)
-- 文档：[README](README.md)
-- 文档：[VERSION](VERSION.md)
-
----
-
-## [.github](.github/CONTENTS.md)
-
-- 文档：[CODE_OF_CONDUCT](.github/CODE_OF_CONDUCT.md)
-- 文档：[CONTRIBUTING](.github/CONTRIBUTING.md)
-- 文档：[dependabot](.github/dependabot.yml)
-- 文档：[GOVERNANCE](.github/GOVERNANCE.md)
-- 文档：[SECURITY](.github/SECURITY.md)
-- 文档：[SUPPORT](.github/SUPPORT.md)
-
----
-
-### [【actions】](.github/actions/CONTENTS.md)
-
-#### [【【auto-contents】】](.github/actions/auto-contents/CONTENTS.md)
-
-- 文档：[action](.github/actions/auto-contents/action.yml)
-- 文档：[configs](.github/actions/auto-contents/configs.jsonc)
-- 文档：[worker](.github/actions/auto-contents/worker.py)
-
-#### [【【auto-deps】】](.github/actions/auto-deps/CONTENTS.md)
-
-- 文档：[action](.github/actions/auto-deps/action.yml)
-- 文档：[requirements](.github/actions/auto-deps/requirements.txt)
-
-#### [【【auto-license】】](.github/actions/auto-license/CONTENTS.md)
-
-- 文档：[action](.github/actions/auto-license/action.yml)
-- 文档：[configs](.github/actions/auto-license/configs.jsonc)
-- 文档：[license](.github/actions/auto-license/license.md)
-- 文档：[worker](.github/actions/auto-license/worker.py)
-
-#### [【【auto-mdlint】】](.github/actions/auto-mdlint/CONTENTS.md)
-
-- 文档：[action](.github/actions/auto-mdlint/action.yml)
-- 文档：[configs](.github/actions/auto-mdlint/configs.jsonc)
-
-#### [【【auto-readmes】】](.github/actions/auto-readmes/CONTENTS.md)
-
-- 文档：[action](.github/actions/auto-readmes/action.yml)
-- 文档：[configs](.github/actions/auto-readmes/configs.jsonc)
-- 文档：[worker](.github/actions/auto-readmes/worker.py)
-
-#### [【【auto-readmes-root】】](.github/actions/auto-readmes-root/CONTENTS.md)
-
-- 文档：[action](.github/actions/auto-readmes-root/action.yml)
-- 文档：[worker](.github/actions/auto-readmes-root/worker.py)
-
-#### [【【auto-version】】](.github/actions/auto-version/CONTENTS.md)
-
-- 文档：[action](.github/actions/auto-version/action.yml)
-- 文档：[configs](.github/actions/auto-version/configs.jsonc)
-- 文档：[worker](.github/actions/auto-version/worker.bash)
-- 文档：[worker](.github/actions/auto-version/worker.py)
-
-#### [【【bot-patterns】】](.github/actions/bot-patterns/CONTENTS.md)
-
-- 文档：[action](.github/actions/bot-patterns/action.yml)
-
-#### [【【bot-summary】】](.github/actions/bot-summary/CONTENTS.md)
-
-- 文档：[action](.github/actions/bot-summary/action.yml)
-
-#### [【【dev-test】】](.github/actions/dev-test/CONTENTS.md)
-
-- 文档：[action](.github/actions/dev-test/action.yml)
-
-#### [【【git-commit】】](.github/actions/git-commit/CONTENTS.md)
-
-- 文档：[action](.github/actions/git-commit/action.yml)
-- 文档：[configs](.github/actions/git-commit/configs.jsonc)
-- 文档：[worker](.github/actions/git-commit/worker.bash)
-
-#### [【【git-info】】](.github/actions/git-info/CONTENTS.md)
-
-- 文档：[action](.github/actions/git-info/action.yml)
-- 文档：[configs](.github/actions/git-info/configs.jsonc)
-- 文档：[worker](.github/actions/git-info/worker.bash)
-
-#### [【【git-release】】](.github/actions/git-release/CONTENTS.md)
-
-- 文档：[action](.github/actions/git-release/action.yml)
-- 文档：[worker-check](.github/actions/git-release/worker-check.bash)
-- 文档：[worker-info](.github/actions/git-release/worker-info.bash)
-
----
-
-### [【ISSUE_TEMPLATE】](.github/ISSUE_TEMPLATE/CONTENTS.md)
-
-- 文档：[config](.github/ISSUE_TEMPLATE/config.yml)
-- 文档：[feature-request](.github/ISSUE_TEMPLATE/feature-request.yml)
-- 文档：[new_item_request](.github/ISSUE_TEMPLATE/new_item_request.yml)
-- 文档：[problem_report](.github/ISSUE_TEMPLATE/problem_report.yml)
-
----
-
-### [【workflows】](.github/workflows/CONTENTS.md)
-
-- 文档：[auto-contents](.github/workflows/auto-contents.yml)
-- 文档：[auto-license](.github/workflows/auto-license.yml)
-- 文档：[auto-mdlint](.github/workflows/auto-mdlint.yml)
-- 文档：[auto-readmes-root](.github/workflows/auto-readmes-root.yml)
-- 文档：[auto-readmes](.github/workflows/auto-readmes.yml)
-- 文档：[auto-version](.github/workflows/auto-version.yml)
-- 文档：[daily-operation](.github/workflows/daily-operation.yml)
-- 文档：[dev-test](.github/workflows/dev-test.yml)
-- 文档：[git-commit](.github/workflows/git-commit.yml)
-- 文档：[git-info](.github/workflows/git-info.yml)
-- 文档：[git-release](.github/workflows/git-release.yml)
-
----
-
-## [.vscode](.vscode/CONTENTS.md)
-
-- 文档：[.markdownlint](.vscode/.markdownlint.json)
-- 文档：[.markdownlintignore](.vscode/.markdownlintignore)
-- 文档：[CONTENTS](.vscode/CONTENTS.md)
-- 文档：[VS CODE 键盘映射](.vscode/keybindings.json)
-- 文档：[settings](.vscode/settings.json)
 
 ---
 
 ## [地金生息机理](地金生息机理/CONTENTS.md)
 
+- 文档：[CONTENTS](地金生息机理/CONTENTS.md)
 - 文档：[README](地金生息机理/README.md)
 - 文档：[利多卡因氯己定喷雾剂](地金生息机理/利多卡因氯己定喷雾剂.md)
 - 文档：[利多卡因氯己定气雾剂在龟头的效果](地金生息机理/利多卡因氯己定气雾剂在龟头的效果.md)
@@ -152,6 +26,7 @@
 
 ## [屏障守御纪略](屏障守御纪略/CONTENTS.md)
 
+- 文档：[CONTENTS](屏障守御纪略/CONTENTS.md)
 - 文档：[README](屏障守御纪略/README.md)
 - 文档：[万古霉素](屏障守御纪略/万古霉素.md)
 - 文档：[苯溴马隆](屏障守御纪略/苯溴马隆.md)
@@ -161,6 +36,7 @@
 
 ## [机能重塑见闻](机能重塑见闻/CONTENTS.md)
 
+- 文档：[CONTENTS](机能重塑见闻/CONTENTS.md)
 - 文档：[README](机能重塑见闻/README.md)
 - 文档：[亚精胺](机能重塑见闻/亚精胺.md)
 - 文档：[昂丹司琼](机能重塑见闻/昂丹司琼.md)
@@ -179,6 +55,7 @@
 
 ## [极限干预集成](极限干预集成/CONTENTS.md)
 
+- 文档：[CONTENTS](极限干预集成/CONTENTS.md)
 - 文档：[README](极限干预集成/README.md)
 - 文档：[丙烯酰胺](极限干预集成/丙烯酰胺.md)
 - 文档：[劳拉西泮](极限干预集成/劳拉西泮.md)
@@ -192,7 +69,7 @@
 
 ### [【清风微醺档案】](极限干预集成/清风微醺档案/CONTENTS.md)
 
-- 文档：[.README](极限干预集成/清风微醺档案/.README)
+- 文档：[CONTENTS](极限干预集成/清风微醺档案/CONTENTS.md)
 - 文档：[README](极限干预集成/清风微醺档案/README.md)
 - 文档：[亚硝酸异丁酯](极限干预集成/清风微醺档案/亚硝酸异丁酯.md)
 - 文档：[亚硝酸异丙酯](极限干预集成/清风微醺档案/亚硝酸异丙酯.md)
@@ -204,11 +81,11 @@
 
 ### [【生化演变纪略】](极限干预集成/生化演变纪略/CONTENTS.md)
 
+- 文档：[CONTENTS](极限干预集成/生化演变纪略/CONTENTS.md)
 - 文档：[README](极限干预集成/生化演变纪略/README.md)
 - 文档：[右美沙芬（DXM）](极限干预集成/生化演变纪略/右美沙芬（DXM）.md)
 - 文档：[普瑞巴林（PGB）](极限干预集成/生化演变纪略/普瑞巴林（PGB）.md)
 - 文档：[氯吡格雷](极限干预集成/生化演变纪略/氯吡格雷.md)
-- 文档：[白消安](极限干预集成/生化演变纪略/白消安.jpg)
 - 文档：[白消安](极限干预集成/生化演变纪略/白消安.md)
 - 文档：[白细胞介素-2（IL-2）](极限干预集成/生化演变纪略/白细胞介素-2（IL-2）.md)
 - 文档：[邻苯二甲酸二甲酯（DMP）](极限干预集成/生化演变纪略/邻苯二甲酸二甲酯（DMP）.md)
@@ -218,6 +95,7 @@
 
 ## [流体静压规约](流体静压规约/CONTENTS.md)
 
+- 文档：[CONTENTS](流体静压规约/CONTENTS.md)
 - 文档：[README](流体静压规约/README.md)
 - 文档：[呋塞米](流体静压规约/呋塞米.md)
 - 文档：[特拉唑嗪](流体静压规约/特拉唑嗪.md)
@@ -233,6 +111,7 @@
 ## [知性序列汇编](知性序列汇编/CONTENTS.md)
 
 - 文档：[ChatGPT查询指令](知性序列汇编/ChatGPT查询指令.md)
+- 文档：[CONTENTS](知性序列汇编/CONTENTS.md)
 - 文档：[README](知性序列汇编/README.md)
 - 文档：[研究期刊综述](知性序列汇编/研究期刊综述.md)
 - 文档：[靶点系统清单](知性序列汇编/靶点系统清单.md)
@@ -241,6 +120,7 @@
 
 ### [【上古秘仪总纲】](知性序列汇编/上古秘仪总纲/CONTENTS.md)
 
+- 文档：[CONTENTS](知性序列汇编/上古秘仪总纲/CONTENTS.md)
 - 文档：[README](知性序列汇编/上古秘仪总纲/README.md)
 - 文档：[宗筋之血与玉液](知性序列汇编/上古秘仪总纲/宗筋之血与玉液.md)
 - 文档：[宗筋之血的祭煞](知性序列汇编/上古秘仪总纲/宗筋之血的祭煞.md)
@@ -250,6 +130,7 @@
 
 ### [【分段量化调研】](知性序列汇编/分段量化调研/CONTENTS.md)
 
+- 文档：[CONTENTS](知性序列汇编/分段量化调研/CONTENTS.md)
 - 文档：[README](知性序列汇编/分段量化调研/README.md)
 - 文档：[囊缩建模位置与尺寸](知性序列汇编/分段量化调研/囊缩建模位置与尺寸.md)
 - 文档：[射精动能的力学特征](知性序列汇编/分段量化调研/射精动能的力学特征.md)
@@ -261,6 +142,7 @@
 
 ### [【源流演化研习】](知性序列汇编/源流演化研习/CONTENTS.md)
 
+- 文档：[CONTENTS](知性序列汇编/源流演化研习/CONTENTS.md)
 - 文档：[README](知性序列汇编/源流演化研习/README.md)
 - 文档：[中医解析精液特征](知性序列汇编/源流演化研习/中医解析精液特征.md)
 - 文档：[性取向与激素的关系](知性序列汇编/源流演化研习/性取向与激素的关系.md)
@@ -276,6 +158,7 @@
 
 ## [表征焕新纪实](表征焕新纪实/CONTENTS.md)
 
+- 文档：[CONTENTS](表征焕新纪实/CONTENTS.md)
 - 文档：[README](表征焕新纪实/README.md)
 - 文档：[依克多因](表征焕新纪实/依克多因.md)
 - 文档：[曲酸](表征焕新纪实/曲酸.md)
@@ -286,6 +169,7 @@
 
 ## [质感优化研习](质感优化研习/CONTENTS.md)
 
+- 文档：[CONTENTS](质感优化研习/CONTENTS.md)
 - 文档：[README](质感优化研习/README.md)
 - 文档：[依克多因](质感优化研习/依克多因.md)
 - 文档：[曲酸](质感优化研习/曲酸.md)
@@ -297,6 +181,7 @@
 
 ## [造化平衡全书](造化平衡全书/CONTENTS.md)
 
+- 文档：[CONTENTS](造化平衡全书/CONTENTS.md)
 - 文档：[README](造化平衡全书/README.md)
 - 文档：[依西美坦](造化平衡全书/依西美坦.md)
 - 文档：[克罗米芬](造化平衡全书/克罗米芬.md)
@@ -313,7 +198,7 @@
 
 ### [【微光修护纪实】](造化平衡全书/微光修护纪实/CONTENTS.md)
 
-- 文档：[.README](造化平衡全书/微光修护纪实/.README)
+- 文档：[CONTENTS](造化平衡全书/微光修护纪实/CONTENTS.md)
 - 文档：[README](造化平衡全书/微光修护纪实/README.md)
 - 文档：[SSRI药物对比](造化平衡全书/微光修护纪实/SSRI药物对比.md)
 - 文档：[帕罗西汀](造化平衡全书/微光修护纪实/帕罗西汀.md)
@@ -327,7 +212,7 @@
 
 ### [【泉源动力笔记】](造化平衡全书/泉源动力笔记/CONTENTS.md)
 
-- 文档：[.README](造化平衡全书/泉源动力笔记/.README)
+- 文档：[CONTENTS](造化平衡全书/泉源动力笔记/CONTENTS.md)
 - 文档：[PDE5抑制剂（对比）](造化平衡全书/泉源动力笔记/PDE5抑制剂（对比）.md)
 - 文档：[README](造化平衡全书/泉源动力笔记/README.md)
 - 文档：[乌地那非](造化平衡全书/泉源动力笔记/乌地那非.md)
@@ -340,6 +225,7 @@
 
 ### [【生命韵律之源】](造化平衡全书/生命韵律之源/CONTENTS.md)
 
+- 文档：[CONTENTS](造化平衡全书/生命韵律之源/CONTENTS.md)
 - 文档：[README](造化平衡全书/生命韵律之源/README.md)
 - 文档：[丙酸睾酮（TP）](造化平衡全书/生命韵律之源/丙酸睾酮（TP）.md)
 - 文档：[促卵泡生成素（FSH）](造化平衡全书/生命韵律之源/促卵泡生成素（FSH）.md)
@@ -354,6 +240,7 @@
 
 ### [【生机流转见闻】](造化平衡全书/生机流转见闻/CONTENTS.md)
 
+- 文档：[CONTENTS](造化平衡全书/生机流转见闻/CONTENTS.md)
 - 文档：[README](造化平衡全书/生机流转见闻/README.md)
 - 文档：[孕酮各系统作用](造化平衡全书/生机流转见闻/孕酮各系统作用.md)
 - 文档：[抑制雌激素转化的药物](造化平衡全书/生机流转见闻/抑制雌激素转化的药物.md)
