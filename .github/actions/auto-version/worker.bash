@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 echo "[BASH] Auto Version"
 echo ".github/actions/auto-version/worker.bash"

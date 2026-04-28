@@ -87,7 +87,7 @@ def main() -> None:
 ### 最后一次 Release
 
 - **标签**：{os.getenv("LAST_RELEASE_TAG", "暂无 Release")}
-- **时间**：{os.getenv("LAST_RELEASE_TIME", "N/A")}
+- **时间**：{os.getenv("LAST_RELEASE_TIME", "N/A")} (UTC)
 
 ### 最后一次 Commit
 
@@ -105,7 +105,7 @@ def main() -> None:
 
 ---
 
-> 最后生成时间：{datetime.now(timezone(timedelta(hours=8))).strftime('%Y-%m-%d %H:%M:%S')}
+> 最后生成时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} (UTC)
 """
 
     # 检查变更

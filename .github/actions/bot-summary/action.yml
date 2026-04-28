@@ -16,10 +16,16 @@ inputs:
 runs:
   using: composite
   steps: 
-    - name: "[STEP] Output Summary Information via Command"
+    # - name: "[STEP] Output Summary Information via Command"
+    #   shell: bash
+    #   run: |
+    #     TIME="$(date '+%F %T') (UTC)"
+    #     SUMMARY="[${{ inputs.title }}] ${TIME}: ${{ inputs.message }}"
+    #     echo "${SUMMARY}" >> $GITHUB_STEP_SUMMARY
+    #     echo "$SUMMARY"
+    - name: "[STEP] Run Bot Summary via Bash"
+      run: bash ${{ github.action_path }}/worker.bash
       shell: bash
-      run: |
-        TIME=$(date -d '+8 hours' '+%F %T')
-        SUMMARY="[${{ inputs.title }}] ${TIME}: ${{ inputs.message }}"
-        echo "${SUMMARY}" >> $GITHUB_STEP_SUMMARY
-        echo "$SUMMARY"
+      env:
+        TITLE: ${{ inputs.title }}
+        MESSAGE: ${{ inputs.message }}
