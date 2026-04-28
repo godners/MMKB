@@ -57,10 +57,8 @@ def run_license_update(config):
     with open(license_path, 'r', encoding='utf-8') as f:
         license_text = f"\n\n{f.read().strip()}\n"
 
-#    root = Path(".")
     raw_files = os.getenv("FILES", "").replace('\\', '')
     md_files = [f.strip() for f in raw_files.split(',') if f.strip()]
-    #md_files = [str(p) for p in root.rglob("*.md") if p.is_file()]
     
     total_folders = 0
     total_updates = 0

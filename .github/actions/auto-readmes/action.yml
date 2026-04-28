@@ -4,19 +4,29 @@ name: "[ACTION] Auto Readmes"
 description: '自动生成 README.md 文件'
 
 inputs:
-  FILES:
+  # FILES:
+  #   description: '要匹配的文件模式表达式（每行一个）'
+  #   required: true
+  patterns:
     description: '要匹配的文件模式表达式（每行一个）'
     required: true
 
 runs:
   using: composite
   steps:
+    - name: "[STEP] Run Bot Patterns via Action"
+      id: glob
+      uses: ./.github/actions/bot-patterns
+      with:
+        patterns: ${{ inputs.patterns }}
+
     - name: "[STEP] Run Worker via Python"
       run: python ${{ github.action_path }}/worker.py
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
-        FILES: ${{ inputs.FILES }}
+        # FILES: ${{ inputs.FILES }}
+        FILES: ${{ steps.glob.outputs.files }}
 
     - name: "[STEP] Print Summary via Action"
       uses: ./.github/actions/bot-summary

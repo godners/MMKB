@@ -21,21 +21,27 @@ jobs:
       - name: "[STEP] Run Auto Dependencies via Action"
         uses: ./.github/actions/auto-deps
 
-      - name: "[STEP] Run Bot Patterns via Action"
-        id: glob
-        uses: ./.github/actions/bot-patterns
+      # - name: "[STEP] Run Bot Patterns via Action"
+      #   id: glob
+      #   uses: ./.github/actions/bot-patterns
+      #   with:
+      #     patterns: |
+      #       !**/CONTENTS.md
+      #       !**/README.md
+      #       !.github/**
+      #       !.git/**
+      #       !.vscode/**
+
+      - name: "[STEP] Run Auto Readmes via Action"
+        uses: ./.github/actions/auto-readmes
         with:
+          # FILES: ${{ steps.glob.outputs.files }}
           patterns: |
             !**/CONTENTS.md
             !**/README.md
             !.github/**
             !.git/**
             !.vscode/**
-
-      - name: "[STEP] Run Auto Readmes via Action"
-        uses: ./.github/actions/auto-readmes
-        with:
-          FILES: ${{ steps.glob.outputs.files }}
 
       - name: "[STEP] Run Git Commit via Action"
         uses: ./.github/actions/git-commit
