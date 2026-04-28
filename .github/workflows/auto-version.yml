@@ -25,6 +25,12 @@ jobs:
         uses: ./.github/actions/auto-version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          patterns: |
+            **/**
+            !.vscode/**
+            !.git/**
+            !.github/**
+            !VERSION.md
 
       - name: "[STEP] Run Git Commit via Action"
         uses: ./.github/actions/git-commit
