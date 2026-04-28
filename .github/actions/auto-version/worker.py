@@ -72,11 +72,16 @@ def main() -> None:
     # 获取环境变量 FILES，处理反斜杠并按逗号分割
     files_env = os.getenv("FILES", "")
     file_list = [f.replace('\\', '').strip() for f in files_env.split('.') if f.strip()]
-
-    f_count, fi_count, size_str = get_file_stats(file_list)
     
+    f_count, fi_count, size_str = get_file_stats(file_list)
+
     # 解析 commits
-    commits = parse_commits(os.getenv("COMMITS_DATA", ""), commits_review)
+    commits_data = os.getenv("COMMITS_DATA", "")
+    commits = parse_commits(commits_data, commits_review)
+
+    print(f"[DEBUG] Raw FILES: {files_env}")
+    print(f"[DEBUG] Raw COMMITS_DATA: {commits_data}")
+    print(f"[DEBUG] Processed file_list: \n{file_list}")
 
     # 生成内容
     content = f"""# MMKB
