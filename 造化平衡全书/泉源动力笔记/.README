@@ -1,3 +1,14 @@
-<markdown># 源泉动力笔记</markdown>
-<include>CONTENTS.md</include>
-<include>PDE5抑制剂（对比）.md</include>
+[
+    {
+        "value": "# 源泉动力笔记",
+        "type": "text"
+    },
+    {
+        "value": "CONTENTS.md",
+        "type": "file"
+    },
+    {
+        "value": "PDE5抑制剂（对比）.md",
+        "type": "file"
+    }
+]

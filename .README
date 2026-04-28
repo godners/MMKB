@@ -1,2 +1,10 @@
-<include>VERSION.md</include>
-<include>CONTENTS.md</include>
+[
+    {
+        "value": "VERSION.md",
+        "type": "file"
+    },
+    {
+        "value": "CONTENTS.md",
+        "type": "file"
+    }
+]
