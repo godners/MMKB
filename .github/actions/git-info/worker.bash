@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
+set -x
 echo "[BASH] Git Info"
 echo ".github/actions/git-info/worker.bash"
 
@@ -18,8 +18,7 @@ echo "从配置文件读取： ${CONFIG_FILE}..."
 #     jq -r 'paths(scalars) as $p | "\(path($p) | join("."))=\(getpath($p))"' 2>/dev/null)
 
 mapfile -t git_configs < <(sed 's|//.*||g' "${CONFIG_FILE}" | 
-    jq -r 'paths(scalars) as $p | "\(path($p) | join("."))=\(getpath($p))"' | 
-    grep -v '^=')
+    jq -r 'paths(scalars) as $p | "\($p | join("."))=\(getpath($p))"' 2>/dev/null)
 
 
 # 再次过滤掉数组中可能存在的空字符串，确保计数准确
