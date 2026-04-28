@@ -4,25 +4,24 @@ set -e
 echo "[BASH] Auto Version"
 echo ".github/actions/auto-version/worker.bash"
 
-# 1. 尝试获取最新 Release 信息
+# 尝试获取最新 Release 信息
 RELEASE_INFO=$(gh release list --limit 1 2>/dev/null || echo "")
 
 if [ -n "$RELEASE_INFO" ]
 then
     RELEASE_TAG=$(echo "$RELEASE_INFO" | awk '{print $1}')
     PUBLISHED_AT=$(echo "$RELEASE_INFO" | awk '{print $4}')
-    # 2. 计算本地时间 (GMT+8)
-    RELEASE_TIME=$(date -d "$PUBLISHEDAT + 8 hours" '+%F %T' 2>/dev/null || echo "N/A")
+    RELEASE_TIME=$(date -d "$PUBLISHEDAT" '+%F %T' 2>/dev/null || echo "N/A")
 else
     RELEASE_TAG="No Release"
     RELEASE_TIME="N/A"
 fi
 
-# 3. 收集 Commit 信息
+# 收集 Commit 信息
 COMMITS_DATA=$(git log --pretty=format:"%an|%aI|%s" |
     awk -F'|' '!seen[$1]++' | tr '\n' ';' | sed 's/;$//')
 
-# 4. 导出环境变量
+# 导出环境变量
 echo "LAST_RELEASE_TAG=$RELEASE_TAG" >> $GITHUB_ENV
 echo "LAST_RELEASE_TIME=$RELEASE_TIME" >> $GITHUB_ENV
 echo "COMMITS_DATA=$COMMITS_DATA" >> $GITHUB_ENV

@@ -56,8 +56,8 @@ def parse_commits(commits_data: str, commits_review: int) -> List[str]:
         if "|" in item:
             try:
                 author, date, msg = item.split("|", 2)
-                dt = datetime.fromisoformat(date.replace("Z", "+00:00")) + timedelta(hours=8)
-                commits.append(f"- [ {dt.strftime('%Y-%m-%d %H:%M:%S +08:00')}  **{author}**: {msg}")
+                dt = datetime.fromisoformat(date.replace("Z", "")) + timedelta(hours=8)
+                commits.append(f"- [ {dt.strftime('%Y-%m-%d %H:%M:%S')}  **{author}**: {msg}")
                 if len(commits) >= commits_review:
                     break
             except (ValueError, IndexError):
@@ -71,17 +71,13 @@ def main() -> None:
 
     # 获取环境变量 FILES，处理反斜杠并按逗号分割
     files_env = os.getenv("FILES", "")
-    file_list = [f.replace('\\', '').strip() for f in files_env.split('.') if f.strip()]
+    file_list = [f.replace('\\', '').strip() for f in files_env.split(',') if f.strip()]
     
     f_count, fi_count, size_str = get_file_stats(file_list)
 
     # 解析 commits
     commits_data = os.getenv("COMMITS_DATA", "")
     commits = parse_commits(commits_data, commits_review)
-
-    print(f"[DEBUG] Raw FILES: {files_env}")
-    print(f"[DEBUG] Raw COMMITS_DATA: {commits_data}")
-    print(f"[DEBUG] Processed file_list: \n{file_list}")
 
     # 生成内容
     content = f"""# MMKB

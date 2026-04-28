@@ -21,7 +21,7 @@ jobs:
       - name: "[STEP] Run Auto Dependencies via Action"
         uses: ./.github/actions/auto-deps
 
-      - name: Run Auto Version
+      - name: "[STEP] Run Auto Version"
         uses: ./.github/actions/auto-version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
