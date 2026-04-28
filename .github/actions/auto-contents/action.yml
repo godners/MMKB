@@ -14,7 +14,8 @@ runs:
     - name: "[STEP] Run Bot Patterns via Action"
       id: glob
       uses: ./.github/actions/bot-patterns
-      with: ${{ inputs.patterns }}
+      with: 
+        patterns: ${{ inputs.patterns }}
 
     - name: "[STEP] Run Worker via Python"
       id: worker
