@@ -59,6 +59,7 @@ def process_directory(dir_path: Path) -> bool:
     old_content: Optional[str] = get_existing_content(readme_path)
     if new_content != old_content:
         readme_path.write_text(new_content, encoding='utf-8')
+        print(f"更新 {readme_path}")
         return True
 
     return False

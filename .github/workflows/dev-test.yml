@@ -42,23 +42,23 @@ jobs:
       #     patterns: |
       #       .github/**/*.py
 
-      - name: "[STEP] Run Bot Glob via Action"
-        id: glob
-        uses: ./.github/actions/bot-patterns
-        with:
-          patterns: |
-            流体静压规约/*.md
-            !**/README.md
-            !**/CONTENTS.md
-            !**/LICENSE.md
-            !**/VERSION.md
-            !.github/**
-            !.git/**
-            !.vscode/**
-          debug: true
-
-      # - name: "[STEP] Print Summary via Action"
-      #   uses: ./.github/actions/bot-summary
+      # - name: "[STEP] Run Bot Glob via Action"
+      #   id: glob
+      #   uses: ./.github/actions/bot-patterns
       #   with:
-      #     title: "Developing Test"
-      #     message: ${{ steps.glob.outputs.files }}
+      #     patterns: |
+      #       流体静压规约/*.md
+      #       !**/README.md
+      #       !**/CONTENTS.md
+      #       !**/LICENSE.md
+      #       !**/VERSION.md
+      #       !.github/**
+      #       !.git/**
+      #       !.vscode/**
+      #     debug: true
+
+      - name: "[STEP] Print Summary via Action"
+        uses: ./.github/actions/bot-summary
+        with:
+          title: "Developing Test"
+          message: "MESSAGE-MESSAGE-MESSAGE"
