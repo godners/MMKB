@@ -61,7 +61,7 @@ def update_github_env(folders, updates):
             f.write(f"TOTAL_FOLDERS={folders}\n")
             f.write(f"TOTAL_UPDATES={udpates}\n")
 
-def main()
+def main():
     files_str = os.environ.get('FILES', '')
     unique_dirs = get_unique_directories(files_str)
     total_folders = len(unique_dirs)

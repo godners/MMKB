@@ -20,4 +20,4 @@ runs:
       shell: bash
       run: |
         TIME=$(date -d '+8 hours' '+%F %T')
-        echo "[${{ inputs.title }}] ${TIME}: ${{ inputs.message }}" >> $GITHUB_STEP_SUMMARY
+        echo "[${{ inputs.title }}] ${TIME}: ${{ inputs.message }}" | tee -a $GITHUB_STEP_SUMMARY
