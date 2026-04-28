@@ -26,7 +26,7 @@ def parse_readme_template(template_path: path, dir_path: path):
             if target_file.exists():
                 content_buffer.append(target_file.read_text(encoding='utf-8'))
             else:
-                content_buffer.append("f"<!-- Include Failed: {target_file.resolve()} -->"")
+                content_buffer.append(f"<!-- Include Failed: {target_file.resolve()} -->")
     
     return '\n'.join(content_buffer)
 
