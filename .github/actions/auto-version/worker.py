@@ -81,7 +81,7 @@ def main() -> None:
 
     # 生成内容
     content = f"""# MMKB
-    
+
 ## 项目版本信息
 
 ### 最后一次 Release
