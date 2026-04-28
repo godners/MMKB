@@ -21,25 +21,9 @@ jobs:
       - name: "[STEP] Run Auto Dependencies via Action"
         uses: ./.github/actions/auto-deps
 
-      # - name: "[STEP] Run Bot Patterns via Action"
-      #   id: glob
-      #   uses: ./.github/actions/bot-patterns
-      #   with:
-      #     patterns: |
-      #       **/*.md
-      #       !**/README.md
-      #       !**/LICENSE.md
-      #       !**/CONTENTS.md
-      #       !VERSION.md
-      #       !Markdown*.md
-      #       !.github/**
-      #       !.git/**
-      #       !.vscode/**
-
       - name: "[STEP] Run Auto License via Action"
         uses: ./.github/actions/auto-license
         with: 
-          # FILES: ${{ steps.glob.outputs.files }}
           patterns: |
             **/*.md
             !**/README.md

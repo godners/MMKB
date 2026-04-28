@@ -22,7 +22,6 @@ runs:
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
-        # FILES: ${{ inputs.FILES }}
         FILES: ${{ steps.glob.outputs.files }}
 
     - name: "[STEP] Print Summary via Action"
