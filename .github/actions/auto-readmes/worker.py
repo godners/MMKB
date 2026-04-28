@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, re, shutil
+import os, shutil, json
 from pathlib import Path
 
 print("[PYTHON] Auto Readmes")
@@ -12,7 +12,7 @@ def get_unique_directories(files_str: str) -> set:
     raw_files = [f.replace('\\','').strip() for f in files_str.split(',') if f.strip()]
     return {Path(f).parent for f in raw_files}
 
-def parse_readme_template(template_path: path, dir_path: path):
+def parse_readme_template(template_path: Path, dir_path: Path):
     """解析 .README 模板文件并返回生成的文本内容"""
     with open(template_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -59,7 +59,7 @@ def update_github_env(folders, updates):
     if env_file:
         with open (env_file, 'a', encoding='utf-8') as f:
             f.write(f"TOTAL_FOLDERS={folders}\n")
-            f.write(f"TOTAL_UPDATES={udpates}\n")
+            f.write(f"TOTAL_UPDATES={updates}\n")
 
 def main():
     files_str = os.environ.get('FILES', '')
