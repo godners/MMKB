@@ -11,7 +11,7 @@ if [ -n "$RELEASE_INFO" ]
 then
     RELEASE_TAG=$(echo "$RELEASE_INFO" | awk '{print $1}')
     PUBLISHED_AT=$(echo "$RELEASE_INFO" | awk '{print $4}')
-    RELEASE_TIME=$(date -d "$PUBLISHEDAT" '+%F %T' 2>/dev/null || echo "N/A")
+    RELEASE_TIME=$(date -d "$PUBLISHED_AT" '+%F %T' 2>/dev/null || echo "N/A")
 else
     RELEASE_TAG="No Release"
     RELEASE_TIME="N/A"

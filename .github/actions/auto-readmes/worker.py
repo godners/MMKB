@@ -46,7 +46,6 @@ def process_directory(dir_path: Path) -> bool:
     if template_path.exists():
         try:
             new_content = parse_readme_template(template_path, dir_path)
-#            readme_path.write_text(content, encoding='utf-8')
             return True
         except Exception as e:
             print(f"Error processing {template_path.resolve()}: {e}")
