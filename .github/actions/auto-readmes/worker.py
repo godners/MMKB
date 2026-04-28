@@ -12,7 +12,7 @@ def get_unique_directories(files_str: str) -> set:
     raw_files = [f.replace('\\','').strip() for f in files_str.split(',') if f.strip()]
     return {Path(f).parent for f in raw_files}
 
-def parse_readme_template(template_path: path, dir_path: path)
+def parse_readme_template(template_path: path, dir_path: path):
     """解析 .README 模板文件并返回生成的文本内容"""
     with open(template_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
