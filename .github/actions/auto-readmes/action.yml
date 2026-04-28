@@ -4,9 +4,6 @@ name: "[ACTION] Auto Readmes"
 description: '自动生成 README.md 文件'
 
 inputs:
-  # FILES:
-  #   description: '要匹配的文件模式表达式（每行一个）'
-  #   required: true
   patterns:
     description: '要匹配的文件模式表达式（每行一个）'
     required: true
