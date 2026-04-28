@@ -24,7 +24,6 @@ jobs:
       - name: "[STEP] Run Auto Readmes via Action"
         uses: ./.github/actions/auto-readmes
         with:
-          # FILES: ${{ steps.glob.outputs.files }}
           patterns: |
             !**/CONTENTS.md
             !**/README.md

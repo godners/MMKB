@@ -4,9 +4,6 @@ name: "[ACTION] Auto Contents"
 description: 'Auto add License'
 
 inputs:
-  # FILES:
-  #   description: '要匹配的文件模式表达式（每行一个）'
-  #   required: true
   patterns:
     description: '要匹配的文件模式表达式（每行一个）'
     required: true
@@ -25,7 +22,6 @@ runs:
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
-        # FILES: ${{ inputs.FILES }}
         FILES: ${{ steps.glob.outputs.files }}
 
     - name: "[STEP] Print Summary via Action"
