@@ -76,15 +76,6 @@ def is_valid_process_target(dir_path: Path) -> bool:
     """判断目标目录是否包含需要处理的模板文件"""
     return (dir_path / ".README").is_file() or (dir_path / "CONTENTS.md").is_file()
 
-# def is_update_needed(readme_path: Path, new_content: str) -> bool:
-#     """比较当前 README.md 内容与新生成的内容，判断是否需要写入更新。"""
-#     if not readme_path.exists():
-#         return True
-#     try:
-#         old_content = readme_path.read_text(encoding="utf-8")
-#         return old_content.strip() != new_content.strip()
-#     except:
-#         return True
 
 def process_directory(dir_path: Path, root: Path):
     """处理单个目录，读取模板并生成 README.md。"""
@@ -99,14 +90,14 @@ def process_directory(dir_path: Path, root: Path):
     if template_path.exists():
         try:
             content = template_path.read_text(encoding="utf-8")
-            final_content = parse_custom_tags(template_content, dir_path)
+            final_content = parse_custom_tags(content, dir_path)
         except:            
             print(f"  [ERROR] 读取 {template_path} 失败: {e}")
             return
     elif contents_path.exists():
         try:
             final_content = contents_path.read_text(encoding="utf-8")
-        except Exception as e:
+        except Exception:
             print(f"  [ERROR] 读取 {contents_path} 失败: {e}")
             return
     
