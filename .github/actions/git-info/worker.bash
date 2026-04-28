@@ -34,7 +34,6 @@ for line in "${git_configs[@]}"; do
     if [ -n "$line" ]; then
         key="${line%%=*}"
         value="${line#*=}"
-        echo "Applying: ${key} === ${value}"
         git config --local "${key}" "${value}"
     fi
 done
