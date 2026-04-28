@@ -14,11 +14,13 @@ fi
 echo "从配置文件读取： ${CONFIG_FILE}..."
 
 # 读取配置到数组，确保过滤掉空行
-# mapfile -t git_configs < <(grep -v '^//' "${CONFIG_FILE}" | 
-#     jq -r '.user | to_entries[] | "user.\(.key)=\(.value)"' 2>/dev/null)
+# mapfile -t git_configs < <(grep -v '^//' "${CONFIG_FILE}" |
+#     jq -r 'paths(scalars) as $p | "\(path($p) | join("."))=\(getpath($p))"' 2>/dev/null)
 
-mapfile -t git_configs < <(grep -v '^//' "${CONFIG_FILE}" |
-    jq -r 'paths(scalars) as $p | "\(path($p) | join("."))=\(getpath($p))"' 2>/dev/null)
+mapfile -t git_configs < <(sed 's|//.*||g' "${CONFIG_FILE}" | 
+    jq -r 'paths(scalars) as $p | "\(path($p) | join("."))=\(getpath($p))"' | 
+    grep -v '^=')
+
 
 # 再次过滤掉数组中可能存在的空字符串，确保计数准确
 git_configs=(${git_configs[@]})
@@ -35,7 +37,7 @@ for line in "${git_configs[@]}"; do
     if [ -n "$line" ]; then
         key="${line%%=*}"
         value="${line#*=}"
-        echo "${key} === ${value}"
+        echo "Applying: ${key} === ${value}"
         git config --local "${key}" "${value}"
     fi
 done
