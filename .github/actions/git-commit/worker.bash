@@ -36,7 +36,7 @@ for pattern in "${PATTERNS[@]}"; do
 done
 echo "!!!! INPUT_CHECK_CHANGED = ${INPUT_CHECK_CHANGED}"
 
-if [ "$INPUT_CHECK_CHANGED" = "true" ]
+if [ "$INPUT_CHECK_CHANGED" != "true" ]
 then
     echo "check-changed = true，强制执行提交"
 else
