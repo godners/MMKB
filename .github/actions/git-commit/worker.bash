@@ -37,11 +37,12 @@ done
 echo "!!!! INPUT_CHECK_CHANGED = ${INPUT_CHECK_CHANGED}"
 
 if [ $INPUT_CHECK_CHANGED -eq "true" ]
+    then
     echo "check-changed = true，强制执行提交"
 else
     # 检查变更
-    if git diff --staged --quiet; then
-
+    if git diff --staged --quiet
+    then
         echo "没有检测到任何变更，跳过提交。"
         exit 0
     fi
