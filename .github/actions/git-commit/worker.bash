@@ -34,7 +34,6 @@ for pattern in "${PATTERNS[@]}"; do
         git add "$trimmed_pattern" 2>/dev/null || true
     fi
 done
-echo "!!!! INPUT_CHECK_CHANGED = ${INPUT_CHECK_CHANGED}"
 
 if [ "$INPUT_CHECK_CHANGED" != "true" ]
 then
@@ -47,7 +46,6 @@ else
         exit 0
     fi
 fi
-
 
 # 执行提交
 COMMIT_TIME=$(date -u -d '8 hours' '+%F %T')

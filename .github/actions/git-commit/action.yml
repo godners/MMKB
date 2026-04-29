@@ -1,4 +1,4 @@
-name: "[ACTION] Auto Commit"
+name: "[ACTION] Git Commit"
 # .github/actions/git-commit/action.yml
 
 description: '自动提交并推送指定的 Markdown 文件'

@@ -18,14 +18,17 @@ runs:
         patterns: ${{ inputs.patterns }}
 
     - name: "[STEP] Run Worker via Python"
+      id: worker
       run: python ${{ github.action_path }}/worker.py
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
-        FILES: ${{ steps.glob.outputs.files }}
+        FILES: ${{ steps.glob.outputs.CHECK_CHANGED }}
 
     - name: "[STEP] Print Summary via Action"
+      if: steps.worker.outputs.need_commit == true
       uses: ./.github/actions/bot-summary
       with:
+        check-changed: false
         title: "Auto Readmes"
         message: "Scanned ${{ env.TOTAL_FOLDERS }} Folders, Updated ${{ env.TOTAL_UPDATES }} Readme." 
