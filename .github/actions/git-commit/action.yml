@@ -16,6 +16,11 @@ inputs:
     required: false
     default: 'Auto Commit'
   
+  check-changed:
+    description: '检查是否存在变更（默认为 true）'
+    required: false
+    default: true
+  
 runs:
   using: composite
   steps:
@@ -30,6 +35,7 @@ runs:
         INPUT_COMMIT_PREFIX: ${{ inputs.commit-prefix }}
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
         ACTION_PATH: ${{ github.action_path }}
+        INPUT_CHECK_CHANGED: ${{ inputs.check-changed }}
     
     - name: "[STEP] Print Summary via Action"
       uses: ./.github/actions/bot-summary

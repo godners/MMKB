@@ -25,7 +25,7 @@ load_config() {
 }
 
 load_config
-
+echo "!!!! PATTERNS = ${PATTERNS}"
 # 添加文件
 echo "Adding files..."
 for pattern in "${PATTERNS[@]}"; do
@@ -34,13 +34,19 @@ for pattern in "${PATTERNS[@]}"; do
         git add "$trimmed_pattern" 2>/dev/null || true
     fi
 done
+echo "!!!! INPUT_CHECK_CHANGED = ${INPUT_CHECK_CHANGED}"
 
-# 检查变更
-if git diff --staged --quiet; then
-    echo "没有检测到任何变更，跳过提交。"
-    # 保持 COMMIT_STATUS 为 Canceled
-    exit 0
+if [ $INPUT_CHECK_CHANGED -eq "true" ]
+    echo "check-changed = true，强制执行提交"
+else
+    # 检查变更
+    if git diff --staged --quiet; then
+
+        echo "没有检测到任何变更，跳过提交。"
+        exit 0
+    fi
 fi
+
 
 # 执行提交
 COMMIT_TIME=$(date -u -d '8 hours' '+%F %T')
@@ -58,5 +64,5 @@ if git commit -m "${COMMIT_MESSAGE}"; then
     git pull --rebase origin "${CURRENT_BRANCH}"
     git stash pop || true
     git push origin "${CURRENT_BRANCH}"
-    echo "Auto commit and push completed successfully!"
+    echo "Git commit and push completed successfully!"
 fi
