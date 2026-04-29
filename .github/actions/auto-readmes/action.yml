@@ -23,12 +23,12 @@ runs:
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
-        FILES: ${{ steps.glob.outputs.CHECK_CHANGED }}
+        FILES: ${{ steps.glob.outputs.files }}
 
     - name: "[STEP] Print Summary via Action"
       if: steps.worker.outputs.need_commit == true
       uses: ./.github/actions/bot-summary
       with:
-        check-changed: false
+        check-changed: ${{ steps.worker.outputs.CHECK_CHANGED }}
         title: "Auto Readmes"
         message: "Scanned ${{ env.TOTAL_FOLDERS }} Folders, Updated ${{ env.TOTAL_UPDATES }} Readme." 
