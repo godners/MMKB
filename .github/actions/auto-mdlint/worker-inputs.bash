@@ -2,7 +2,7 @@
 set -euo pipefail
 
 echo "[BASH] Auto MDLint (Inputs)"
-echo ".github/actions/auto-mdlint/worker-inputs.bash
+echo ".github/actions/auto-mdlint/worker-inputs.bash"
 
 CLEAN_PATTERNS=$(echo "$RAW_PATTERNS" | awk 'NF')
 PATTERNS_COUNT=$(echo "$CLEAN_PATTERNS" | wc -l)
