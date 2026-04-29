@@ -25,7 +25,7 @@ load_config() {
 }
 
 load_config
-echo "!!!! PATTERNS = ${PATTERNS}"
+
 # 添加文件
 echo "Adding files..."
 for pattern in "${PATTERNS[@]}"; do
