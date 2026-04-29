@@ -70,9 +70,6 @@ def update_github_env(folders: int, updates: int) -> None:
         with open(env_file, 'a', encoding='utf-8') as f:
             f.write(f"TOTAL_FOLDERS={folders}\n")
             f.write(f"TOTAL_UPDATES={updates}\n")
-    output_file = os.getenv('GITHUB_OUTPUT')
-    if output_file:
-        with open(output_file, 'a', encoding='utf-8') as f:
             if updates == 0:
                 f.write(f"CHECK_CHANGED=true\n")
             else:

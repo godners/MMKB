@@ -29,6 +29,6 @@ runs:
       if: steps.worker.outputs.need_commit == true
       uses: ./.github/actions/bot-summary
       with:
-        check-changed: ${{ steps.worker.outputs.CHECK_CHANGED }}
+        check-changed: ${{ env.CHECK_CHANGED }}
         title: "Auto Readmes"
         message: "Scanned ${{ env.TOTAL_FOLDERS }} Folders, Updated ${{ env.TOTAL_UPDATES }} Readme." 
