@@ -1,0 +1,8 @@
+// [CONFIG] Git Info
+// .github/actions/git-info/configs.jsonc
+{
+    "user": {
+        "name": "github-actions[bot]",
+        "email": "github-actions[bot]@users.noreply.github.com"
+    }
+}
