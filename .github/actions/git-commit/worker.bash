@@ -12,13 +12,13 @@ CONFIG_FILE="${ACTION_PATH}/configs.jsonc"
 # 加载配置函数
 load_config() {
     if [[ -z "${INPUT_COMMIT_PREFIX:-}" ]]; then
-        COMMIT_PREFIX=$(grep -v '^//' "${CONFIG_FILE}" 2>/dev/null | jq -r '.default["commit-prefix"] // ""')
+        COMMIT_PREFIX=$(sed 's|//.*||g' "${CONFIG_FILE}" 2>/dev/null | jq -r '.default["commit-prefix"] // ""')
     else
         COMMIT_PREFIX="${INPUT_COMMIT_PREFIX}"
     fi
 
     if [[ -z "${INPUT_PATTERNS:-}" ]]; then
-        mapfile -t PATTERNS < <(grep -v '^//' "${CONFIG_FILE}" 2>/dev/null | jq -r '.default.patterns[]? // empty')
+        mapfile -t PATTERNS < <(sed 's|//.*||g' "${CONFIG_FILE}" "${CONFIG_FILE}" 2>/dev/null | jq -r '.default.patterns[]? // empty')
     else
         mapfile -t PATTERNS <<< "${INPUT_PATTERNS}"
     fi
