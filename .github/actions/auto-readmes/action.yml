@@ -26,7 +26,7 @@ runs:
         FILES: ${{ steps.glob.outputs.files }}
 
     - name: "[STEP] Print Summary via Action"
-      if: steps.worker.outputs.need_commit == true
+      id: bot-summary
       uses: ./.github/actions/bot-summary
       with:
         check-changed: ${{ env.CHECK_CHANGED }}

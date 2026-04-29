@@ -18,13 +18,14 @@ runs:
         patterns: ${{ inputs.patterns }}
 
     - name: "[STEP] Run Worker via Bash"
+      id: worker-bash
       shell: bash
       run: bash ${{ github.action_path }}/worker.bash
       env:
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
 
     - name: "[STEP] Run Worker via Python"
-      id: worker
+      id: worker-python
       shell: bash
       run: python ${{ github.action_path }}/worker.py
       env:
@@ -32,16 +33,18 @@ runs:
         FILES: ${{ steps.glob.outputs.files }}
 
     - name: "[STEP] Print Summary via Action (No Changed)"
-      if: steps.worker.outputs.has_changes == 'false'
+      id: bot-summary-changed
+      if: steps.worker-python.outputs.has_changes == 'false'
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto Version"
         message: "No Changed"
 
     - name: "[STEP] Print Summary via Action (Has Changed)"
-      if: steps.worker.outputs.has_changes == 'true'
+      id: bot-summary-nochange
+      if: steps.worker-python.outputs.has_changes == 'true'
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto Version"
-        message: "Folder Count = ${{ steps.worker.outputs.folder_count }}, File Count = ${{ steps.worker.outputs.file_count }}, Total Size = ${{ steps.worker.outputs.size_hr }}"
+        message: "Folder Count = ${{ steps.worker-python.outputs.folder_count }}, File Count = ${{ steps.worker.outputs.file_count }}, Total Size = ${{ steps.worker.outputs.size_hr }}"
 

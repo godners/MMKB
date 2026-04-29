@@ -15,15 +15,18 @@ jobs:
     
     steps:
       - name: "[STEP] Run Checkout Repository via Action"
+        id: checkout
         uses: actions/checkout@main
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
           
       - name: "[STEP] Run Auto Dependencies via Action"
+        id: auto-deps
         uses: ./.github/actions/auto-deps
       
       - name: "[STEP] Run Auto Contents via Action"
+        id: auto-contents
         uses: ./.github/actions/auto-contents
         with:
           patterns: |
@@ -37,6 +40,7 @@ jobs:
             !.vscode/**
 
       - name: "[STEP] Run Auto Readmes via Action"
+        id: auto-readmes
         uses: ./.github/actions/auto-readmes
         with:
           patterns: |
@@ -47,6 +51,7 @@ jobs:
             !.vscode/**
 
       - name: "[STEP] Run Auto License via Action"
+        id: auto-license
         uses: ./.github/actions/auto-license
         with: 
           patterns: |
@@ -61,13 +66,15 @@ jobs:
             !.vscode/**
 
       - name: "[STEP] Run Auto MDLint via Action"
+        id: auto-mdlint
         uses: ./.github/actions/auto-mdlint
         with:
           patterns: |
             **/*.md
             *.md
 
-      - name: "[STEP] Run Git Commit via Action (First)"
+      - name: "[STEP] Run Git Commit via Action (Daily)"
+        id: git-commit-daily  
         uses: ./.github/actions/git-commit
         with:
           patterns: |
@@ -78,12 +85,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "[STEP] Run Git Release via Action (First)"
+      - name: "[STEP] Run Git Release via Action (Daily)"
+        id: git-release-daily
         uses: ./.github/actions/git-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "[STEP] Run Auto Version via Action"
+        id: auto-version
         uses: ./.github/actions/auto-version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -95,9 +104,11 @@ jobs:
             !VERSION.md
 
       - name: "[STEP] Run Auto Readmes via Action (Root)"
+        id: auto-readmes-root
         uses: ./.github/actions/auto-readmes-root
 
-      - name: "[STEP] Run Git Commit via Action (Second)"
+      - name: "[STEP] Run Git Commit via Action (Version)"
+        id: git-commit-version
         uses: ./.github/actions/git-commit
         with:
           patterns: |
@@ -107,7 +118,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "[STEP] un Git Release via Action (Second)"
+      - name: "[STEP] un Git Release via Action (Version)"
+        id: git-release-version
         uses: ./.github/actions/git-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -25,9 +25,11 @@ runs:
   using: composite
   steps:
     - name: "[STEP] Run Git Info via Action"
+      id: git-info
       uses: ./.github/actions/git-info
 
     - name: "[STEP] Run Worker via Bash"
+      id: worker
       shell: bash
       run: bash ${{ github.action_path }}/worker.bash
       env:
@@ -38,6 +40,7 @@ runs:
         INPUT_CHECK_CHANGED: ${{ inputs.check-changed }}
     
     - name: "[STEP] Print Summary via Action"
+      id: bot-summary
       uses: ./.github/actions/bot-summary
       with:
         title: "Git Commit"

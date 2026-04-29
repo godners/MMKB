@@ -7,39 +7,42 @@ runs:
   using: 'composite'
   steps:
     - name: "[STEP] Run Worker (Check) via Bash"
-      id: has_changes
+      id: worker-check
       shell: bash
       run: bash ${{ github.action_path }}/worker-check.bash
       env:
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
 
     - name: "[STEP] Print Summary via Action"
-      if: steps.has_changes.outputs.has_changes == 'false'
+      id: bot-summary-nochange
+      if: steps.worker-check.outputs.has_changes == 'false'
       uses: ./.github/actions/bot-summary
       with:
         title: "Git Release"
         message: "Release Canceled because No Changes."
+    
+    - name: "[STEP] Run Worker (Info) via Bash"
+      id: worker-info
+      shell: bash
+      run: bash ${{ github.action_path }}/worker-info.bash
 
     - name: "[STEP] Remove Existent Release via Command"
-      if: steps.has_changes.outputs.has_changes == 'true'
+      id: remove
+      if: steps.worker-check.outputs.has_changes == 'true'
       shell: bash
-      run: gh release delete ${{ steps.release_info.outputs.tag }} --yes --cleanup-tag 2>/dev/null || echo ""
+      run: gh release delete ${{ steps.worker-info.outputs.tag }} --yes --cleanup-tag 2>/dev/null || echo ""
       env:
         GH_TOKEN: ${{ env.GITHUB_TOKEN }}
     
-    - name: "[STEP] Run Worker (Info) via Bash"
-      id: release_info
-      shell: bash
-      run: bash ${{ github.action_path }}/worker-info.bash
-    
     - name: "[STEP] Create New Release via Action"
-      if: steps.has_changes.outputs.has_changes == 'true'
+      id: create
+      if: steps.worker-check.outputs.has_changes == 'true'
       uses: softprops/action-gh-release@v3
       with:
-        tag_name: ${{ steps.release_info.outputs.tag }}
-        name: "${{ steps.release_info.outputs.tag }}"
+        tag_name: ${{ steps.worker-info.outputs.tag }}
+        name: "${{ steps.worker-info.outputs.tag }}"
         body: |
-          ## 生成时间（GMT+8）：${{ steps.release_info.outputs.time }}
+          ## 生成时间（GMT+8）：${{ steps.worker-info.outputs.time }}
 
           此 Release 为自动每日构建，仅因有新提交而触发。
         draft: false
@@ -48,8 +51,9 @@ runs:
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
 
     - name: "[STEP] Print Summary via Action"
-      if: steps.has_changes.outputs.has_changes == 'true'
+      id: bot-summary-changed
+      if: steps.worker-check.outputs.has_changes == 'true'
       uses: ./.github/actions/bot-summary
       with:
         title: "Git Release"
-        message: "Tag is <${{ steps.release_info.outputs.tag }}>, Time is <${{ steps.release_info.outputs.time }}>."
+        message: "Tag is <${{ steps.worker-info.outputs.tag }}>, Time is <${{ steps.worker-info.outputs.time }}>."

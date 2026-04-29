@@ -44,12 +44,14 @@ runs:
         PATHS: ${{ steps.glob.outputs.paths }}    
 
     - name: "[STEP] Print Summary via Action"
+      id: bot-summary
       uses: ./.github/actions/bot-summary
       with:
         title: "Bot Patterns"
         message: "Search by ${{ steps.count.outputs.COUNT_PATTERNS }} Patterns, Filtered ${{ steps.count.outputs.COUNT_PATHS }} Paths." 
 
     - name: "[STEP] Run Worker via Bash (Debug)"
+      id: debug
       if: inputs.debug == 'true'
       shell: bash
       run: bash ${{ github.action_path }}/debug.bash

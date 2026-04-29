@@ -1,0 +1,106 @@
+// [CONFIG] Global Patterns
+// .github/configs/patterns.jsonc
+[
+    {
+        "step-id": "auto-contents",
+        "patterns": [
+            "**/*.md",
+            "!README.md",
+            "!CONTENTS.md",
+            "!LICENSE.md",
+            "!VERSION.md",
+            "!.github/**",
+            "!.git/**",
+            "!.vscode/**"
+        ]
+    },
+    {
+        "step-id": "auto-readmes",
+        "patterns": [
+            "!**/CONTENTS.md",
+            "!**/README.md",
+            "!.github/**",
+            "!.git/**",
+            "!.vscode/**"
+        ]
+    },
+    {
+        "step-id": "auto-license",
+        "patterns": [
+            "**/*.md",
+            "!**/README.md",
+            "!**/LICENSE.md",
+            "!**/CONTENTS.md",
+            "!VERSION.md",
+            "!Markdown*.md",
+            "!.github/**",
+            "!.git/**",
+            "!.vscode/**"
+        ]
+    },
+    {
+        "step-id": "auto-mdlint",
+        "patterns": [
+            "**/*.md",
+            "*.md"
+        ]
+    },
+    {
+        "step-id": "auto-version",
+        "patterns": [
+            "**/**",
+            "!.vscode/**",
+            "!.git/**",
+            "!.github/**",
+            "!VERSION.md"
+        ]
+    },
+    {
+        "step-id": "git-commit-daily",
+        "patterns": [
+            "**/*.md",
+            "*.md",
+            "!VERSION.md"
+        ]
+    },
+    {
+        "step-id": "git-commit-version",
+        "patterns": [
+            "README.md",
+            "VERSION.md"
+        ]
+    },
+    {
+        "step-id": "git-commit-contents",
+        "patterns": [
+            "**/CONTENTS.md",
+            "CONTENTS.md"
+        ]
+    },
+    {
+        "step-id": "git-commit-markdown",
+        "patterns": [
+            "**/*.md",
+            "*.md"
+        ]
+    },
+    {
+        "step-id": "git-commit-readmes-root",
+        "patterns": [
+            "README.md"
+        ]
+    },
+    {
+        "step-id": "git-commit-readmes",
+        "patterns": [
+            "**/README.md",
+            "README.md"
+        ]
+    },
+    {
+        "step-id": "git-commit-all",
+        "patterns": [
+            "**/**"
+        ]
+    }
+]

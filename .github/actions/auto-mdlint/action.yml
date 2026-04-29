@@ -17,6 +17,7 @@ runs:
   using: composite
   steps:
     - name: "[STEP] Count Patterns via Command"
+      id: count-inputs
       shell: bash
       env:
         RAW_PATTERNS: ${{ inputs.patterns }}
@@ -30,12 +31,14 @@ runs:
         echo "PATTERNS_COUNT=${PATTERNS_COUNT}" >> $GITHUB_ENV
 
     - name: "[STEP] Print Summary via Action (Patterns)"
+      id: bot-summary-inputs
       uses: ./.github/actions/bot-summary
       with: 
         title: "Auto MDLint"
         message: "Input ${{ env.PATTERN_COUNT }} Patterns: ${{ env.PATTERNS_LIST }}"
 
     - name: "[STEP] Run Worker via Action"
+      id: worker
       uses: DavidAnson/markdownlint-cli2-action@main
       with: 
         fix: true
@@ -47,12 +50,14 @@ runs:
         config: '${{ github.action_path }}/configs.jsonc'
         
     - name: "[STEP] Count Modified via Command"
+      id: count-modified
       shell: bash
       run: |
         TOTAL_MODIFIED=$(git status --porcelain | wc -l)
         echo "TOTAL_MODIFIED=${TOTAL_MODIFIED}" >> $GITHUB_ENV
 
     - name: "[STEP] Print Summary via Action (Modified)"
+      id: bot-summary-modified
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto MDLint"

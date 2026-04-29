@@ -7,12 +7,14 @@ runs:
   using: composite
   steps:
     - name: "[STEP] Run Worker via Bash"
+      id: worker
       run: bash ${{ github.action_path }}/worker.bash
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
 
     - name: "[STEP] Print Summary via Action"
+      id: bot-summary
       uses: ./.github/actions/bot-summary
       with:
         title: "Git Info"

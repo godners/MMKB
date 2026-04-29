@@ -26,6 +26,7 @@ runs:
         FILES: ${{ steps.glob.outputs.files }}        
     
     - name: "[STEP] Print Summary via Action"
+      id: bot-summary
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto Contents"

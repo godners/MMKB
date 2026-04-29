@@ -7,9 +7,11 @@ runs:
   using: composite
   steps:       
     - name: "[STEP] Install JQ via Action" 
+      id: os-jq
       uses: dcarbone/install-jq-action@main
     
     - name: "[STEP] Set Pip-Cache via Action"
+      id: python-cache
       uses: actions/cache@main
       with:
         path: ~/.cache/pip
@@ -18,10 +20,12 @@ runs:
           ${{ runner.os }}-pip-
     
     - name: "[STEP] Install Dependencies via Command"
+      id: python-requirements
       shell: bash
       run: pip install -r ${{ github.action_path }}/requirements.txt
 
     - name: "[STEP] Print Summary via Action"
+      id: bot-summary
       uses: ./.github/actions/bot-summary
       with:
         title: "Auto Dependencies"
