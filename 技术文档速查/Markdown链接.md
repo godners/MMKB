@@ -122,3 +122,15 @@ GitHub 官方文档强烈推荐使用**相对链接**，因为：
 
 - 在 GitHub 编辑页面可以直接预览链接是否正确（切换到 Preview 标签）。
 - 如果链接点击后 404，最常见原因是路径大小写错误或多了/少了 `/`。
+
+<!-- .github/actions/auto-license/license.md -->
+
+---
+**许可声明**  
+本文件内容采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可。  
+您可以自由分享、修改本作品，但必须**署名原作者**、**非商业用途**，且修改后的作品需采用**相同许可协议**。  
+
+© [Godners](https://github.com/godners/MMKB)
+
+---
+> License Added
