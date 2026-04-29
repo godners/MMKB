@@ -91,7 +91,7 @@ def main() -> None:
 
 ### 最后一次 Commit
 
-> 最多显示最近 {commits_review} 人的 Commit
+> 仅显示最近的 Commit（{commits_review} 人）
 
 {"\n".join(commits)}
 

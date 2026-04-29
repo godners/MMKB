@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, json
+import os, json5
 from pathlib import Path
 from typing import Set, Optional
 
@@ -16,7 +16,7 @@ def get_unique_directories(files_str: str) -> Set[Path]:
 def parse_readme_template(template_path: Path, dir_path: Path) -> str:
     """解析 .README 模板文件并返回生成的文本内容"""
     with open(template_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+        data = json5.load(f)
 
     content_buffer = []
     for item in data:
@@ -40,7 +40,7 @@ def get_existing_content(readme_path: Path) -> Optional[str]:
 def process_directory(dir_path: Path) -> bool:
     """处理单个目录，返回是否进行了更新（布尔值）"""
     readme_path = dir_path / "README.md"
-    template_path = dir_path / ".README"
+    template_path = dir_path / "README.jsonc"
     contents_path = dir_path / "CONTENTS.md"
 
     if template_path.exists():

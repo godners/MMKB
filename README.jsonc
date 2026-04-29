@@ -1,0 +1,12 @@
+// [CONFIG] README Template
+// README.jsonc
+[
+    {
+        "value": "VERSION.md",
+        "type": "file"
+    },
+    {
+        "value": "CONTENTS.md",
+        "type": "file"
+    }
+]
