@@ -30,5 +30,6 @@ jobs:
           patterns: |
             **/**
           commit-prefix: "Git Commit"
+          check-changed: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

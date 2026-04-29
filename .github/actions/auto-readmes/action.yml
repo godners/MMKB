@@ -29,6 +29,5 @@ runs:
       id: bot-summary
       uses: ./.github/actions/bot-summary
       with:
-        check-changed: ${{ env.CHECK_CHANGED }}
         title: "Auto Readmes"
         message: "Scanned ${{ env.TOTAL_FOLDERS }} Folders, Updated ${{ env.TOTAL_UPDATES }} Readme." 
