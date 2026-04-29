@@ -16,19 +16,12 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: "[STEP] Count Patterns via Command"
+    - name: "[STEP] Run Worker via Bash (Inputs)"
       id: count-inputs
       shell: bash
       env:
         RAW_PATTERNS: ${{ inputs.patterns }}
-      run: |
-        CLEAN_PATTERNS=$(echo "$RAW_PATTERNS" | awk 'NF')
-        PATTERNS_COUNT=$(echo "$CLEAN_PATTERNS" | wc -l)
-        LIST=$(echo "$CLEAN_PATTERNS" | tr '\n' ',' | sed 's/,$//')
-        PATTERNS_LIST=$(echo "$LIST" | sed 's/,/, /g')
-        
-        echo "PATTERNS_LIST=${PATTERNS_LIST}" >> $GITHUB_ENV
-        echo "PATTERNS_COUNT=${PATTERNS_COUNT}" >> $GITHUB_ENV
+      run: bash ${{ github.action_path }}/worker-inputs.bash
 
     - name: "[STEP] Print Summary via Action (Patterns)"
       id: bot-summary-inputs
@@ -52,9 +45,7 @@ runs:
     - name: "[STEP] Count Modified via Command"
       id: count-modified
       shell: bash
-      run: |
-        TOTAL_MODIFIED=$(git status --porcelain | wc -l)
-        echo "TOTAL_MODIFIED=${TOTAL_MODIFIED}" >> $GITHUB_ENV
+      run: bash ${{ github.action_path }}/worker-modified.bash
 
     - name: "[STEP] Print Summary via Action (Modified)"
       id: bot-summary-modified
