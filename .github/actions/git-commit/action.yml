@@ -19,7 +19,7 @@ inputs:
   check-changed:
     description: '检查是否存在变更（默认为 true）'
     required: false
-    default: true
+    default: "true"
   
 runs:
   using: composite
