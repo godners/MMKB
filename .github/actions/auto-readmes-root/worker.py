@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, json
+import os, json5
 from pathlib import Path
 
 print("[PYTHON] Auto Readmes (Root)")
@@ -8,7 +8,7 @@ print(".github/actions/auto-readmes-root/worker.py")
 def parse_readme_template(template_path: Path, dir_path: Path) -> str:
     """解析 .README JSON 模板文件并返回生成的文本内容"""
     with open(template_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+        data = json5.load(f)
     
     content_buffer = []
     for item in data:
@@ -25,7 +25,7 @@ def parse_readme_template(template_path: Path, dir_path: Path) -> str:
 
 def main():
     root = Path.cwd()
-    template_path = root / ".README"
+    template_path = root / "README.jsonc"
     contents_path = root / "CONTENTS.md"
     readme_path = root/ "README.md"
 
