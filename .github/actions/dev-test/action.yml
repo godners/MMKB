@@ -38,7 +38,7 @@ runs:
         convert_markdown: ${{ env.convert_markdown }}
         username: ${{ env.username }}
         password: ${{ env.password }}
-        from: "github@godners.com"
+        from: "GitHub - Godners <github@godners.com>"
         to: ${{ inputs.to }}
         subject: ${{ inputs.subject }}
         body: ${{ inputs.ishtml == 'true' && '' || inputs.body }}
