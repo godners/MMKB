@@ -26,7 +26,7 @@ inputs:
     
 runs:
   using: composite
-  steps:
+  steps:    
     - name: "[STEP] Run Send Email via Action"
       id: worker
       uses: dawidd6/action-send-mail@master
@@ -38,7 +38,7 @@ runs:
         convert_markdown: ${{ env.convert_markdown }}
         username: ${{ env.username }}
         password: ${{ env.password }}
-        from: ${{ env.smtp_from }}
+        from: "github@godners.com"
         to: ${{ inputs.to }}
         subject: ${{ inputs.subject }}
         body: ${{ inputs.ishtml == 'true' && '' || inputs.body }}
