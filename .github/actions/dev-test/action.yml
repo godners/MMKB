@@ -4,6 +4,10 @@ name: "[ACTION] Developing Test"
 description: '开发测试'
 
 inputs:
+  from:
+    description: "发件人（显示名 <邮箱地址>）"
+    required: true
+
   to:
     description: "收件人，逗号分割"
     required: true
@@ -31,13 +35,14 @@ runs:
       id: worker
       uses: dawidd6/action-send-mail@master
       with:
-        server_address: ${{ env.server_address }}
-        server_port: ${{ env.server_port }}
-        secure: ${{ env.secure }}
-        ignore_cert: ${{ env.ignore_cert }}
-        convert_markdown: ${{ env.convert_markdown }}
-        username: ${{ env.username }}
-        password: ${{ env.password }}
+        # server_address: ${{ env.server_address }}
+        # server_port: ${{ env.server_port }}
+        # secure: ${{ env.secure }}
+        # ignore_cert: ${{ env.ignore_cert }}
+        # convert_markdown: ${{ env.convert_markdown }}
+        # username: ${{ env.username }}
+        # password: ${{ env.password }}
+        from: ${{ inputs.from }}
         to: ${{ inputs.to }}
         subject: ${{ inputs.subject }}
         body: ${{ inputs.ishtml == 'true' && '' || inputs.body }}
