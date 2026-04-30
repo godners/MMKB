@@ -4,7 +4,6 @@ set -euo pipefail
 echo "[BASH] Git Info"
 echo ".github/actions/git-info/worker.bash"
 
-# CONFIG_FILE="${ACTION_PATH}/configs.jsonc"
 CONFIG_FILE=".github/configs/git.jsonc"
 
 if [ ! -f "${CONFIG_FILE}" ]; then

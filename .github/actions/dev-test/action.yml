@@ -4,38 +4,42 @@ name: "[ACTION] Developing Test"
 description: '开发测试'
 
 inputs:
-  patterns:
-    description: '要匹配的文件模式表达式（每行一个）'
+  to:
+    description: "收件人，逗号分割"
+    required: true
+  
+  subject:
+    description: "邮件主题"
     required: true
 
-outputs:
-  files:
-    description: "匹配到的文件列表"
-    value: ${{ steps.glob.outputs.paths }}
+  ishtml:
+    description: "是否为HTML邮件，默认为 True"
+    required: false
+    default: true
+  
+  body:
+    description: "邮件正文"
+    required: false
+    default: "<!-- No Body -->"
+
+  
     
 runs:
   using: composite
   steps:
-  
-    - name: "[STEP] Run Glob files via Action"
-      id: glob
-      uses: tj-actions/glob@main
+    - name: "[STEP] Run Send Email via Action"
+      id: worker
+      uses: dawidd6/action-send-mail@main
       with:
-        separator: ","
-        files: ${{ inputs.patterns }}        
-
-    - name: "[STEP] Print Glob Result via Command"
-      shell: bash
-      run: |
-        echo "================================"
-        echo  "匹配到的文件列表："
-        echo "${{ steps.glob.outputs.paths }}"
-        echo "================================"
-        echo ${{ steps.glob.outputs.paths }} | tr ',' '\n' | while IFS= read -r file
-        do
-          if [ -n $"file" ]
-          then
-            echo "匹配文件：$file"
-          fi
-        done
-        echo "================================"
+        server_address: ${{ env.server_address }}
+        server_port: ${{ env.server_port }}
+        secure: ${{ env.secure }}
+        ignore_cert: ${{ env.ignore_cert }}
+        convert_markdown: ${{ env.convert_markdown }}
+        username: ${{ env.username }}
+        password: ${{ env.password }}
+        to: ${{ inputs.to }}
+        subject: ${{ inputs.subject }}
+        body: ${{ inputs.ishtml == 'true' && '' || inputs.body }}
+        html_body: ${{ inputs.ishtml == 'true' && inputs.body || '' }}
+  

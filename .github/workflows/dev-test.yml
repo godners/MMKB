@@ -29,12 +29,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: "[STEP] Run Checkout Repository via Action"
-        id: checkout
-        uses: actions/checkout@main
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: "[STEP] Run Checkout Repository via Action"
+      #   id: checkout
+      #   uses: actions/checkout@main
+      #   with:
+      #     fetch-depth: 0
+      #     token: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: "[STEP] Run Developing Test via Action"
       #   uses: ./.github/actions/dev-test
@@ -43,26 +43,24 @@ jobs:
       #     patterns: |
       #       .github/**/*.py
 
-      - name: "[STEP] Run Git Commit via Action"
-        id: git-commit-test
-        uses: ./.github/actions/git-commit
-        with:
-          patterns: |
-            **/*.md
-            *.md
-            **/*.json
-            **/*.jsonc
-            **/*.bash
-            **/*.yml
-            **/*.py
-          commit-prefix: "Git Commit"
-          check-changed: false
+      - name: "[STEP] Send Email via Action"
+        uses: ./.github/action/dev-test
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          server_address: ${{ vars.SMTP_SERVER_ADDRESS }}
+          server_port: ${{ vars.SMTP_SERVER_PORT }}
+          secure: ${{ vars.SMTP_SECURE }}
+          ignore_cert: ${{ vars.SMTP_IGNORE_CERT }}
+          convert_markdown: ${{ vars.SMTP_CONVERT_MARKDOWN }}
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD}}
+          to: "godners@163.com"
+          subject: "test-from-action"
+          ishtml: "false"
+          body: "test on test"
 
-      - name: "[STEP] Print Summary via Action"
-        id: bot-summary
-        uses: ./.github/actions/bot-summary
-        with:
-          title: "Developing Test"
-          message: "MESSAGE-MESSAGE-MESSAGE"
+      # - name: "[STEP] Print Summary via Action"
+      #   id: bot-summary
+      #   uses: ./.github/actions/bot-summary
+      #   with:
+      #     title: "Developing Test"
+      #     message: "MESSAGE-MESSAGE-MESSAGE"
