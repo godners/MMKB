@@ -53,6 +53,7 @@ jobs:
           convert_markdown: ${{ vars.SMTP_CONVERT_MARKDOWN }}
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD}}
+        with:
           to: "godners@163.com"
           subject: "test-from-action"
           ishtml: "false"
