@@ -58,7 +58,7 @@ jobs:
           to: "godners@163.com"
           subject: "test-from-action"
           ishtml: "false"
-          body: "test on test"
+          body: file://README.jsonc
 
       # - name: "[STEP] Print Summary via Action"
       #   id: bot-summary
