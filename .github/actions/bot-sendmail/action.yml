@@ -1,7 +1,7 @@
-name: "[ACTION] Developing Test"
-# .github/actions/dev-test/action.yml
+name: "[ACTION] Bot Sendmail"
+# .github/actions/bot-sendmail/action.yml
 
-description: '开发测试'
+description: '发送邮件'
 
 inputs:
   to:
@@ -21,13 +21,11 @@ inputs:
     description: "邮件正文。直接转写文本，或引用文件 file://path/name.ext"
     required: false
     default: "<!-- No Body -->"
-
-  
     
 runs:
   using: composite
   steps:    
-    - name: "[STEP] Run Send Email via Action"
+    - name: "[STEP] Send Email via Action"
       id: worker
       uses: dawidd6/action-send-mail@master
       with:

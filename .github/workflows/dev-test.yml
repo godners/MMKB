@@ -44,7 +44,7 @@ jobs:
       #       .github/**/*.py
 
       - name: "[STEP] Send Email via Action"
-        uses: ./.github/actions/dev-test
+        uses: ./.github/actions/bot-sendmail
         env:
           server_address: ${{ vars.SMTP_SERVER_ADDRESS }}
           server_port: ${{ vars.SMTP_SERVER_PORT }}
@@ -58,7 +58,7 @@ jobs:
           to: "godners@163.com"
           subject: "test-from-action"
           ishtml: "false"
-          body: file://README.jsonc
+          body: file://VERSION.md
 
       # - name: "[STEP] Print Summary via Action"
       #   id: bot-summary
