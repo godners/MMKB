@@ -57,7 +57,7 @@ jobs:
         with:
           to: "godners@163.com"
           subject: "test-from-action"
-          ishtml: "false"
+          ishtml: "true"
           body: file://VERSION.md
           priority: "high"
 
