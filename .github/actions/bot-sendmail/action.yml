@@ -21,6 +21,11 @@ inputs:
     description: "邮件正文。直接转写文本，或引用文件 file://path/name.ext"
     required: false
     default: "<!-- No Body -->"
+
+  priority:
+    description: "邮件重要性：high、normal（默认）、low"
+    required: false
+    default: "normal"
     
 runs:
   using: composite

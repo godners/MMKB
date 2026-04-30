@@ -59,6 +59,7 @@ jobs:
           subject: "test-from-action"
           ishtml: "false"
           body: file://VERSION.md
+          priority: "high"
 
       # - name: "[STEP] Print Summary via Action"
       #   id: bot-summary
