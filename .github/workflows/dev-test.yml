@@ -44,7 +44,7 @@ jobs:
       #       .github/**/*.py
 
       - name: "[STEP] Send Email via Action"
-        uses: ./.github/action/dev-test
+        uses: ./.github/actions/dev-test
         env:
           server_address: ${{ vars.SMTP_SERVER_ADDRESS }}
           server_port: ${{ vars.SMTP_SERVER_PORT }}
