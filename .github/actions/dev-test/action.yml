@@ -29,7 +29,7 @@ runs:
   steps:
     - name: "[STEP] Run Send Email via Action"
       id: worker
-      uses: dawidd6/action-send-mail@main
+      uses: dawidd6/action-send-mail@master
       with:
         server_address: ${{ env.server_address }}
         server_port: ${{ env.server_port }}
